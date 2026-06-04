@@ -24,7 +24,7 @@ export default function Services() {
   };
 
   return (
-    <section id="services" className="py-20 bg-gradient-to-b from-stone-50 via-white to-sky-50/15 relative overflow-hidden bg-grid-glow scroll-mt-14 sm:scroll-mt-16 border-b border-slate-150">
+    <section id="services" className="py-20 bg-mesh-gradient relative overflow-hidden bg-grid-glow scroll-mt-14 sm:scroll-mt-16 border-b border-slate-150">
       {/* Decorative accent colors */}
       <div className="absolute top-1/2 left-0 w-80 h-80 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none select-none"></div>
 

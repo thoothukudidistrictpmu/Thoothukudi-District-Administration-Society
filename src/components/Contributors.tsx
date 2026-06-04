@@ -115,7 +115,7 @@ export default function Contributors() {
   };
 
   return (
-    <section id="contributors" className="py-20 bg-gradient-to-b from-white via-stone-50 to-emerald-50/10 relative overflow-hidden bg-grid-glow scroll-mt-14 sm:scroll-mt-16 border-b border-slate-150">
+    <section id="contributors" className="py-20 bg-mesh-premium relative overflow-hidden bg-grid-glow scroll-mt-14 sm:scroll-mt-16 border-b border-slate-150">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 h-11/12 bg-linear-to-b from-stone-50/20 to-transparent blur-3xl pointer-events-none -z-10"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

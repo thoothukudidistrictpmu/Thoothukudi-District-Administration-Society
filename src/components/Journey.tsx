@@ -29,7 +29,7 @@ export default function Journey() {
   };
 
   return (
-    <section id="journey" className="py-20 bg-gradient-to-br from-slate-950 via-emerald-950/90 to-slate-900 border-t border-b border-slate-950 text-white scroll-mt-14 sm:scroll-mt-16 relative overflow-hidden shadow-inner">
+    <section id="journey" className="py-20 bg-mesh-dark border-t border-b border-slate-950 text-white scroll-mt-14 sm:scroll-mt-16 relative overflow-hidden shadow-inner">
       {/* Decorative matrix dots layout on background */}
       <div className="absolute inset-0 opacity-5 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none"></div>
 

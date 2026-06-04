@@ -16,7 +16,7 @@ export default function CSRInfo() {
   };
 
   return (
-    <section id="projects" className="py-20 bg-gradient-to-tr from-slate-50 via-emerald-50/20 to-teal-100/10 relative overflow-hidden bg-dot-matrix border-b border-slate-150 scroll-mt-14 sm:scroll-mt-16">
+    <section id="projects" className="py-20 bg-mesh-alternate relative overflow-hidden bg-dot-matrix border-b border-slate-150 scroll-mt-14 sm:scroll-mt-16">
       {/* Dynamic background lighting */}
       <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none select-none"></div>
       

@@ -6,7 +6,7 @@ export default function PresidentMessage() {
   const president = BOARD_MEMBERS[0];
 
   return (
-    <section id="president-message" className="py-20 bg-gradient-to-b from-stone-50 via-white to-emerald-50/15 scroll-mt-14 sm:scroll-mt-16 border-b border-slate-150 relative overflow-hidden bg-grid-glow">
+    <section id="president-message" className="py-20 bg-mesh-alternate scroll-mt-14 sm:scroll-mt-16 border-b border-slate-150 relative overflow-hidden bg-grid-glow">
       {/* Decorative colored glow nodes */}
       <div className="absolute top-1/4 left-10 w-80 h-80 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none select-none"></div>
       <div className="absolute bottom-1/4 right-10 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none select-none"></div>

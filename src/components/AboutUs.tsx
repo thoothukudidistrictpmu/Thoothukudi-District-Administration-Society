@@ -4,7 +4,7 @@ import { Target, Award, Sparkles } from 'lucide-react';
 
 export default function AboutUs() {
   return (
-    <section id="about-us" className="py-20 bg-gradient-to-b from-white via-stone-50 to-emerald-50/10 border-t border-b border-slate-150 scroll-mt-14 sm:scroll-mt-16 relative overflow-hidden bg-grid-glow">
+    <section id="about-us" className="py-20 bg-mesh-premium border-t border-b border-slate-150 scroll-mt-14 sm:scroll-mt-16 relative overflow-hidden bg-grid-glow">
       {/* Decorative colored glow nodes */}
       <div className="absolute top-1/4 left-10 w-72 h-72 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none select-none"></div>
       <div className="absolute bottom-1/4 right-10 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none select-none"></div>

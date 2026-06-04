@@ -1,6 +1,5 @@
 import React from 'react';
 import { IMAGES } from '../data';
-import { HeartHandshake } from 'lucide-react';
 
 interface HeroProps {
   onExploreClick?: () => void;
@@ -26,12 +25,6 @@ export default function Hero({ onExploreClick }: HeroProps) {
       {/* Centered Typography layout */}
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white flex flex-col items-center justify-center space-y-6 sm:space-y-8 py-10">
         
-        {/* Subtle top crest pill */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-slate-900/80 backdrop-blur-xs border border-emerald-555/35 text-emerald-400 rounded-full text-xs font-bold tracking-wider font-sans uppercase shadow-lg shadow-emerald-950/20 select-none">
-          <HeartHandshake className="h-4 w-4 text-emerald-400 animate-pulse" />
-          <span>Active Welfare Portal</span>
-        </div>
-
         <div className="space-y-4 max-w-4xl">
           {/* English Title Block */}
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-extrabold tracking-tight text-white leading-tight drop-shadow-lg text-balance">

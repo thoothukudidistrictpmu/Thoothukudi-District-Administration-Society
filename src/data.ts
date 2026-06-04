@@ -1,4 +1,4 @@
-import { CSRBox, ServiceBox, BoardMember, JourneyStat, Contributor } from './types';
+import { CSRBox, ServiceBox, BoardMember, JourneyStat, Contributor, Project } from './types';
 
 // Direct paths to generated images which Vite compiles and serves perfectly.
 // To use your manually uploaded President photo:
@@ -173,3 +173,151 @@ export const SOCIAL_LINKS = [
   { name: "Instagram", url: "https://www.instagram.com/thoothukudi.nic.in" },
   { name: "Official Website", url: "https://thoothukudi.nic.in" }
 ];
+
+export const PROJECTS_STATIC: Project[] = [
+  {
+    department: "Education",
+    title: "Additional Classrooms (12 Government Schools)",
+    description: "Construction of 34 additional classrooms in 12 Government schools to address overcrowding and improve classroom infrastructure.",
+    financialOutlay: "Rs. 6.12 Crore",
+    status: "Partially taken up",
+    contributor: "NTPL",
+    imageUrl: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    department: "Education",
+    title: "New Science Laboratories (3 Schools)",
+    description: "Construction of 4 additional laboratories in 3 Government schools to address inadequate laboratory facilities and strengthen practical learning infrastructure.",
+    financialOutlay: "Rs. 72 Lakhs",
+    status: "Not taken up",
+    contributor: "none",
+    imageUrl: "https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    department: "Education",
+    title: "STEM Laboratories Setup (9 Schools)",
+    description: "Construction of 9 STEM laboratories in 9 Government schools to strengthen STEM infrastructure and support experiential learning opportunities for students.",
+    financialOutlay: "Rs. 90 Lakhs",
+    status: "Not taken up",
+    contributor: "none",
+    imageUrl: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    department: "Health and Family Welfare",
+    title: "Health Facility Upgradation (NQAS)",
+    description: "Revitalisation of health facilities under NQAS through infrastructure improvement works in Health Sub-Centres and Primary Health Centres in Thoothukudi HUD.",
+    financialOutlay: "Rs. 8 Crores",
+    status: "Not taken up",
+    contributor: "none",
+    imageUrl: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    department: "Health and Family Welfare",
+    title: "New OP Blocks in PHCs (11 Centres)",
+    description: "Construction of new Outpatient blocks in 11 Primary Health Centres to strengthen outpatient healthcare infrastructure and service delivery.",
+    financialOutlay: "Rs. 7.7 Crores",
+    status: "Partially taken up",
+    contributor: "NTPL",
+    imageUrl: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    department: "Health and Family Welfare",
+    title: "Maternity Blocks in PHCs",
+    description: "Construction of maternity blocks in Primary Health Centres to strengthen 24×7 maternal healthcare services and institutional delivery infrastructure.",
+    financialOutlay: "Rs. 1.6 Crores",
+    status: "Not taken up",
+    contributor: "none",
+    imageUrl: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    department: "Welfare of differently abled Person",
+    title: "Assistive Devices for PwDs",
+    description: "Procurement and distribution of wheelchairs and assistive devices, including battery-operated wheelchairs, foldable walkers, and plastic calipers, for persons with disabilities.",
+    financialOutlay: "Rs. 31.3 Lakhs",
+    status: "Partially taken up",
+    contributor: "NTPL",
+    imageUrl: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    department: "Welfare of differently abled Person",
+    title: "Retrofitted Mobility Scooters for PwDs",
+    description: "Provision of retrofitted petrol scooters for persons with lower-limb disabilities to support independent mobility and accessibility.",
+    financialOutlay: "Rs. 4.07 Crores",
+    status: "Partially taken up",
+    contributor: "NTPL",
+    imageUrl: "https://images.unsplash.com/photo-1595079676339-1534801ad6cf?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    department: "Welfare of differently abled Person",
+    title: "Push Carts for Livelihood Support (PwDs)",
+    description: "Provision of 21 push carts for persons with disabilities to support livelihood opportunities and self-employment activities.",
+    financialOutlay: "Rs. 10.5 Lakhs",
+    status: "Not taken up",
+    contributor: "none",
+    imageUrl: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    department: "Agriculture and Family Welfare",
+    title: "Farm Pond Development",
+    description: "Construction and strengthening of farm ponds to enhance water storage capacity and support sustainable irrigation for agricultural activities.",
+    financialOutlay: "Rs. 6 Crores",
+    status: "Partially taken up",
+    contributor: "NTPL",
+    imageUrl: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    department: "Agriculture and Family Welfare",
+    title: "Borewell Renovation Works",
+    description: "Renovation of borewells to restore groundwater yield and strengthen sustainable irrigation infrastructure for agricultural activities.",
+    financialOutlay: "Rs. 1.5 Crores",
+    status: "Not taken up",
+    contributor: "none",
+    imageUrl: "https://images.unsplash.com/photo-1471193945509-9ad0617afabf?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    department: "Animal Husbandry",
+    title: "Veterinary Facility Pathway Improvement",
+    description: "Laying of paver block approach pathways at veterinary facilities to ensure safe access, improve sanitation, and support uninterrupted veterinary services.",
+    financialOutlay: "Rs. 30 Lakhs",
+    status: "Not taken up",
+    contributor: "none",
+    imageUrl: "https://images.unsplash.com/photo-1581888227599-779811939961?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    department: "Animal Husbandry",
+    title: "Livestock Farmer Training AV Facilities",
+    description: "Provision of Smart TVs and audio-visual learning facilities for training livestock farmers in modern and scientific livestock management practices.",
+    financialOutlay: "Rs. 3.6 Lakhs",
+    status: "Not taken up",
+    contributor: "none",
+    imageUrl: "https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    department: "Municipal Administration and water Supply",
+    title: "Traffic Island Beautification (10 Locations)",
+    description: "Beautification of traffic islands at 10 locations in Thoothukudi through landscaping, decorative elements, and thematic sculptures.",
+    financialOutlay: "Rs. 1 Crore",
+    status: "Partially taken up",
+    contributor: "NTPL",
+    imageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    department: "Municipal Administration and water Supply",
+    title: "CCTV & PA System – Buckle Odai Monitoring",
+    description: "Installation of 30 CCTV cameras and public announcement systems along Buckle Odai to prevent illegal solid waste dumping and strengthen monitoring mechanisms.",
+    financialOutlay: "Rs. 25 Lakhs",
+    status: "Not taken up",
+    contributor: "none",
+    imageUrl: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    department: "Municipal Administration and water Supply",
+    title: "Smart Waste Collection Vehicles (3 Municipalities)",
+    description: "Deployment of battery-operated waste collection vehicles to strengthen door-to-door solid waste management while reducing fuel costs and carbon emissions in 3 Municipalities",
+    financialOutlay: "Rs. 84 Lakhs",
+    status: "Partially taken up",
+    contributor: "NTPL",
+    imageUrl: "https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?auto=format&fit=crop&w=1200&q=80"
+  }
+];
+

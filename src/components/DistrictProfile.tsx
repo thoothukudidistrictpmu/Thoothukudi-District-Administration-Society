@@ -4,7 +4,7 @@ import { Map, MapPin, Compass, Waves } from 'lucide-react';
 
 export default function DistrictProfile() {
   return (
-    <section id="district-profile" className="py-20 bg-gradient-to-tr from-slate-100/70 via-stone-50 to-emerald-50/10 relative overflow-hidden bg-dot-matrix border-t border-b border-slate-150 scroll-mt-14 sm:scroll-mt-16">
+    <section id="district-profile" className="py-20 bg-mesh-premium relative overflow-hidden bg-dot-matrix border-t border-b border-slate-150 scroll-mt-14 sm:scroll-mt-16">
       <div className="absolute top-1/4 left-1/4 w-80 h-80 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none select-none"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

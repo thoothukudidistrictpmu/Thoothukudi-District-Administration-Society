@@ -10,6 +10,7 @@ import PresidentMessage from './components/PresidentMessage';
 import Journey from './components/Journey';
 import Contributors from './components/Contributors';
 import Footer from './components/Footer';
+import ProjectsPage from './components/ProjectsPage';
 import { Info, X, ShieldAlert, Sparkles } from 'lucide-react';
 
 export default function App() {
@@ -20,25 +21,51 @@ export default function App() {
   });
 
   const handleNavClick = (id: string) => {
-    // Keep 'home' active as everything is on the home page dashboard
-    setActiveTab('home');
+    if (id === 'projects') {
+      setActiveTab('projects');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
 
     if (id === 'home') {
+      setActiveTab('home');
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      const names: Record<string, string> = {
-        'about-us': 'About Us',
-        'join-us': 'Join Us Memberships',
-        'projects': 'Projects',
-        'contributors': 'Our Contributors Portal',
-        'gallery': 'District Welfare Gallery',
-        'contact-us': 'Contact Desk'
-      };
-      setNotifyModal({
-        isOpen: true,
-        title: names[id] || id
-      });
+      return;
     }
+
+    // Scroll to homepage sections if selected
+    if (id === 'about-us') {
+      setActiveTab('home');
+      setTimeout(() => {
+        const element = document.getElementById('about-us');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+      return;
+    }
+
+    if (id === 'contributors') {
+      setActiveTab('home');
+      setTimeout(() => {
+        const element = document.getElementById('contributors');
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+      return;
+    }
+
+    // Modal placeholders for under construction tabs
+    const names: Record<string, string> = {
+      'join-us': 'Join Us Memberships',
+      'gallery': 'District Welfare Gallery',
+      'contact-us': 'Contact Desk'
+    };
+    setNotifyModal({
+      isOpen: true,
+      title: names[id] || id
+    });
   };
 
   const handleCloseModal = () => {
@@ -46,46 +73,49 @@ export default function App() {
   };
 
   const exploreCSR = () => {
-    const csrElement = document.getElementById('projects');
-    if (csrElement) {
-      csrElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setActiveTab('projects');
-    }
+    setActiveTab('projects');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col selection:bg-emerald-700 selection:text-white">
+    <div className="min-h-screen bg-mesh-gradient flex flex-col selection:bg-emerald-700 selection:text-white">
       {/* 1. Header Emblem Banner */}
       <Header />
 
       {/* 2. Primary Navigation Bar */}
       <Navigation onNavClick={handleNavClick} activeTab={activeTab} />
 
-      {/* 3. Main Landing Contents (The Home Page Flow) */}
+      {/* 3. Main Landing Contents (The Home Page Flow or Projects Page) */}
       <main id="main-content" className="flex-grow">
-        {/* Landing Hero Image & Description */}
-        <Hero onExploreClick={exploreCSR} />
+        {activeTab === 'projects' ? (
+          <ProjectsPage />
+        ) : (
+          <>
+            {/* Landing Hero Image & Description */}
+            <Hero onExploreClick={exploreCSR} />
 
-        {/* About the Society Section (3 paragraphs, Left Text, Right Image) */}
-        <AboutUs />
+            {/* About the Society Section (3 paragraphs, Left Text, Right Image) */}
+            <AboutUs />
 
-        {/* Corporate Social Responsibility (CSR) India Regulations Overview & 3 boxes */}
-        <CSRInfo />
+            {/* Corporate Social Responsibility (CSR) India Regulations Overview & 3 boxes */}
+            <CSRInfo />
 
-        {/* Humanist Services & 3 boxes (Education, Public Health, Agriculture) */}
-        <Services />
+            {/* Humanist Services & 3 boxes (Education, Public Health, Agriculture) */}
+            <Services />
 
-        {/* District Profile (Left map, Right 2 paragraphs description) */}
-        <DistrictProfile />
+            {/* District Profile (Left map, Right 2 paragraphs description) */}
+            <DistrictProfile />
 
-        {/* President Message (Collector Portrait right, Message left) & 4 Leadership boxes below */}
-        <PresidentMessage />
+            {/* President Message (Collector Portrait right, Message left) & 4 Leadership boxes below */}
+            <PresidentMessage />
 
-        {/* Metrics Timeline - Journey So Far (4 statistics boxes) */}
-        <Journey />
+            {/* Metrics Timeline - Journey So Far (4 statistics boxes) */}
+            <Journey />
 
-        {/* Authorized Contributors (SPIC, VOC Port, TCS, HCL, Wipro, TTPS) */}
-        <Contributors />
+            {/* Authorized Contributors (SPIC, VOC Port, TCS, HCL, Wipro, TTPS) */}
+            <Contributors />
+          </>
+        )}
       </main>
 
       {/* 4. Contact & Social Links Footer */}
