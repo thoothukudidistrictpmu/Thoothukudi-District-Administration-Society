@@ -1,0 +1,6 @@
+{
+  "name": "Thoothukudi District Administration Society",
+  "description": "Official online portal for the Thoothukudi District Administration Society (தூத்துக்குடி மாவட்ட நலச் சங்கம்), showcasing CSR guidelines, regional support initiatives, and community impact programs.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
