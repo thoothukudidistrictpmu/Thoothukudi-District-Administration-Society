@@ -110,7 +110,7 @@ export default function App() {
             <PresidentMessage />
 
             {/* Metrics Timeline - Journey So Far (4 statistics boxes) */}
-            <Journey />
+            <Journey onProjectsClick={exploreCSR} />
 
             {/* Authorized Contributors (SPIC, VOC Port, TCS, HCL, Wipro, TTPS) */}
             <Contributors />

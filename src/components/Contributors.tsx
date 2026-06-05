@@ -60,6 +60,16 @@ export default function Contributors() {
             <text x="50" y="81" fill="#1e1b4b" fontSize="13" fontWeight="950" textAnchor="middle" letterSpacing="0.3" fontFamily="system-ui, sans-serif">wipro</text>
           </svg>
         );
+      case 'NTPL':
+        return (
+          <svg viewBox="0 0 100 100" className="w-full h-full" aria-label="NTPL Logo">
+            <rect width="100" height="100" rx="20" fill="#f0fdf4" className="fill-teal-50" />
+            <circle cx="50" cy="42" r="23" fill="none" stroke="#2dd4bf" strokeWidth="3" />
+            <path d="M50 17 L50 67 M30 42 L70 42" stroke="#0f766e" strokeWidth="2.5" strokeLinecap="round" opacity="0.8" />
+            <path d="M43 32 L57 32 L50 54 Z" className="fill-amber-500" />
+            <text x="50" y="85" fill="#0f766e" fontSize="13" fontWeight="950" textAnchor="middle" letterSpacing="0.8" fontFamily="system-ui, sans-serif">NTPL</text>
+          </svg>
+        );
       default:
         return (
           <svg viewBox="0 0 100 100" className="w-full h-full" aria-label="Thoothukudi Thermal Power Station Logo">
@@ -104,6 +114,12 @@ export default function Contributors() {
           bg: 'bg-purple-50',
           border: 'hover:border-purple-500/30 hover:shadow-purple-500/8',
           text: 'text-purple-855'
+        };
+      case 'teal':
+        return {
+          bg: 'bg-teal-50',
+          border: 'hover:border-teal-500/30 hover:shadow-teal-500/8',
+          text: 'text-teal-800'
         };
       default:
         return {

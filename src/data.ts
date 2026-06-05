@@ -142,6 +142,12 @@ export const CONTRIBUTORS: Contributor[] = [
     iconName: "Anchor"
   },
   {
+    name: "NTPL",
+    description: "NLC Tamilnadu Power Limited, powering regional development, primary healthcare access, and quality educational infrastructure throughout Thoothukudi.",
+    color: "teal",
+    iconName: "Zap"
+  },
+  {
     name: "TCS",
     description: "Tata Consultancy Services, advancing computer learning and digitized school platforms.",
     color: "blue",
