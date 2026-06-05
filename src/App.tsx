@@ -33,31 +33,10 @@ export default function App() {
       return;
     }
 
-    // Scroll to homepage sections if selected
-    if (id === 'about-us') {
-      setActiveTab('home');
-      setTimeout(() => {
-        const element = document.getElementById('about-us');
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
-      return;
-    }
-
-    if (id === 'contributors') {
-      setActiveTab('home');
-      setTimeout(() => {
-        const element = document.getElementById('contributors');
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
-      return;
-    }
-
     // Modal placeholders for under construction tabs
     const names: Record<string, string> = {
+      'about-us': 'About Us',
+      'contributors': 'Our Contributors',
       'join-us': 'Join Us Memberships',
       'gallery': 'District Welfare Gallery',
       'contact-us': 'Contact Desk'

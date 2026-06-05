@@ -335,7 +335,7 @@ export default function ProjectsPage() {
                 <span>Development Blueprints</span>
               </div>
               <h1 className="text-3xl sm:text-4.5xl font-display font-black text-slate-900 tracking-tight leading-none mt-1">
-                District Welfare Projects
+                District Administrative Projects
               </h1>
               <p className="text-slate-550 text-sm sm:text-base leading-relaxed">
                 Explore local CSR allocations and infrastructure welfare campaigns across departments, structured cleanly for full citizen transparency.
@@ -380,7 +380,7 @@ export default function ProjectsPage() {
           <div className="flex items-center gap-2.5 mb-4">
             <LayoutGrid className="h-4.5 w-4.5 text-emerald-700 shrink-0" />
             <span className="text-xs font-black uppercase tracking-widest text-slate-500 font-sans">
-              Filter by Category / Interactive Slicer
+              Filter by Category
             </span>
           </div>
 
