@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { IMAGES } from '../data';
 
 interface HeroProps {
@@ -10,11 +11,14 @@ export default function Hero({ onExploreClick }: HeroProps) {
     <div id="home" className="relative bg-slate-950 min-h-[380px] sm:min-h-[460px] md:min-h-[520px] flex items-center justify-center overflow-hidden">
       {/* Background Image with Dark Vignette Overlays */}
       <div className="absolute inset-0 z-0">
-        <img
+        <motion.img
           id="hero-background-image"
           src={IMAGES.hero}
           alt="Thoothukudi District Administration Society community banner background"
-          className="w-full h-full object-cover object-center filter brightness-35 contrast-105 transition-transform duration-1000 select-none pointer-events-none"
+          initial={{ scale: 1.12, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full h-full object-cover object-center filter brightness-35 contrast-105 select-none pointer-events-none"
           referrerPolicy="no-referrer"
         />
         {/* High visual quality dark gradients for text eligibility */}
@@ -25,7 +29,12 @@ export default function Hero({ onExploreClick }: HeroProps) {
       {/* Centered Typography layout */}
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white flex flex-col items-center justify-center space-y-6 sm:space-y-8 py-10">
         
-        <div className="space-y-4 max-w-4xl">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          className="space-y-4 max-w-4xl"
+        >
           {/* English Title Block */}
           <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-extrabold tracking-tight text-white leading-tight drop-shadow-lg text-balance">
             Thoothukudi District <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-amber-300">Administration Society</span>
@@ -35,21 +44,31 @@ export default function Hero({ onExploreClick }: HeroProps) {
           <h3 className="text-xl sm:text-2xl md:text-3xl font-sans font-bold text-emerald-350 tracking-wide drop-shadow-md">
             தூத்துக்குடி மாவட்ட நலச் சங்கம்
           </h3>
-        </div>
+        </motion.div>
 
         {/* Administrative Subtitle */}
-        <div className="max-w-2xl bg-slate-950/60 backdrop-blur-md px-6 py-4 rounded-2xl border border-white/5 shadow-inner">
+        <motion.div 
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-2xl bg-slate-950/60 backdrop-blur-md px-6 py-4 rounded-2xl border border-white/5 shadow-inner"
+        >
           <p className="text-xs sm:text-sm text-gray-250 font-sans tracking-wide leading-relaxed font-light">
             Government of Tamil Nadu &bull; Transparent CSR Management For Ground Welfare Operations &bull; Serving Local Demographics
           </p>
-        </div>
+        </motion.div>
 
         {/* Aesthetic separation stamp */}
-        <div className="pt-2 flex items-center justify-center gap-3 select-none text-[10px] font-mono tracking-[0.2em] text-emerald-450/90">
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="pt-2 flex items-center justify-center gap-3 select-none text-[10px] font-mono tracking-[0.2em] text-emerald-450/90"
+        >
           <span className="h-px w-10 bg-gradient-to-r from-transparent to-emerald-500/50"></span>
           <span>ESTD 2024</span>
           <span className="h-px w-10 bg-gradient-to-l from-transparent to-emerald-500/50"></span>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

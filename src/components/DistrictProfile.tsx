@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { IMAGES, DISTRICT_NAME, DISTRICT_PARAGRAPHS } from '../data';
 import { Map, MapPin, Compass, Waves } from 'lucide-react';
 
@@ -10,7 +11,13 @@ export default function DistrictProfile() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
-        <div className="text-center mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
           <h3 className="text-xs uppercase tracking-[0.2em] font-bold text-emerald-800 font-mono">
             REGIONAL OVERVIEW
           </h3>
@@ -20,20 +27,26 @@ export default function DistrictProfile() {
           <div className="text-sm font-semibold tracking-widest text-emerald-850 font-sans uppercase mt-2">
             Thoothukudi — "The Pearl City of India"
           </div>
-        </div>
+        </motion.div>
 
         {/* Layout: Left map, Right descriptions */}
         <div id="district-profile-grid" className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           
           {/* Left Side: Map image */}
-          <div className="lg:col-span-5 flex justify-center">
-            <div className="relative rounded-2xl overflow-hidden shadow-xl border border-slate-200 bg-white p-3.5 w-full max-w-sm sm:max-w-md lg:max-w-full group hover:shadow-2xl hover:border-emerald-600/20 transition-all duration-300">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="lg:col-span-5 flex justify-center"
+          >
+            <div className="relative rounded-2xl overflow-hidden shadow-xl border border-slate-200 bg-white p-3.5 w-full max-w-sm sm:max-w-md lg:max-w-full group hover:shadow-2xl hover:border-emerald-600/20 transition-all duration-350">
               <div className="aspect-4/3 overflow-hidden rounded-xl bg-slate-100 relative">
                 <img
                   id="thoothukudi-district-map"
                   src={IMAGES.districtMap}
                   alt="Thoothukudi District Map representation under Tamil Nadu state coast"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103"
+                  className="w-full h-full object-cover transition-transform duration-750 group-hover:scale-104 select-none"
                   referrerPolicy="no-referrer"
                 />
                 
@@ -51,11 +64,17 @@ export default function DistrictProfile() {
                 Figure: General Map of Thoothukudi District showcasing its prominent coastal positioning.
               </p>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Right Side: 2 Paragraphs (~100 words in total) */}
+          {/* Right Side: 2 Paragraphs */}
           <div className="lg:col-span-7 flex flex-col justify-center space-y-6">
-            <div className="space-y-5">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="space-y-5"
+            >
               {DISTRICT_PARAGRAPHS.map((para, index) => (
                 <p
                   key={index}
@@ -64,11 +83,17 @@ export default function DistrictProfile() {
                   {para}
                 </p>
               ))}
-            </div>
+            </motion.div>
 
             {/* Micro details grid showcasing Thoothukudi stats */}
-            <div className="pt-8 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="group bg-white p-4 rounded-xl border border-slate-150/80 flex gap-3 items-center hover:border-sky-500/20 hover:shadow-xs transition-all duration-300">
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: 0.25 }}
+              className="pt-8 border-t border-slate-200 grid grid-cols-1 sm:grid-cols-3 gap-4"
+            >
+              <div className="group bg-white p-4 rounded-xl border border-slate-150/80 flex gap-3 items-center hover:border-sky-500/20 hover:shadow-xs transition-all duration-305">
                 <div className="p-2.5 bg-sky-50 text-sky-800 rounded-lg group-hover:scale-110 transition-transform duration-300 shrink-0">
                   <Waves className="h-5 w-5" />
                 </div>
@@ -77,7 +102,7 @@ export default function DistrictProfile() {
                   <p className="text-xs sm:text-sm font-extrabold text-slate-800 font-sans">163.5 KM Coast</p>
                 </div>
               </div>
-              <div className="group bg-white p-4 rounded-xl border border-slate-150/80 flex gap-3 items-center hover:border-emerald-550/20 hover:shadow-xs transition-all duration-300">
+              <div className="group bg-white p-4 rounded-xl border border-slate-150/80 flex gap-3 items-center hover:border-emerald-550/20 hover:shadow-xs transition-all duration-305">
                 <div className="p-2.5 bg-emerald-50 text-emerald-800 rounded-lg group-hover:scale-110 transition-transform duration-300 shrink-0">
                   <Map className="h-5 w-5" />
                 </div>
@@ -86,7 +111,7 @@ export default function DistrictProfile() {
                   <p className="text-xs sm:text-sm font-extrabold text-slate-800 font-sans">10 Talluks &amp; 12 Blocks</p>
                 </div>
               </div>
-              <div className="group bg-white p-4 rounded-xl border border-slate-150/80 flex gap-3 items-center hover:border-amber-550/20 hover:shadow-xs transition-all duration-300">
+              <div className="group bg-white p-4 rounded-xl border border-slate-150/80 flex gap-3 items-center hover:border-amber-550/20 hover:shadow-xs transition-all duration-305">
                 <div className="p-2.5 bg-amber-50 text-amber-800 rounded-lg group-hover:scale-110 transition-transform duration-300 shrink-0">
                   <Compass className="h-5 w-5" />
                 </div>
@@ -95,7 +120,7 @@ export default function DistrictProfile() {
                   <p className="text-xs sm:text-sm font-extrabold text-slate-800 font-sans">Southern Hub</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
 
         </div>

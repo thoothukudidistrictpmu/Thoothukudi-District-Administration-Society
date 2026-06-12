@@ -1,9 +1,33 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { IMAGES, BOARD_MEMBERS, COL_PRESIDENT_MESSAGE } from '../data';
 import { Quote, Mail, ShieldCheck, HeartHandshake } from 'lucide-react';
 
 export default function PresidentMessage() {
   const president = BOARD_MEMBERS[0];
+
+  const gridContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15
+      }
+    }
+  };
 
   return (
     <section id="president-message" className="py-20 bg-mesh-alternate scroll-mt-14 sm:scroll-mt-16 border-b border-slate-150 relative overflow-hidden bg-grid-glow">
@@ -16,7 +40,13 @@ export default function PresidentMessage() {
         <div id="message-container" className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mb-16">
           
           {/* Left Column: Messages from President */}
-          <div className="lg:col-span-7 flex flex-col justify-center space-y-6">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="lg:col-span-7 flex flex-col justify-center space-y-6"
+          >
             <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-50 text-emerald-800 rounded-md text-xs font-semibold self-start tracking-wider uppercase font-mono border border-emerald-100">
               <ShieldCheck className="h-4 w-4 text-emerald-700 font-bold" />
               President Message
@@ -49,17 +79,23 @@ export default function PresidentMessage() {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column: High-quality generated President Image with dynamic framing */}
-          <div className="lg:col-span-5 flex flex-col items-center">
+          <motion.div 
+            initial={{ opacity: 0, x: 30, scale: 0.98 }}
+            whileInView={{ opacity: 1, x: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="lg:col-span-5 flex flex-col items-center"
+          >
             <div className="relative w-full max-w-xs sm:max-w-sm rounded-3xl overflow-hidden shadow-xl bg-white border-8 border-slate-50 relative group hover:shadow-2xl hover:border-emerald-50 transition-all duration-300">
               <div className="aspect-3/4 overflow-hidden">
                 <img
                   id="president-photo-image"
                   src={IMAGES.vishuMahajan}
                   alt="Vishu Mahajan IAS, District Collector of Thoothukudi & President of Thoothukudi District Administration Society"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-103 select-none"
                   referrerPolicy="no-referrer"
                 />
               </div>
@@ -77,13 +113,19 @@ export default function PresidentMessage() {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
         </div>
 
         {/* Board Office Bearers Section (4 boxes directly requested below president message) */}
         <div id="governing-body" className="mt-16 pt-12 border-t border-gray-150">
-          <div className="text-center mb-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-10"
+          >
             <h3 className="text-xs uppercase tracking-widest font-bold text-emerald-800 font-mono">
               SOCIETY OFFICIALS
             </h3>
@@ -93,13 +135,21 @@ export default function PresidentMessage() {
             <div className="mt-1 text-xs text-gray-500 font-sans">
               Primary office-bearers of the Thoothukudi District Administration Society
             </div>
-          </div>
+          </motion.div>
 
           {/* List Grid of 4 Boxes */}
-          <div id="board-members-grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+          <motion.div 
+            variants={gridContainerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            id="board-members-grid" 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch"
+          >
             {BOARD_MEMBERS.map((member, index) => (
-              <div
+              <motion.div
                 key={index}
+                variants={cardVariants}
                 id={`member-box-${index}`}
                 className="group bg-white rounded-2xl p-6 border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.015)] hover:shadow-lg hover:border-emerald-600/20 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between relative overflow-hidden"
               >
@@ -128,9 +178,9 @@ export default function PresidentMessage() {
                   <span>TDAS Board</span>
                   <HeartHandshake className="h-4 w-4 text-emerald-600/40 group-hover:text-emerald-650/85 group-hover:scale-110 transition-all duration-300" />
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
       </div>

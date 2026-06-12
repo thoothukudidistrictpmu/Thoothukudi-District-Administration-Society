@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { PROJECTS_STATIC } from '../data';
 import { Project } from '../types';
 import { 
@@ -19,7 +20,11 @@ import {
   X,
   TrendingUp,
   LayoutGrid,
-  Briefcase
+  Briefcase,
+  CheckSquare,
+  Check,
+  ShoppingCart,
+  Trash2
 } from 'lucide-react';
 
 // Department color theme map for interactive visual borders and badges
@@ -176,11 +181,52 @@ function parseCSV(text: string): string[][] {
   return lines;
 }
 
-export default function ProjectsPage() {
+// Convert dynamic outlays to numeric value for sum computation
+const parseCostToNumeric = (outlay: string | undefined): number => {
+  if (!outlay) return 0;
+  const cleaned = outlay.replace(/Rs\./i, '').replace(/,/g, '').trim().toLowerCase();
+  const num = parseFloat(cleaned);
+  if (isNaN(num)) return 0;
+  
+  if (cleaned.includes('lakh')) {
+    return num * 100000;
+  }
+  if (cleaned.includes('cr') || cleaned.includes('crore')) {
+    return num * 10000000;
+  }
+  return num;
+};
+
+const formatCostNumeric = (value: number): string => {
+  if (value >= 10000000) {
+    return `Rs. ${(value / 10000000).toFixed(2)} Crore`;
+  }
+  if (value >= 100000) {
+    return `Rs. ${(value / 100000).toFixed(2)} Lakhs`;
+  }
+  if (value === 0) return 'Custom / TBD';
+  return `Rs. ${value.toLocaleString()}`;
+};
+
+interface ProjectsPageProps {
+  cart?: Project[];
+  onToggleCart?: (project: Project) => void;
+  onCartChange?: (newCart: Project[]) => void;
+  onNavClick?: (tabId: string) => void;
+}
+
+export default function ProjectsPage({
+  cart = [],
+  onToggleCart = () => {},
+  onCartChange = () => {},
+  onNavClick = () => {}
+}: ProjectsPageProps) {
   const [projects, setProjects] = useState<Project[]>(PROJECTS_STATIC);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All Categories');
   const [activeProject, setActiveProject] = useState<Project | null>(null);
+  const [selectionMode, setSelectionMode] = useState<boolean>(false);
+
 
   // Load live data silently in the background
   const loadLiveDataSilently = async () => {
@@ -265,6 +311,22 @@ export default function ProjectsPage() {
     return projects.filter(p => p.department === catName).length;
   };
 
+  const isAllDepartmentSelected = (deptName: string, deptProjects: Project[]) => {
+    return deptProjects.length > 0 && deptProjects.every(p => cart.some(c => c.title === p.title));
+  };
+
+  const handleToggleDepartmentSelect = (deptName: string, deptProjects: Project[]) => {
+    const isAll = isAllDepartmentSelected(deptName, deptProjects);
+    if (isAll) {
+      const updated = cart.filter(c => !deptProjects.some(p => p.title === c.title));
+      onCartChange(updated);
+    } else {
+      const toAdd = deptProjects.filter(p => !cart.some(c => c.title === p.title));
+      const updated = [...cart, ...toAdd];
+      onCartChange(updated);
+    }
+  };
+
   // Grouped search and filter mapping helper
   const filteredProjects = projects.filter(p => {
     const matchesSearch = 
@@ -325,7 +387,12 @@ export default function ProjectsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Creative Artistic Page Intro Header */}
-        <div className="relative mb-12 text-center sm:text-left bg-white border border-stone-200/90 rounded-3xl p-6 sm:p-10 shadow-sm overflow-hidden bg-grid-glow">
+        <motion.div 
+          initial={{ opacity: 0, y: -15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="relative mb-12 text-center sm:text-left bg-white border border-stone-200/90 rounded-3xl p-6 sm:p-10 shadow-sm overflow-hidden bg-grid-glow"
+        >
           <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-emerald-50 to-amber-50 rounded-bl-full pointer-events-none -z-10"></div>
           
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6 relative z-10">
@@ -365,7 +432,7 @@ export default function ProjectsPage() {
               <span className="text-lg font-extrabold text-emerald-800 block mt-0.5">{completedProjectsCount} Projects</span>
             </div>
             <div className="bg-amber-50/40 px-4 py-3 rounded-xl border border-amber-150/40">
-              <span className="text-[11px] font-bold text-amber-700/60 uppercase tracking-widest block">Partially Commenced</span>
+              <span className="text-[11px] font-[700] text-amber-700/60 uppercase tracking-widest block">Partially Commenced</span>
               <span className="text-lg font-extrabold text-amber-800 block mt-0.5">{partialProjectsCount} Ongoing</span>
             </div>
             <div className="bg-stone-100/50 px-4 py-3 rounded-xl border border-stone-200">
@@ -373,10 +440,15 @@ export default function ProjectsPage() {
               <span className="text-lg font-extrabold text-stone-700 block mt-0.5">{notStartedCount} Upcoming</span>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Dynamic Tactile Slicers Block */}
-        <div className="mb-10 bg-white border border-stone-150 rounded-2xl p-5 shadow-3xs">
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="mb-10 bg-white border border-stone-150 rounded-2xl p-5 shadow-3xs"
+        >
           <div className="flex items-center gap-2.5 mb-4">
             <LayoutGrid className="h-4.5 w-4.5 text-emerald-700 shrink-0" />
             <span className="text-xs font-black uppercase tracking-widest text-slate-500 font-sans">
@@ -412,10 +484,56 @@ export default function ProjectsPage() {
               );
             })}
           </div>
-        </div>
+
+          {/* Cart Mode / Add to Cart Action Bar */}
+          <div className="mt-6 pt-5 border-t border-stone-150 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+              <button
+                onClick={() => setSelectionMode(!selectionMode)}
+                className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold tracking-wide transition-all duration-300 transform active:scale-95 cursor-pointer flex items-center gap-2 border ${
+                  selectionMode
+                    ? 'bg-rose-50 border-rose-250 text-rose-800 border-rose-200 shadow-inner'
+                    : 'bg-emerald-50 border-emerald-250 text-emerald-800 border-emerald-200 shadow-sm hover:bg-emerald-100 hover:shadow-md'
+                }`}
+              >
+                {selectionMode ? (
+                  <>
+                    <X className="h-4.5 w-4.5" />
+                    <span>Exit Selection Mode</span>
+                  </>
+                ) : (
+                  <>
+                    <CheckSquare className="h-4.5 w-4.5" />
+                    <span>Add to your Cart (Select Projects)</span>
+                  </>
+                )}
+              </button>
+              {selectionMode && (
+                <span className="text-xs font-sans text-stone-500 animate-pulse bg-amber-50 border border-amber-200 text-amber-900 px-3 py-1.5 rounded-lg font-bold">
+                  ✓ Selection Mode Active: Click checkboxes to add/remove, or check category headings to select all.
+                </span>
+              )}
+            </div>
+
+            {cart.length > 0 && (
+              <button
+                onClick={() => onNavClick('purchase')}
+                className="px-5 py-2.5 bg-gradient-to-r from-amber-500 via-emerald-600 to-teal-700 hover:from-amber-600 hover:to-teal-800 text-white rounded-xl text-xs sm:text-sm font-extrabold tracking-wide transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center gap-2 shadow-md hover:shadow-lg"
+              >
+                <ShoppingCart className="h-4 w-4" />
+                <span>Selected Support Cart ({cart.length})</span>
+              </button>
+            )}
+          </div>
+        </motion.div>
 
         {/* Dynamic Smart Search Engine block */}
-        <div className="mb-10 max-w-xl">
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mb-10 max-w-xl"
+        >
           <div className="relative">
             <Search className="absolute left-4 top-3.5 h-4.5 w-4.5 text-stone-400 pointer-events-none" />
             <input
@@ -435,7 +553,7 @@ export default function ProjectsPage() {
               </button>
             )}
           </div>
-        </div>
+        </motion.div>
 
         {/* Dynamic Clustered Projects Grid System */}
         {Object.keys(groupedProjects).length > 0 ? (
@@ -450,6 +568,23 @@ export default function ProjectsPage() {
                   {/* Department stylized header block */}
                   <div className="flex items-center justify-between gap-4 border-b border-stone-200 pb-3">
                     <div className="flex items-center gap-3">
+                      {selectionMode && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleToggleDepartmentSelect(departmentName, departmentProjects);
+                          }}
+                          className={`p-1.5 rounded-lg border transition-all shrink-0 flex items-center justify-center cursor-pointer ${
+                            isAllDepartmentSelected(departmentName, departmentProjects)
+                              ? 'bg-emerald-600 border-emerald-700 text-white shadow-sm'
+                              : 'bg-white border-stone-300 text-transparent hover:border-emerald-650'
+                          }`}
+                          title={isAllDepartmentSelected(departmentName, departmentProjects) ? "Unselect All in Sector" : "Select All in Sector"}
+                        >
+                          <Check className="h-4 w-4 stroke-[3]" />
+                        </button>
+                      )}
+                      
                       <div className={`p-2.5 rounded-2xl bg-gradient-to-tr ${theme.gradient} text-white shadow-sm shrink-0`}>
                         {getDepartmentIcon(departmentName)}
                       </div>
@@ -475,10 +610,15 @@ export default function ProjectsPage() {
                       const projTheme = getDepartmentTheme(project.department);
 
                       return (
-                        <div
+                        <motion.div
                           key={idx}
+                          layout
+                          initial={{ opacity: 0, scale: 0.94 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true, margin: "-50px" }}
+                          transition={{ duration: 0.4 }}
                           onClick={() => setActiveProject(project)}
-                          className={`group bg-white rounded-2xl border border-stone-150 hover:border-slate-300 p-6 shadow-4xs ${projTheme.shadow} hover:shadow-lg transition-all duration-300 relative flex flex-col justify-between cursor-pointer transform hover:-translate-y-1.5 overflow-hidden`}
+                          className="group bg-white rounded-2xl border border-stone-150 hover:border-slate-300 p-6 shadow-4xs hover:shadow-lg transition-all duration-305 relative flex flex-col justify-between cursor-pointer transform hover:-translate-y-1.5 overflow-hidden select-none"
                         >
                           {/* Colored offset side highlight indicator bar */}
                           <div className={`absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b ${projTheme.gradient}`}></div>
@@ -489,7 +629,25 @@ export default function ProjectsPage() {
                           <div className="pl-2">
                             {/* Card Badges */}
                             <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-                              {getStatusBadge(project.status)}
+                              <div className="flex items-center gap-2">
+                                {selectionMode && (
+                                  <div
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      onToggleCart(project);
+                                    }}
+                                    className={`p-1.5 rounded-lg border transition-all cursor-pointer flex items-center justify-center shrink-0 ${
+                                      cart.some(c => c.title === project.title)
+                                        ? 'bg-emerald-605 bg-emerald-650 bg-emerald-600 border-emerald-700 text-white shadow-sm'
+                                        : 'bg-white border-stone-300 text-transparent hover:border-emerald-650'
+                                    }`}
+                                  >
+                                    <Check className="h-3.5 w-3.5 stroke-[3]" />
+                                  </div>
+                                )}
+                                {getStatusBadge(project.status)}
+                              </div>
+
                               <span className="inline-flex items-center gap-1 text-xs font-mono font-bold text-emerald-800 tracking-tight bg-slate-50/85 py-0.5 px-2 rounded-lg border border-stone-200">
                                 <Coins className="h-3 w-3 text-emerald-750" />
                                 {project.financialOutlay}
@@ -523,7 +681,7 @@ export default function ProjectsPage() {
                             </span>
                             <Maximize2 className="h-4 w-4 opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all text-emerald-700" />
                           </div>
-                        </div>
+                        </motion.div>
                       );
                     })}
                   </div>
@@ -550,53 +708,165 @@ export default function ProjectsPage() {
           </div>
         )}
 
-      </div>
-
-      {/* Intricately Styled Modal Overlay */}
-      {activeProject && (
-        <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs transition-opacity duration-300 overflow-y-auto"
-          onClick={() => setActiveProject(null)}
-        >
-          <div 
-            className="relative bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-stone-200 animate-in fade-in zoom-in-95 duration-200 flex flex-col"
-            onClick={(e) => e.stopPropagation()}
+        {/* Buy Now Basket Box */}
+        {cart.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.98, y: 30 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ type: 'spring', damping: 25 }}
+            className="mt-16 bg-white border border-stone-200 shadow-xl rounded-3xl overflow-hidden"
           >
-            {/* Minimal Exit button */}
-            <button 
-              onClick={() => setActiveProject(null)}
-              className="absolute top-4 right-4 z-20 bg-white/90 hover:bg-white backdrop-blur-md p-2 rounded-full border border-stone-200 text-stone-700 shadow-md transition-all hover:scale-110 cursor-pointer"
-              aria-label="Close dialog"
-            >
-              <X className="h-4.5 w-4.5" />
-            </button>
+            {/* Header banner */}
+            <div className="bg-gradient-to-r from-emerald-800 to-teal-900 px-6 sm:px-8 py-5 text-white flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2 sm:p-2.5 bg-white/10 rounded-xl">
+                  <ShoppingCart className="h-5 w-5 sm:h-6 sm:w-6" />
+                </div>
+                <div>
+                  <h3 className="text-lg sm:text-xl font-display font-black tracking-tight leading-none">
+                    Support Selection Commitment Box
+                  </h3>
+                  <p className="text-emerald-100 text-[11px] sm:text-xs font-sans mt-1">
+                    You have selected {cart.length} {cart.length === 1 ? 'project' : 'projects'} to support.
+                  </p>
+                </div>
+              </div>
 
-            {/* Picture block */}
-            <div className="relative h-60 sm:h-72 bg-stone-900 overflow-hidden">
-              <img
-                src={activeProject.imageUrl || getProjectFallbackImage(activeProject.title)}
-                alt={activeProject.title}
-                className="w-full h-full object-cover opacity-80"
-                referrerPolicy="no-referrer"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-              
-              {/* Overlay badges */}
-              <div className="absolute bottom-5 left-6 right-6">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-800 text-white rounded-lg text-[10px] font-black uppercase tracking-widest leading-none mb-2">
-                  {activeProject.department}
-                </span>
-                <h3 className="text-xl sm:text-2xl font-display font-black text-white leading-tight drop-shadow-md select-text">
-                  {activeProject.title}
-                </h3>
+              <div className="flex items-center gap-3.5 shrink-0 self-stretch sm:self-auto justify-between sm:justify-start">
+                <div className="text-right sm:mr-4">
+                  <span className="text-[10px] text-emerald-100/75 uppercase tracking-widest font-bold block">
+                    Total Commit Cost
+                  </span>
+                  <span className="text-lg sm:text-xl font-mono font-black text-amber-300">
+                    {formatCostNumeric(cart.reduce((total, p) => total + parseCostToNumeric(p.financialOutlay), 0))}
+                  </span>
+                </div>
+                <button
+                  onClick={() => onNavClick('purchase')}
+                  className="px-5 py-2.5 bg-amber-500 hover:bg-amber-650 text-stone-900 font-extrabold text-xs sm:text-sm rounded-xl tracking-wide transition-all shadow-md flex items-center gap-2 cursor-pointer active:scale-95"
+                >
+                  <Briefcase className="h-4 w-4" />
+                  <span>Commit</span>
+                </button>
               </div>
             </div>
 
-            {/* Profile specifications */}
-            <div className="p-6 sm:p-8 space-y-6">
-              
-              {/* Financial block */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* List of projects inside the box */}
+            <div className="p-6 sm:p-8 space-y-4 max-h-[350px] overflow-y-auto divide-y divide-stone-150">
+              {cart.map((proj, idx) => (
+                <div
+                  key={idx}
+                  className={`flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
+                    idx > 0 ? 'pt-4' : ''
+                  }`}
+                >
+                  <div 
+                    onClick={() => setActiveProject(proj)}
+                    className="space-y-1 cursor-pointer group/item flex-1"
+                    title="Click to view detailed blueprint description"
+                  >
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="text-[10px] font-sans font-extrabold uppercase bg-emerald-50 text-emerald-800 px-2.5 py-0.5 rounded-md border border-emerald-100/50 group-hover/item:bg-emerald-100 transition-colors">
+                        {proj.department}
+                      </span>
+                      <span className="text-stone-400 text-xs font-semibold">• Estimated Outlay: {proj.financialOutlay}</span>
+                    </div>
+                    <h4 className="text-sm sm:text-base font-bold text-slate-800 group-hover/item:text-emerald-800 transition-colors flex items-center gap-1.5 leading-tight">
+                      <span>{proj.title}</span>
+                      <Maximize2 className="h-3 w-3 opacity-0 group-hover/item:opacity-75 text-emerald-700 transition" />
+                    </h4>
+                  </div>
+
+                  <div className="flex items-center gap-4 self-end sm:self-auto shrink-0">
+                    <span 
+                      onClick={() => setActiveProject(proj)}
+                      className="text-xs sm:text-sm font-mono font-black text-emerald-800 bg-stone-50 px-3 py-1 border border-stone-200 rounded-lg cursor-pointer hover:bg-stone-100 transition"
+                      title="Click to view detailed blueprint description"
+                    >
+                      {formatCostNumeric(parseCostToNumeric(proj.financialOutlay))}
+                    </span>
+                    <button
+                      onClick={() => onToggleCart(proj)}
+                      className="p-2 text-stone-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors cursor-pointer"
+                      title="Remove from Basket"
+                    >
+                      <Trash2 className="h-4.5 w-4.5" />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom Actions footer inside the box */}
+            <div className="bg-stone-50 px-6 sm:px-8 py-4 border-t border-stone-150 flex flex-col sm:flex-row justify-between items-center gap-3">
+              <span className="text-xs text-stone-500 font-sans italic">
+                * Commitments will be routed as official CSR / NGO fund allocations to TDAS Foundation under Collector audit.
+              </span>
+              <button
+                onClick={() => onCartChange([])}
+                className="text-xs font-bold text-stone-500 hover:text-rose-600 transition-colors uppercase tracking-widest cursor-pointer"
+              >
+                Clear Selection Basket
+              </button>
+            </div>
+          </motion.div>
+        )}
+
+      </div>
+
+      {/* Intricately Styled Modal Overlay */}
+      <AnimatePresence>
+        {activeProject && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-start justify-center p-4 sm:p-6 md:p-10 bg-slate-900/60 backdrop-blur-xs overflow-y-auto"
+            onClick={() => setActiveProject(null)}
+          >
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ type: "spring", stiffness: 140, damping: 18 }}
+              className="relative bg-white rounded-3xl max-w-2xl w-full my-4 sm:my-8 md:my-10 shadow-2xl border border-stone-200 flex flex-col overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Minimal Exit button */}
+              <button 
+                onClick={() => setActiveProject(null)}
+                className="absolute top-4 right-4 z-20 bg-white/90 hover:bg-white backdrop-blur-md p-2 rounded-full border border-stone-200 text-stone-700 shadow-md transition-all hover:scale-110 cursor-pointer"
+                aria-label="Close dialog"
+              >
+                <X className="h-4.5 w-4.5" />
+              </button>
+
+              {/* Picture block */}
+              <div className="relative h-44 sm:h-60 md:h-64 bg-stone-900 overflow-hidden">
+                <img
+                  src={activeProject.imageUrl || getProjectFallbackImage(activeProject.title)}
+                  alt={activeProject.title}
+                  className="w-full h-full object-cover opacity-80"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                
+                {/* Overlay badges */}
+                <div className="absolute bottom-5 left-6 right-6">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-800 text-white rounded-lg text-[10px] font-black uppercase tracking-widest leading-none mb-2">
+                    {activeProject.department}
+                  </span>
+                  <h3 className="text-xl sm:text-2xl font-display font-black text-white leading-tight drop-shadow-md select-text">
+                    {activeProject.title}
+                  </h3>
+                </div>
+              </div>
+
+              {/* Profile specifications */}
+              <div className="p-6 sm:p-8 space-y-6">
+                
+                {/* Financial block */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="bg-stone-50 border border-stone-200 p-4 rounded-xl flex items-center gap-3">
                   <div className="p-2 bg-emerald-50 rounded-lg text-emerald-800">
                     <Coins className="h-5 w-5" />
@@ -675,9 +945,10 @@ export default function ProjectsPage() {
               </div>
 
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
+    </AnimatePresence>
 
     </section>
   );

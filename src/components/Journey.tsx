@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'motion/react';
 import { PROJECTS_STATIC } from '../data';
 import { Project } from '../types';
 import { FolderHeart, TrendingUp, CheckCircle2, Coins } from 'lucide-react';
@@ -202,6 +203,30 @@ export default function Journey({ onProjectsClick }: JourneyProps) {
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 14
+      }
+    }
+  };
+
   return (
     <section id="journey" className="py-20 bg-mesh-dark border-t border-b border-slate-950 text-white scroll-mt-14 sm:scroll-mt-16 relative overflow-hidden shadow-inner">
       {/* Decorative matrix dots layout on background */}
@@ -210,7 +235,13 @@ export default function Journey({ onProjectsClick }: JourneyProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Heading */}
-        <div className="text-center mb-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
           <h3 className="text-xs uppercase tracking-widest font-bold text-emerald-400 font-mono">
             LIVE PORTAL METRICS
           </h3>
@@ -218,10 +249,17 @@ export default function Journey({ onProjectsClick }: JourneyProps) {
             Our Journey So Far
           </h2>
           <div className="h-1 w-14 bg-gradient-to-r from-amber-500 to-emerald-500 rounded-full mx-auto mt-3"></div>
-        </div>
+        </motion.div>
 
         {/* 4 statistics cards */}
-        <div id="stats-grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          id="stats-grid" 
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch"
+        >
           {statsList.map((stat, index) => {
             const isTotal = stat.label.toLowerCase().includes('total projects');
             const isOngoing = stat.label.toLowerCase().includes('ongoing');
@@ -236,11 +274,12 @@ export default function Journey({ onProjectsClick }: JourneyProps) {
               : 'hover:shadow-amber-500/20';
 
             return (
-              <div
+              <motion.div
                 key={index}
+                variants={cardVariants}
                 id={`journey-box-${index}`}
                 onClick={onProjectsClick}
-                className={`group relative bg-gradient-to-br ${getCardColor(stat.label)} rounded-2xl p-6 sm:p-8 shadow-lg border border-white/10 hover:shadow-2xl ${shadowColor} flex flex-col justify-between transition-all duration-350 transform hover:-translate-y-1.5 cursor-pointer active:scale-[0.98]`}
+                className={`group relative bg-gradient-to-br ${getCardColor(stat.label)} rounded-2xl p-6 sm:p-8 shadow-lg border border-white/10 hover:shadow-2xl ${shadowColor} flex flex-col justify-between transition-all duration-350 transform hover:-translate-y-1.5 cursor-pointer active:scale-[0.98] select-none`}
                 title="Click to view district project sheet"
               >
                 <div className="flex items-center justify-between">
@@ -270,10 +309,10 @@ export default function Journey({ onProjectsClick }: JourneyProps) {
                   </h4>
                   <div className="mt-3 h-1 w-8 bg-white/25 rounded-full group-hover:w-20 transition-all duration-300"></div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
       </div>
     </section>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { CONTRIBUTORS } from '../data';
 
 export default function Contributors() {
@@ -130,6 +131,30 @@ export default function Contributors() {
     }
   };
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 25, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 15
+      }
+    }
+  };
+
   return (
     <section id="contributors" className="py-20 bg-mesh-premium relative overflow-hidden bg-grid-glow scroll-mt-14 sm:scroll-mt-16 border-b border-slate-150">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-11/12 h-11/12 bg-linear-to-b from-stone-50/20 to-transparent blur-3xl pointer-events-none -z-10"></div>
@@ -137,7 +162,13 @@ export default function Contributors() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Heading */}
-        <div className="text-center mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-16"
+        >
           <h3 className="text-xs uppercase tracking-[0.2em] font-bold text-emerald-800 font-mono">
             PARTNERS IN DEVELOPMENT
           </h3>
@@ -147,17 +178,25 @@ export default function Contributors() {
           <div className="mt-3 text-sm text-slate-500 font-sans italic">
             "Sustained by leading public enterprises and private corporate contributors."
           </div>
-        </div>
+        </motion.div>
 
         {/* Logo Cards Grid */}
-        <div id="contributors-logos-grid" className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 items-stretch">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          id="contributors-logos-grid" 
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 items-stretch"
+        >
           {CONTRIBUTORS.map((contributor, index) => {
             const styles = getStyleClasses(contributor.color);
             return (
-              <div
+              <motion.div
                 key={index}
+                variants={cardVariants}
                 id={`contributor-box-${index}`}
-                className={`glow-shimmer group bg-white rounded-2xl border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.015)] p-6 sm:p-7 flex flex-col items-center text-center justify-between transition-all duration-350 transform hover:-translate-y-1.5 ${styles.border} hover:shadow-xl`}
+                className={`glow-shimmer group bg-white rounded-2xl border border-slate-100 shadow-[0_4px_16px_rgba(0,0,0,0.015)] p-6 sm:p-7 flex flex-col items-center text-center justify-between transition-all duration-350 transform hover:-translate-y-1.5 ${styles.border} hover:shadow-xl select-none`}
               >
                 {/* Brand custom vector logo */}
                 <div className="h-20 w-20 mb-5 shrink-0 transition-transform duration-300 hover:scale-110 drop-shadow-sm">
@@ -178,10 +217,10 @@ export default function Contributors() {
                 <div className="mt-5 pt-3.5 border-t border-slate-50 w-full text-[9px] font-mono font-bold text-emerald-800/60 uppercase tracking-widest group-hover:text-emerald-800 transition-colors">
                   Verified Partner
                 </div>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
       </div>
     </section>
