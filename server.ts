@@ -141,63 +141,59 @@ ${projectsText}
 3. **NAVIGATION ASSISTANCE FIRST**: If the user has doubts on how to use or explore the site, direct them explicitly to the correct tab (e.g., "Projects" or "Sponsorship").
 4. **TAMIL / BILINGUAL MODE**: Support simple Tamil when asked. KEEP IT BRIEF.`;
 
-    // Retrying with exponential backoff for transient API errors (e.g., 503 high demand spike issues)
-    const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+    // Define standard website sections and clean answers to handle requests instantly with absolute accuracy
+    const lastUserMessage = messages[messages.length - 1]?.content || "";
+    const cleanQuery = lastUserMessage.toLowerCase().trim();
+
+    let matchedReply = "";
+
+    // 1. High-Speed Local Router for Portal Questions & Guidelines
+    if (cleanQuery.includes("project") || cleanQuery.includes("blueprint") || cleanQuery.includes("list") || cleanQuery.includes("active") || cleanQuery.includes("education") || cleanQuery.includes("health") || cleanQuery.includes("department") || cleanQuery.includes("school") || cleanQuery.includes("hospital") || cleanQuery.includes("water") || cleanQuery.includes("toilet")) {
+      matchedReply = "You can browse all active welfare needs under the **Projects** section. Click the **Submit Interest** button to highlight checkboxes, select projects, and then save them directly to configure your proposal.";
+    } else if (cleanQuery.includes("sponsor") || cleanQuery.includes("support") || cleanQuery.includes("register") || cleanQuery.includes("interest") || cleanQuery.includes("submit") || cleanQuery.includes("form") || cleanQuery.includes("proposal") || cleanQuery.includes("desk")) {
+      matchedReply = "Go to the **Sponsorship** section to inspect your chosen blueprints, fill in your corporate/organisation contact details, and click **Submit Request** to safely submit.";
+    } else if (cleanQuery.includes("board") || cleanQuery.includes("society") || cleanQuery.includes("leader") || cleanQuery.includes("collector") || cleanQuery.includes("vishu") || cleanQuery.includes("official") || cleanQuery.includes("president") || cleanQuery.includes("pmu")) {
+      matchedReply = "Our society is presided over by District Collector **Shri Vishu Mahajan IAS**. You can read about him and other directors under the **About Us** section.";
+    } else if (cleanQuery.includes("contributor") || cleanQuery.includes("partner") || cleanQuery.includes("who helped") || cleanQuery.includes("companies")) {
+      matchedReply = "View our active supporters and corporate partners under the **Our Contributors** section.";
+    } else if (cleanQuery.includes("gallery") || cleanQuery.includes("photo") || cleanQuery.includes("image") || cleanQuery.includes("picture") || cleanQuery.includes("work")) {
+      matchedReply = "See actual pictures of ongoing social progress in the **Gallery** section of our portal!";
+    } else if (cleanQuery.includes("contact") || cleanQuery.includes("email") || cleanQuery.includes("phone") || cleanQuery.includes("address") || cleanQuery.includes("office") || cleanQuery.includes("pmu") || cleanQuery.includes("phone number")) {
+      matchedReply = "You can find contact emails, phone numbers, and location coordinates for our Project Management Unit on the **Contact us** page.";
+    } else if (cleanQuery.includes("join") || cleanQuery.includes("contribute")) {
+      matchedReply = "To get started as a corporate sponsor, check the guidelines in the **Join Us** section or head to **Projects** to select active needs.";
+    } else if (cleanQuery.includes("hello") || cleanQuery.includes("hi") || cleanQuery.includes("hey") || cleanQuery.includes("helper") || cleanQuery.includes("assistant")) {
+      matchedReply = "Hello! I am your official CSR Portals assistant. Ask me questions about our **Projects**, **Sponsorship**, or how to navigate our sections!";
+    } else if (cleanQuery.includes("tamil") || cleanQuery.includes("தமிழ்") || cleanQuery.includes("பக்கம்") || cleanQuery.includes("திட்டம்") || cleanQuery.includes("வணக்கம்")) {
+      matchedReply = "வணக்கம்! நமது இணையதளத்தின் **Projects** பக்கத்தில் திட்டங்களின் விவரங்களைக் காணலாம். பங்களிக்க **Sponsorship** பக்கத்தில் விவரங்களை சமர்ப்பிக்கவும்.";
+    } else if (
+      // Filter out non-website and unrelated topics to strictly prevent answer hallucination of outside worlds.
+      cleanQuery.includes("code") || cleanQuery.includes("programming") || cleanQuery.includes("weather") || cleanQuery.includes("recipe") || cleanQuery.includes("sport") || cleanQuery.includes("joke") || cleanQuery.includes("create") || cleanQuery.includes("write") || cleanQuery.includes("make a") || cleanQuery.includes("how to build") || cleanQuery.includes("capital of") || cleanQuery.includes("who is president of america") || cleanQuery.includes("other state") || cleanQuery.includes("other country")
+    ) {
+      matchedReply = "I can only assist you with questions and navigation for this Thoothukudi CSR Portal. Please ask a question related to our **Projects**, **Sponsorship**, our leaders, or website tabs.";
+    }
+
+    if (matchedReply) {
+      console.log(`[CSR LOCAL ROUTER] Instantly resolved response for query "${cleanQuery}"`);
+      return res.json({ reply: matchedReply });
+    }
+
+    // 2. Fast single-try call for other unique website questions
     let response;
-    const maxAttempts = 3;
-    const baseDelay = 1200;
-    let fallbackTriggered = false;
-
-    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-      try {
-        response = await ai.models.generateContent({
-          model: "gemini-3.5-flash",
-          contents: contents,
-          config: {
-            systemInstruction,
-            temperature: 0.8,
-          }
-        });
-        fallbackTriggered = false;
-        break; // Success! Break out of the retry loop.
-      } catch (err: any) {
-        console.warn(`[GEMINI API] Attempt ${attempt} failed. Details:`, err.message || err);
-        if (attempt === maxAttempts) {
-          fallbackTriggered = true;
-        } else {
-          // Wait before retrying
-          const delay = baseDelay * attempt;
-          console.log(`[GEMINI API] Retrying in ${delay}ms...`);
-          await sleep(delay);
+    try {
+      response = await ai.models.generateContent({
+        model: "gemini-3.5-flash",
+        contents: contents,
+        config: {
+          systemInstruction,
+          temperature: 0.7,
         }
-      }
+      });
+    } catch (err: any) {
+      console.warn("[GEMINI API 503 / Limit Warning] Switched to immediate fallback reply.", err.message || err);
     }
 
-    let reply = "";
-    if (fallbackTriggered || !response) {
-      console.log(`[GEMINI API] Triggered robust local fallback for query.`);
-      const lastUserMessage = messages[messages.length - 1]?.content || "";
-      const queryClean = lastUserMessage.toLowerCase();
-
-      if (queryClean.includes("project") || queryClean.includes("blueprint") || queryClean.includes("list") || queryClean.includes("active") || queryClean.includes("education") || queryClean.includes("health") || queryClean.includes("water") || queryClean.includes("school") || queryClean.includes("hospital")) {
-        reply = "You can view all welfare blueprints under our **Projects** section. Click the **Submit Interest** button to activate selection checkboxes and choose projects.";
-      } else if (queryClean.includes("sponsor") || queryClean.includes("support") || queryClean.includes("register") || queryClean.includes("form") || queryClean.includes("interest") || queryClean.includes("submit")) {
-        reply = "To log your proposal, navigate to the **Sponsorship** section. Fill in your official contact info and submit your interest secure record.";
-      } else if (queryClean.includes("board") || queryClean.includes("society") || queryClean.includes("leader") || queryClean.includes("collector") || queryClean.includes("vishu") || queryClean.includes("official") || queryClean.includes("president") || queryClean.includes("pmu")) {
-        reply = "The Thoothukudi District Administration Society is led by our District Collector and President, **Shri Vishu Mahajan IAS**, along with our key board administrative officials.";
-      } else if (queryClean.includes("gallery") || queryClean.includes("photo") || queryClean.includes("image") || queryClean.includes("work")) {
-        reply = "Check out photos and visual captures of our actual CSR welfare progress in the **Gallery** tab of our website!";
-      } else if (queryClean.includes("contact") || queryClean.includes("email") || queryClean.includes("phone") || queryClean.includes("address")) {
-        reply = "Contact details, phone numbers, and location coordinates of our PMU are located in the **Contact us** section.";
-      } else if (queryClean.includes("tamil") || queryClean.includes("தமிழ்") || queryClean.includes("பக்கம்") || queryClean.includes("திட்டம்")) {
-        reply = "வணக்கம்! நமது இணையதளத்தின் **Projects** பக்கத்தில் திட்டங்களின் விவரங்களைக் காணலாம். பங்களிக்க **Sponsorship** பக்கத்தில் விவரங்களை சமர்ப்பிக்கவும்.";
-      } else {
-        reply = "Our interactive assistant is currently under high service demand. Please browse the **Projects** and **Sponsorship** tabs to view welfare items and submit your support!";
-      }
-    } else {
-      reply = response.text || "Our system is busy at the moment, please check our **Projects** and **Sponsorship** tabs to get instant guidance.";
-    }
-
+    const reply = response?.text || "Please look at the top navigation tabs to browse our **Projects**, view our leader list in **About Us**, or submit your project cart via the **Sponsorship** desk!";
     return res.json({ reply });
 
   } catch (err: any) {
