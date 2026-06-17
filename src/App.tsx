@@ -12,6 +12,7 @@ import HomeContributors from './components/HomeContributors';
 import Footer from './components/Footer';
 import ProjectsPage from './components/ProjectsPage';
 import SponsorshipPage from './components/SponsorshipPage';
+import Chatbot from './components/Chatbot';
 import { Project } from './types';
 import { Info, X, ShieldAlert, Sparkles } from 'lucide-react';
 
@@ -194,6 +195,9 @@ export default function App() {
 
       {/* 4. Contact & Social Links Footer */}
       <Footer />
+
+      {/* Modern Floating AI Chatbot Widget */}
+      <Chatbot />
 
       {/* Elegant Modal Box Overlay for sections designated for future deployment */}
       <AnimatePresence>
