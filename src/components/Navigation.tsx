@@ -14,7 +14,7 @@ export default function Navigation({ onNavClick, activeTab }: NavigationProps) {
     { name: 'About Us', id: 'about-us' },
     { name: 'Join Us', id: 'join-us' },
     { name: 'Projects', id: 'projects' },
-    { name: 'Purchase', id: 'purchase' },
+    { name: 'Sponsorship', id: 'sponsorship' },
     { name: 'Our Contributors', id: 'contributors' },
     { name: 'Gallery', id: 'gallery' },
     { name: 'Contact us', id: 'contact-us' }

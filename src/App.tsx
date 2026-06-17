@@ -8,14 +8,16 @@ import DistrictProfile from './components/DistrictProfile';
 import PresidentMessage from './components/PresidentMessage';
 import Journey from './components/Journey';
 import Contributors from './components/Contributors';
+import HomeContributors from './components/HomeContributors';
 import Footer from './components/Footer';
 import ProjectsPage from './components/ProjectsPage';
-import PurchasePage from './components/PurchasePage';
+import SponsorshipPage from './components/SponsorshipPage';
 import { Project } from './types';
 import { Info, X, ShieldAlert, Sparkles } from 'lucide-react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState<string>('home');
+  const [contributorSearchQuery, setContributorSearchQuery] = useState<string>('');
   const [cart, setCart] = useState<Project[]>(() => {
     try {
       const saved = localStorage.getItem('project_cart');
@@ -62,8 +64,15 @@ export default function App() {
       return;
     }
 
-    if (id === 'purchase') {
-      setActiveTab('purchase');
+    if (id === 'sponsorship') {
+      setActiveTab('sponsorship');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (id === 'contributors') {
+      setContributorSearchQuery('');
+      setActiveTab('contributors');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
@@ -77,7 +86,6 @@ export default function App() {
     // Modal placeholders for under construction tabs
     const names: Record<string, string> = {
       'about-us': 'About Us',
-      'contributors': 'Our Contributors',
       'join-us': 'Join Us Memberships',
       'gallery': 'District Welfare Gallery',
       'contact-us': 'Contact Desk'
@@ -94,6 +102,12 @@ export default function App() {
 
   const exploreCSR = () => {
     setActiveTab('projects');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleViewContributor = (companyName: string) => {
+    setContributorSearchQuery(companyName);
+    setActiveTab('contributors');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -123,20 +137,30 @@ export default function App() {
                 onNavClick={handleNavClick}
               />
             </motion.div>
-          ) : activeTab === 'purchase' ? (
+          ) : activeTab === 'sponsorship' ? (
             <motion.div
-              key="purchase"
+              key="sponsorship"
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
-              <PurchasePage 
+              <SponsorshipPage 
                 cart={cart}
                 onToggleCart={handleToggleCart}
                 onCartChange={handleCartChange}
                 onNavClick={handleNavClick}
               />
+            </motion.div>
+          ) : activeTab === 'contributors' ? (
+            <motion.div
+              key="contributors"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <Contributors initialSearchQuery={contributorSearchQuery} />
             </motion.div>
           ) : (
             <motion.div
@@ -161,8 +185,8 @@ export default function App() {
               {/* Metrics Timeline - Journey So Far (4 statistics boxes) */}
               <Journey onProjectsClick={exploreCSR} />
 
-              {/* Authorized Contributors (SPIC, VOC Port, TCS, HCL, Wipro, TTPS) */}
-              <Contributors />
+              {/* Compact Contributors List */}
+              <HomeContributors onCompanyClick={handleViewContributor} />
             </motion.div>
           )}
         </AnimatePresence>

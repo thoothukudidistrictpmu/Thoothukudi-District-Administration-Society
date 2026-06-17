@@ -504,7 +504,7 @@ export default function ProjectsPage({
                 ) : (
                   <>
                     <CheckSquare className="h-4.5 w-4.5" />
-                    <span>Add to your Cart (Select Projects)</span>
+                    <span>Submit Interest</span>
                   </>
                 )}
               </button>
@@ -517,7 +517,7 @@ export default function ProjectsPage({
 
             {cart.length > 0 && (
               <button
-                onClick={() => onNavClick('purchase')}
+                onClick={() => onNavClick('sponsorship')}
                 className="px-5 py-2.5 bg-gradient-to-r from-amber-500 via-emerald-600 to-teal-700 hover:from-amber-600 hover:to-teal-800 text-white rounded-xl text-xs sm:text-sm font-extrabold tracking-wide transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center gap-2 shadow-md hover:shadow-lg"
               >
                 <ShoppingCart className="h-4 w-4" />
@@ -742,7 +742,7 @@ export default function ProjectsPage({
                   </span>
                 </div>
                 <button
-                  onClick={() => onNavClick('purchase')}
+                  onClick={() => onNavClick('sponsorship')}
                   className="px-5 py-2.5 bg-amber-500 hover:bg-amber-650 text-stone-900 font-extrabold text-xs sm:text-sm rounded-xl tracking-wide transition-all shadow-md flex items-center gap-2 cursor-pointer active:scale-95"
                 >
                   <Briefcase className="h-4 w-4" />
