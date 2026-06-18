@@ -146,42 +146,116 @@ export default function Chatbot() {
 
   // Client-Side intelligence fallback for serverless hosting like Vercel
   const getClientSideResponse = (query: string): string => {
-    const cleanQuery = query.toLowerCase().trim();
+    const q = query.toLowerCase().trim();
 
-    if (cleanQuery.includes("project") || cleanQuery.includes("blueprint") || cleanQuery.includes("list") || cleanQuery.includes("active") || cleanQuery.includes("education") || cleanQuery.includes("health") || cleanQuery.includes("department") || cleanQuery.includes("school") || cleanQuery.includes("hospital") || cleanQuery.includes("water") || cleanQuery.includes("toilet") || cleanQuery.includes("needs")) {
-      return "You can browse all active welfare needs under the **Projects** section. Under that section, you can select custom project blueprints and save them to configure your automated proposal.";
+    const matchesWord = (text: string, kw: string): boolean => {
+      // For Tamil or keywords that contain spaces/special formatting, do standard includes
+      if (kw.includes(" ") || kw.includes("தமிழ்") || kw.includes("பக்கம்") || kw.includes("திட்டம்") || kw.includes("வணக்கம்")) {
+        return text.includes(kw);
+      }
+      return new RegExp(`\\b${kw}\\b`, "i").test(text);
+    };
+
+    const matchesAny = (text: string, kws: string[]): boolean => {
+      return kws.some(kw => matchesWord(text, kw));
+    };
+
+    // 1. About Us / Society Board of Directors info
+    if (matchesAny(q, ["about us", "society", "governing board", "board of directors", "board", "board members", "director", "directors", "administration", "tdas", "leader", "leaders", "collector", "vishu", "mahajan", "president", "vice president", "secretary", "treasurer"])) {
+      return "The **About Us** section details our official governance board and structure:\n\n" +
+             "• **Main Function**: To articulate our state-audited governance, operational transparency, and institutional structure.\n" +
+             "• **Key Features / Our Board**:\n" +
+             "  1. **President**: Shri **Vishu Mahajan IAS** (District Collector, Thoothukudi)\n" +
+             "  2. **Vice President**: Shri **K. Karthikeyan** (District Revenue Officer, Thoothukudi)\n" +
+             "  3. **Secretary**: Smt **K. Sangamithra** (Project Director DRDA, Tiruppur)\n" +
+             "  4. **Treasurer**: Shri **D.S. Duraimurugan** (Personal Assistant, Thoothukudi)\n" +
+             "  5. **Zero-Overhead Policy**: TDAS serves as a transparent, state-audited bridge keeping funds in a single consolidated public-sector account layout, ensuring zero administrative deduction and fast-track vendor settlement.";
+    }
+
+    // 2. Projects Page info
+    if (matchesAny(q, ["projects", "project", "blueprint", "blueprints", "education", "health", "infrastructure", "catalog", "school", "classroom", "hospital", "clinic", "water", "toilet", "toilets", "needs", "welfare", "list", "active", "department"])) {
+      return "The **Projects** page is our portal's core state-verified catalog hub. It allows prospective sponsors to inspect developmental gaps needing corporate funding:\n\n" +
+             "• **Main Function**: To list validated classroom, primary health, and rural water requirements, preventing resource duplication and channeling corporate funds accurately.\n" +
+             "• **Key Features**:\n" +
+             "  1. **Topic Filters**: Seamlessly filter blueprints across Education (school upgrades, classrooms), Health (clinical gear, newborn screeners), and Infrastructure (water tanks, community systems).\n" +
+             "  2. **Detailed Blueprint Cards**: Each card details target beneficiary counts, absolute estimated budget configurations, and geographical execution blocks.\n" +
+             "  3. **Interest Cart Selection**: Click 'Submit Interest' on various items to save blueprints directly to your localized proposal cart for configuration.";
     } 
     
-    if (cleanQuery.includes("sponsor") || cleanQuery.includes("support") || cleanQuery.includes("register") || cleanQuery.includes("interest") || cleanQuery.includes("submit") || cleanQuery.includes("form") || cleanQuery.includes("proposal") || cleanQuery.includes("desk")) {
-      return "Go to the **Sponsorship** section to inspect your chosen blueprints, fill in your corporate/organisation contact details, and click **Submit Request** to safely submit.";
+    // 3. Sponsorship Page info
+    if (matchesAny(q, ["sponsorship", "sponsor", "interest cart", "submit request", "proposal form"])) {
+      return "The **Sponsorship** page functions as the portal's integrated CSR desk, where selected projects are processed into custom corporate proposals:\n\n" +
+             "• **Main Function**: To let prospective corporate partners compile selected blueprints, fill in logistics contact details, and submit formal proposals securely.\n" +
+             "• **Key Features**:\n" +
+             "  1. **Proposal Cost Calculator**: Aggregates the total budget estimation for all your chosen project blueprints.\n" +
+             "  2. **Corporate Request Form**: Collects essential contact parameters (Contact Person Name, official email, telephone, organization name, and specific notes).\n" +
+             "  3. **State Submission**: Press **Submit Request** to safely transmit details directly to the Project Management Unit (PMU) for fast-track MOU processing.";
     } 
     
-    if (cleanQuery.includes("board") || cleanQuery.includes("society") || cleanQuery.includes("leader") || cleanQuery.includes("collector") || cleanQuery.includes("vishu") || cleanQuery.includes("official") || cleanQuery.includes("president") || cleanQuery.includes("pmu")) {
-      return "Our society is presided over by District Collector **Shri Vishu Mahajan IAS**. You can read about him and other directors under the **About Us** section.";
+    // 4. Our Contributors Page info
+    if (matchesAny(q, ["contributors", "contributor", "supporter", "supporters", "partners", "partner", "companies", "csr partner", "spic", "voc", "ntpl", "tcs", "hcl", "wipro", "ttps"])) {
+      return "The **Our Contributors** page serves as our official digital 'Wall of Support' to honor the corporate partners backing Thoothukudi:\n\n" +
+             "• **Main Function**: To maintain public transparency and acknowledge outstanding corporate leaders currently financing development under CSR.\n" +
+             "• **Key Features**:\n" +
+             "  1. **Corporate Spotlight Grid**: Display cards honoring partners like SPIC, VOC Port Trust, NTPL, TCS, HCL, and Wipro.\n" +
+             "  2. **Project Acknowledgments**: Spotlights precise developmental tasks funded by each partner (e.g., procurement of critical UNHS infant screening devices, library renovations, or smart school classroom integrations).";
     } 
     
-    if (cleanQuery.includes("contributor") || cleanQuery.includes("partner") || cleanQuery.includes("who helped") || cleanQuery.includes("companies") || cleanQuery.includes("csr")) {
-      return "View our active supporters and corporate partners under the **Our Contributors** section.";
+    // 5. Gallery Page info
+    if (matchesAny(q, ["gallery", "photos", "photo", "images", "image", "pictures", "picture"])) {
+      return "The **Gallery** page acts as our live visual ledger showcasing real ground-level progress across active and completed CSR projects:\n\n" +
+             "• **Main Function**: To exhibit complete visual evidence of your corporate contributions translating into tangible community benefits.\n" +
+             "• **Key Features**:\n" +
+             "  1. **Progress Photo Stream**: High-resolution, actual photographs showing physical construction progress, school classroom upgrades, and healthcare device handovers.\n" +
+             "  2. **Geo-location & Sub-district Tags**: Every visual card features tags outlining its corresponding developmental theme and execution block.";
     } 
     
-    if (cleanQuery.includes("gallery") || cleanQuery.includes("photo") || cleanQuery.includes("image") || cleanQuery.includes("picture") || cleanQuery.includes("work")) {
-      return "See actual pictures of ongoing social progress in the **Gallery** section of our portal!";
+    // 6. Contact Us Page info
+    if (matchesAny(q, ["contact us", "contact", "email", "phone", "phone number", "numbers", "address", "office", "location"])) {
+      return "The **Contact us** page coordinates communication between prospective corporate sponsors and our administrative team:\n\n" +
+             "• **Main Function**: To offer direct communication channels to help partners customize, finalize, or route their CSR budgets.\n" +
+             "• **Key Features**:\n" +
+             "  1. **DRDA PMU Office Address**: Located inside the District Collectorate headquarters, Thoothukudi.\n" +
+             "  2. **Direct Hotline & Email Coordinates**: Fast email access (`thoothukudidistrictpmu@gmail.com`) and helpline contacts for quick query resolution.\n" +
+             "  3. **Interactive Map**: Centered Map component pinning the exact geolocation of our headquarters.";
     } 
     
-    if (cleanQuery.includes("contact") || cleanQuery.includes("email") || cleanQuery.includes("phone") || cleanQuery.includes("address") || cleanQuery.includes("office") || cleanQuery.includes("pmu") || cleanQuery.includes("phone number")) {
-      return "You can find contact emails, phone numbers, and location coordinates for our Project Management Unit on the **Contact us** page.";
-    } 
+    // 7. Home Page info
+    if (matchesAny(q, ["home", "homepage", "landing", "intro", "welcome"])) {
+      return "The **Home** page serves as our portal's primary landing hub. It features several distinct sections and interactive elements:\n\n" +
+             "• **Main Function**: To welcome potential sponsors, highlight Thoothukudi's key development objectives, and provide transparency regarding our administration's collective goals.\n" +
+             "• **Key Features**:\n" +
+             "  1. **Hero Sector**: Engaging call-to-action showcasing our vision for standardizing and boosting local welfare under CSR.\n" +
+             "  2. **District Profile Map**: A fully interactive administrative block map of Thoothukudi. Clicking on blocks displays population statistics, literacy rates, and regional overview data.\n" +
+             "  3. **Milestones Counter**: Live counter stats showing total projects listed, registered contributors, and execution divisions.\n" +
+             "  4. **President's Message / About Us**: A dedicated workspace message from our society's President, District Collector **Shri Vishu Mahajan IAS**, explaining how TDAS serves as a state-audited bridge for sponsors.\n" +
+             "  5. **Contributor Showcase**: A smoothly sliding reel displaying logos of prominent national and regional corporate partners representing our joint social efforts.";
+    }
+
+    // 8. General Navigation details (navbar layout) if no specific page matched
+    if (matchesAny(q, ["navigation", "navbar", "navigation bar", "bar", "headings", "heading", "page", "pages", "tabs", "tab", "sections", "section", "menu", "menus", "structure", "features", "website", "what is on this site", "help me navigate"])) {
+      return "Here is a complete guide to our **Navigation Bar** and the core functions of each section:\n\n" +
+             "1. **Home** (*Landing Hub*): Features our welcome Hero, an interactive map of Thoothukudi district, key milestones, an official message from our President (District Collector Shri Vishu Mahajan IAS), and our active supporter list.\n" +
+             "2. **Projects** (*Welfare Need Catalog*): Browse active, state-audited projects in Education, Health, and Infrastructure. You can select blueprints here to save them to your custom interest cart.\n" +
+             "3. **Sponsorship** (*Integrated CSR Desk*): Review your saved blueprints, see cost guides, fill in corporate details, and click **Submit Request** to safely submit automated proposals.\n" +
+             "4. **Our Contributors** (*Corporate Wall of Support*): View prominent corporate sponsors, public sector undertakings, and partners (like SPIC, VOC Port Trust, TCS, etc.) supporting our social works.\n" +
+             "5. **Gallery** (*Visual Progress Stream*): Explore actual, geo-tracked photos of ongoing and completed developmental projects on the ground.\n" +
+             "6. **Contact us** (*Support coordinates*): Find direct phone numbers, email addresses, and location coordinates for our Project Management Unit.";
+    }
     
-    if (cleanQuery.includes("hello") || cleanQuery.includes("hi") || cleanQuery.includes("hey") || cleanQuery.includes("helper") || cleanQuery.includes("assistant") || cleanQuery.includes("welcome") || cleanQuery.includes("வணக்கம்")) {
+    if (matchesAny(q, ["hello", "hi", "hey", "helper", "assistant", "welcome", "வணக்கம்"])) {
       return "Vanakkam! I am your official Thoothukudi CSR assistant. Let me know if you would like me to help you navigate our available **Projects**, **Sponsorship** desks, check on **About Us**, read **Our Contributors**, or check our **Gallery**.";
     } 
     
-    if (cleanQuery.includes("tamil") || cleanQuery.includes("தமிழ்") || cleanQuery.includes("பக்கம்") || cleanQuery.includes("திட்டம்")) {
+    if (matchesAny(q, ["tamil", "தமிழ்", "பக்கம்", "திட்டம்"])) {
       return "வணக்கம்! நமது இணையதளத்தின் **Projects** பக்கத்தில் திட்டங்களின் விவரங்களைக் காணலாம். பங்களிக்க **Sponsorship** பக்கத்தில் விவரங்களை சமர்ப்பிக்கவும்.";
     } 
     
     if (
-      cleanQuery.includes("code") || cleanQuery.includes("programming") || cleanQuery.includes("weather") || cleanQuery.includes("recipe") || cleanQuery.includes("sport") || cleanQuery.includes("joke") || cleanQuery.includes("create") || cleanQuery.includes("write") || cleanQuery.includes("make a") || cleanQuery.includes("how to build") || cleanQuery.includes("capital of") || cleanQuery.includes("who is president of america") || cleanQuery.includes("other state") || cleanQuery.includes("other country")
+      matchesAny(q, [
+        "code", "programming", "weather", "recipe", "sport", "joke", "create", "write", "make a",
+        "how to build", "capital of", "who is president of america", "other state", "other country"
+      ])
     ) {
       return "I can only assist you with questions and navigation for this Thoothukudi CSR Portal. Please ask a question related to our **Projects**, **Sponsorship**, our leaders, or website tabs.";
     }
@@ -450,6 +524,7 @@ export default function Chatbot() {
                 handleSendMessage(inputMessage);
               }}
               className="p-3 bg-white border-t border-slate-200 shrink-0 flex items-center gap-2"
+              autoComplete="off"
             >
               <input
                 type="text"
@@ -457,6 +532,7 @@ export default function Chatbot() {
                 onChange={(e) => setInputMessage(e.target.value)}
                 placeholder="Ask our CSR Assistant..."
                 disabled={isLoading}
+                autoComplete="off"
                 className="flex-grow text-xs sm:text-sm font-sans focus:outline-none border border-slate-200 focus:border-emerald-600 rounded-xl px-3 py-2.5 text-slate-800 placeholder-slate-400 bg-slate-50/50 disabled:bg-slate-100 disabled:cursor-not-allowed"
                 id="input-chatbot-message"
               />
