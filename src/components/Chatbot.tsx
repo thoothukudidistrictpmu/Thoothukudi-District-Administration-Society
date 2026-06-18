@@ -144,6 +144,51 @@ export default function Chatbot() {
     { label: 'Where is the Gallery and Contact?', text: 'Where can I see photos of ongoing works and find direct PMU contact coordinates?', icon: TrendingUp },
   ];
 
+  // Client-Side intelligence fallback for serverless hosting like Vercel
+  const getClientSideResponse = (query: string): string => {
+    const cleanQuery = query.toLowerCase().trim();
+
+    if (cleanQuery.includes("project") || cleanQuery.includes("blueprint") || cleanQuery.includes("list") || cleanQuery.includes("active") || cleanQuery.includes("education") || cleanQuery.includes("health") || cleanQuery.includes("department") || cleanQuery.includes("school") || cleanQuery.includes("hospital") || cleanQuery.includes("water") || cleanQuery.includes("toilet") || cleanQuery.includes("needs")) {
+      return "You can browse all active welfare needs under the **Projects** section. Under that section, you can select custom project blueprints and save them to configure your automated proposal.";
+    } 
+    
+    if (cleanQuery.includes("sponsor") || cleanQuery.includes("support") || cleanQuery.includes("register") || cleanQuery.includes("interest") || cleanQuery.includes("submit") || cleanQuery.includes("form") || cleanQuery.includes("proposal") || cleanQuery.includes("desk")) {
+      return "Go to the **Sponsorship** section to inspect your chosen blueprints, fill in your corporate/organisation contact details, and click **Submit Request** to safely submit.";
+    } 
+    
+    if (cleanQuery.includes("board") || cleanQuery.includes("society") || cleanQuery.includes("leader") || cleanQuery.includes("collector") || cleanQuery.includes("vishu") || cleanQuery.includes("official") || cleanQuery.includes("president") || cleanQuery.includes("pmu")) {
+      return "Our society is presided over by District Collector **Shri Vishu Mahajan IAS**. You can read about him and other directors under the **About Us** section.";
+    } 
+    
+    if (cleanQuery.includes("contributor") || cleanQuery.includes("partner") || cleanQuery.includes("who helped") || cleanQuery.includes("companies") || cleanQuery.includes("csr")) {
+      return "View our active supporters and corporate partners under the **Our Contributors** section.";
+    } 
+    
+    if (cleanQuery.includes("gallery") || cleanQuery.includes("photo") || cleanQuery.includes("image") || cleanQuery.includes("picture") || cleanQuery.includes("work")) {
+      return "See actual pictures of ongoing social progress in the **Gallery** section of our portal!";
+    } 
+    
+    if (cleanQuery.includes("contact") || cleanQuery.includes("email") || cleanQuery.includes("phone") || cleanQuery.includes("address") || cleanQuery.includes("office") || cleanQuery.includes("pmu") || cleanQuery.includes("phone number")) {
+      return "You can find contact emails, phone numbers, and location coordinates for our Project Management Unit on the **Contact us** page.";
+    } 
+    
+    if (cleanQuery.includes("hello") || cleanQuery.includes("hi") || cleanQuery.includes("hey") || cleanQuery.includes("helper") || cleanQuery.includes("assistant") || cleanQuery.includes("welcome") || cleanQuery.includes("வணக்கம்")) {
+      return "Vanakkam! I am your official Thoothukudi CSR assistant. Let me know if you would like me to help you navigate our available **Projects**, **Sponsorship** desks, check on **About Us**, read **Our Contributors**, or check our **Gallery**.";
+    } 
+    
+    if (cleanQuery.includes("tamil") || cleanQuery.includes("தமிழ்") || cleanQuery.includes("பக்கம்") || cleanQuery.includes("திட்டம்")) {
+      return "வணக்கம்! நமது இணையதளத்தின் **Projects** பக்கத்தில் திட்டங்களின் விவரங்களைக் காணலாம். பங்களிக்க **Sponsorship** பக்கத்தில் விவரங்களை சமர்ப்பிக்கவும்.";
+    } 
+    
+    if (
+      cleanQuery.includes("code") || cleanQuery.includes("programming") || cleanQuery.includes("weather") || cleanQuery.includes("recipe") || cleanQuery.includes("sport") || cleanQuery.includes("joke") || cleanQuery.includes("create") || cleanQuery.includes("write") || cleanQuery.includes("make a") || cleanQuery.includes("how to build") || cleanQuery.includes("capital of") || cleanQuery.includes("who is president of america") || cleanQuery.includes("other state") || cleanQuery.includes("other country")
+    ) {
+      return "I can only assist you with questions and navigation for this Thoothukudi CSR Portal. Please ask a question related to our **Projects**, **Sponsorship**, our leaders, or website tabs.";
+    }
+
+    return "I am the official **Thoothukudi CSR Desk AI Assistant**. You can browse active developmental need catalogs under the **Projects** section, file sponsorship interest in the **Sponsorship** desk, or check recent CSR works in our **Gallery** tab! Let me know which section you need help with.";
+  };
+
   const handleSendMessage = async (userText: string) => {
     if (!userText.trim() || isLoading) return;
 
@@ -173,33 +218,38 @@ export default function Chatbot() {
         }),
       });
 
-      const data = await response.json();
-
-      if (response.ok && data.reply) {
-        setMessages(prev => [...prev, {
-          id: `ai-${Date.now()}`,
-          role: 'assistant',
-          content: data.reply,
-          timestamp: new Date(),
-        }]);
-      } else {
-        // Handle error details elegantly
-        const details = data.details || data.error || 'Server returned an invalid state.';
-        setErrorText(details);
-        setMessages(prev => [...prev, {
-          id: `ai-err-${Date.now()}`,
-          role: 'assistant',
-          content: `⚠️ **System Integration Notice:** \n\n${details}`,
-          timestamp: new Date(),
-        }]);
+      if (response.ok) {
+        const data = await response.json();
+        if (data.reply) {
+          setMessages(prev => [...prev, {
+            id: `ai-${Date.now()}`,
+            role: 'assistant',
+            content: data.reply,
+            timestamp: new Date(),
+          }]);
+          setIsLoading(false);
+          return;
+        }
       }
-    } catch (err) {
-      console.error(err);
-      setErrorText('Could not communicate with the backend.');
+      
+      // If we got a non-ok response (like 404 on a static only deployment like Vercel)
+      // Fallback seamlessly to the client-side intel engine
+      const fallbackReply = getClientSideResponse(userText);
       setMessages(prev => [...prev, {
-        id: `ai-err-${Date.now()}`,
+        id: `ai-${Date.now()}`,
         role: 'assistant',
-        content: `❌ **Network Timeout:** The active agent workspace server could not be reached. Make sure your local Express server script is active or retry.`,
+        content: fallbackReply,
+        timestamp: new Date(),
+      }]);
+
+    } catch (err) {
+      console.warn("Express server unavailable. Utilizing client-side AI fallback router:", err);
+      // Fallback seamlessly to client-side answers instead of exposing a network error
+      const fallbackReply = getClientSideResponse(userText);
+      setMessages(prev => [...prev, {
+        id: `ai-${Date.now()}`,
+        role: 'assistant',
+        content: fallbackReply,
         timestamp: new Date(),
       }]);
     } finally {
