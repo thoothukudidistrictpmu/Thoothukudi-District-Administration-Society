@@ -297,26 +297,14 @@ export default function Gallery() {
 
   const fetchFolderImages = async () => {
     setIsFolderLoading(true);
-    // Hardcoded list of static images present in public/gallery folder as fallback for static/serverless builds like Vercel
-    const STATIC_FALLBACK_IMAGES = [
-      "/gallery/WhatsApp Image 2026-06-17 at 5.39.45 PM.jpeg",
-      "/gallery/WhatsApp Image 2026-06-17 at 5.39.47 PM.jpeg",
-      "/gallery/WhatsApp Image 2026-06-17 at 5.39.48 PM (1).jpeg",
-      "/gallery/WhatsApp Image 2026-06-17 at 5.39.48 PM.jpeg"
-    ];
-
     try {
       const res = await fetch("/api/gallery-images");
       if (res.ok) {
         const data = await res.json();
         setUploadedImages(data.images || []);
-      } else {
-        // Fallback to static workspace files if api returns an error (like on serverless hosts)
-        setUploadedImages(STATIC_FALLBACK_IMAGES);
       }
     } catch (err) {
-      console.warn("Express backend not available (expected on static deployments like Vercel). Using client-side folder fallback list.");
-      setUploadedImages(STATIC_FALLBACK_IMAGES);
+      console.error("Error fetching folder gallery images:", err);
     } finally {
       setIsFolderLoading(false);
     }

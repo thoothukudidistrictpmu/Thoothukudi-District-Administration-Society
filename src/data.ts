@@ -2,13 +2,13 @@ import { CSRBox, ServiceBox, BoardMember, JourneyStat, Contributor, Project } fr
 
 // Direct paths to generated images which Vite compiles and serves perfectly.
 // To use your manually uploaded President photo:
-// 1. Upload your photo (e.g., 'vishu_mahajan.png' or 'vishu_mahajan.jpg') into the '/public/assets/images/' directory using the File Explorer.
+// 1. Upload your photo (e.g., 'vishu_mahajan.png' or 'vishu_mahajan.jpg') into the '/src/assets/images/' directory using the File Explorer.
 // 2. Change the 'vishuMahajanImage' path below to match your filename.
-const heroImage = '/assets/images/thoothukudi_humanized_hero_1780568140444.png';
-const vishuMahajanImage = '/assets/images/Vishu_Mahajan.jpg'; // Update this if you upload your own, e.g., '/assets/images/Vishu_Mahajan.jpg'
-const districtMapImage = '/assets/images/thoothukudi_district_map_1780566416278.png';
-const aboutSocietyImage = '/assets/images/about_society_work_1780566430355.png';
-const tnLogoImage = '/assets/images/tamilnadu_logo.jpg';
+const heroImage = '/src/assets/images/thoothukudi_humanized_hero_1780568140444.png';
+const vishuMahajanImage = '/src/assets/images/Vishu_Mahajan.jpg'; // Update this if you upload your own, e.g., '/src/assets/images/Vishu_Mahajan.jpg'
+const districtMapImage = '/src/assets/images/thoothukudi_district_map_1780566416278.png';
+const aboutSocietyImage = '/src/assets/images/thoothukudi_presentation_meeting_1780568985079.png';
+const tnLogoImage = '/src/assets/images/tamilnadu_logo.jpg';
 
 export const IMAGES = {
   hero: heroImage,
