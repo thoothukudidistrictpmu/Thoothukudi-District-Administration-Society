@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { IMAGES } from '../data';
+import { IMAGES } from '../images';
 
 interface HeroProps {
   onExploreClick?: () => void;

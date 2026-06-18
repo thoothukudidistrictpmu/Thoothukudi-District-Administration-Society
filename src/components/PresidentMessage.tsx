@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { IMAGES, BOARD_MEMBERS, COL_PRESIDENT_MESSAGE } from '../data';
+import { IMAGES } from '../images';
+import { BOARD_MEMBERS, COL_PRESIDENT_MESSAGE } from '../data';
 import { Quote, Mail, ShieldCheck, HeartHandshake } from 'lucide-react';
 
 export default function PresidentMessage() {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IMAGES } from '../data';
+import { IMAGES } from '../images';
 
 export default function Header() {
   const [logoSrc, setLogoSrc] = useState(IMAGES.tnLogo);

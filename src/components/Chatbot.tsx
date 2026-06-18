@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import pmuMascotImage from '../assets/images/pmu_mascot_1781699177557.jpg';
 import { 
   MessageSquare, 
   X, 
@@ -285,7 +286,7 @@ export default function Chatbot() {
               {/* Cute Cartoon Mascot Greeting Panel */}
               <div className="bg-emerald-50/70 rounded-2xl p-3 border border-emerald-100 flex items-center gap-3 shadow-[0_2px_10px_rgba(4,120,87,0.03)]">
                 <img 
-                  src="/src/assets/images/pmu_mascot_1781699177557.jpg" 
+                  src={pmuMascotImage} 
                   alt="Thoothukudi PMU Mascot" 
                   className="h-14 w-14 rounded-full border-2 border-emerald-200 shadow-sm shrink-0 object-cover"
                   referrerPolicy="no-referrer"
@@ -307,7 +308,7 @@ export default function Chatbot() {
                   {m.role === 'assistant' && (
                     <div className="h-7 w-7 rounded-lg overflow-hidden border border-emerald-150 flex items-center justify-center shrink-0 self-start">
                       <img 
-                        src="/src/assets/images/pmu_mascot_1781699177557.jpg" 
+                        src={pmuMascotImage} 
                         alt="Bot Avatar" 
                         className="w-full h-full object-cover"
                         referrerPolicy="no-referrer"
@@ -348,7 +349,7 @@ export default function Chatbot() {
                 <div className="flex gap-2.5 justify-start">
                   <div className="h-7 w-7 rounded-lg overflow-hidden border border-emerald-150 flex items-center justify-center shrink-0 self-start">
                     <img 
-                      src="/src/assets/images/pmu_mascot_1781699177557.jpg" 
+                      src={pmuMascotImage} 
                       alt="Bot Loading Avatar" 
                       className="w-full h-full object-cover shrink-0"
                       referrerPolicy="no-referrer"

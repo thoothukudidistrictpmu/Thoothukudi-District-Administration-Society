@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { IMAGES, DISTRICT_NAME, DISTRICT_PARAGRAPHS } from '../data';
+import { IMAGES } from '../images';
+import { DISTRICT_NAME, DISTRICT_PARAGRAPHS } from '../data';
 import { Map, MapPin, Compass, Waves } from 'lucide-react';
 
 export default function DistrictProfile() {

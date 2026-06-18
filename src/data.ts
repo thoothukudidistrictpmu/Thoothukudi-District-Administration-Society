@@ -1,23 +1,5 @@
 import { CSRBox, ServiceBox, BoardMember, JourneyStat, Contributor, Project } from './types';
 
-// Direct paths to generated images which Vite compiles and serves perfectly.
-// To use your manually uploaded President photo:
-// 1. Upload your photo (e.g., 'vishu_mahajan.png' or 'vishu_mahajan.jpg') into the '/src/assets/images/' directory using the File Explorer.
-// 2. Change the 'vishuMahajanImage' path below to match your filename.
-const heroImage = './assets/images/thoothukudi_humanized_hero_1780568140444.png';
-const vishuMahajanImage = '/src/assets/images/Vishu_Mahajan.jpg'; // Update this if you upload your own, e.g., '/src/assets/images/Vishu_Mahajan.jpg'
-const districtMapImage = '/src/assets/images/thoothukudi_district_map_1780566416278.png';
-const aboutSocietyImage = '/src/assets/images/thoothukudi_presentation_meeting_1780568985079.png';
-const tnLogoImage = '/src/assets/images/tamilnadu_logo.jpg';
-
-export const IMAGES = {
-  hero: heroImage,
-  vishuMahajan: vishuMahajanImage,
-  districtMap: districtMapImage,
-  aboutSociety: aboutSocietyImage,
-  tnLogo: tnLogoImage,
-};
-
 export const ABOUT_SOCIETY_PARAGRAPHS = [
   "The Thoothukudi District Administration Society (TDAS) was established to spearhead comprehensive, sustainable development across the district. Through targeted public-private partnerships, the society serves as a crucial bridge between corporate social responsibility funds and grassroots developmental needs.",
   "Guided by the district administration, the society designs, implements, and monitors high-impact projects in education, public health, healthcare infrastructure, and rural economic empowerment. We ensure transparent execution and strict compliance with legal frameworks.",
