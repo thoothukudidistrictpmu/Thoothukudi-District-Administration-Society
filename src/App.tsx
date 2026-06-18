@@ -13,6 +13,7 @@ import Footer from './components/Footer';
 import ProjectsPage from './components/ProjectsPage';
 import SponsorshipPage from './components/SponsorshipPage';
 import Chatbot from './components/Chatbot';
+import Gallery from './components/Gallery';
 import { Project } from './types';
 import { Info, X, ShieldAlert, Sparkles } from 'lucide-react';
 
@@ -74,6 +75,12 @@ export default function App() {
     if (id === 'contributors') {
       setContributorSearchQuery('');
       setActiveTab('contributors');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    if (id === 'gallery') {
+      setActiveTab('gallery');
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
@@ -162,6 +169,16 @@ export default function App() {
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
               <Contributors initialSearchQuery={contributorSearchQuery} />
+            </motion.div>
+          ) : activeTab === 'gallery' ? (
+            <motion.div
+              key="gallery"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <Gallery />
             </motion.div>
           ) : (
             <motion.div

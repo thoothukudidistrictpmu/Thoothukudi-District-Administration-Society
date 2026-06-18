@@ -1,5 +1,6 @@
 import express from "express";
 import path from "path";
+import fs from "fs";
 import dotenv from "dotenv";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
@@ -47,6 +48,35 @@ function getGeminiClient(): GoogleGenAI {
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
 });
+
+// Endpoint to list photos uploaded in the workspace "public/gallery" folder
+app.get("/api/gallery-images", (req, res) => {
+  const galleryDir = path.join(process.cwd(), "public", "gallery");
+  
+  // Auto-verify/create target directory
+  if (!fs.existsSync(galleryDir)) {
+    fs.mkdirSync(galleryDir, { recursive: true });
+  }
+
+  try {
+    const files = fs.readdirSync(galleryDir);
+    const images = files
+      .filter((file: string) => {
+        const ext = path.extname(file).toLowerCase();
+        return [".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg"].includes(ext);
+      })
+      .map((file: string) => `/gallery/${file}`);
+    
+    res.json({ images });
+  } catch (err: any) {
+    console.error("Error reading live public/gallery folder:", err);
+    res.status(500).json({ error: "Failed to list live gallery files", details: err.message });
+  }
+});
+
+// Statically mount the live uploads folder so images are instantly accessible
+app.use("/gallery", express.static(path.join(process.cwd(), "public/gallery")));
+
 
 // Endpoint to fetch current project blueprints (allows chatbot to get up-to-date lists programmatically if needed)
 app.get("/api/projects", (req, res) => {
