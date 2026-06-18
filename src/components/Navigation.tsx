@@ -12,7 +12,6 @@ export default function Navigation({ onNavClick, activeTab }: NavigationProps) {
   const links = [
     { name: 'Home', id: 'home' },
     { name: 'About Us', id: 'about-us' },
-    { name: 'Join Us', id: 'join-us' },
     { name: 'Projects', id: 'projects' },
     { name: 'Sponsorship', id: 'sponsorship' },
     { name: 'Our Contributors', id: 'contributors' },
