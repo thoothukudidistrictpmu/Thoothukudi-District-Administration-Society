@@ -282,6 +282,13 @@ const driveShowcaseImages: DriveShowcaseItem[] = [
   }
 ];
 
+const DEFAULT_WORKSPACE_IMAGES = [
+  "/gallery/WhatsApp Image 2026-06-17 at 5.39.45 PM.jpeg",
+  "/gallery/WhatsApp Image 2026-06-17 at 5.39.47 PM.jpeg",
+  "/gallery/WhatsApp Image 2026-06-17 at 5.39.48 PM (1).jpeg",
+  "/gallery/WhatsApp Image 2026-06-17 at 5.39.48 PM.jpeg"
+];
+
 export default function Gallery() {
   const [activeTab, setActiveTab ] = useState<'uploaded' | 'drive' | 'local' | 'videos'>('uploaded');
   
@@ -290,21 +297,29 @@ export default function Gallery() {
   const [selectedVideoCategory, setSelectedVideoCategory] = useState<string>('All Videos');
   const [isImagesDropdownOpen, setIsImagesDropdownOpen] = useState(false);
   const [isVideosDropdownOpen, setIsVideosDropdownOpen] = useState(false);
-
+ 
   // Dynamic public/gallery folder images State
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
   const [isFolderLoading, setIsFolderLoading] = useState(false);
-
+ 
   const fetchFolderImages = async () => {
     setIsFolderLoading(true);
     try {
       const res = await fetch("/api/gallery-images");
       if (res.ok) {
         const data = await res.json();
-        setUploadedImages(data.images || []);
+        if (data.images && data.images.length > 0) {
+          setUploadedImages(data.images);
+        } else {
+          setUploadedImages(DEFAULT_WORKSPACE_IMAGES);
+        }
+      } else {
+        // Fallback for static platforms like Vercel
+        setUploadedImages(DEFAULT_WORKSPACE_IMAGES);
       }
     } catch (err) {
       console.error("Error fetching folder gallery images:", err);
+      setUploadedImages(DEFAULT_WORKSPACE_IMAGES);
     } finally {
       setIsFolderLoading(false);
     }
@@ -728,6 +743,7 @@ export default function Gallery() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {uploadedImages.map((imagePath, index) => {
                       const filename = imagePath.split('/').pop() || `Photo_${index + 1}`;
+                      const encodedPath = encodeURI(imagePath);
                       return (
                         <motion.div
                           key={index + '_' + imagePath}
@@ -740,14 +756,14 @@ export default function Gallery() {
                             location: 'Thoothukudi Workspace',
                             date: 'Live Synchronized',
                             description: `Live photograph loaded straight from '/public/gallery/${filename}'. Uploaded manually by administrator in workspace.`,
-                            sourceUrl: imagePath
+                            sourceUrl: encodedPath
                           })}
                           className="bg-white rounded-2xl border border-stone-250/70 overflow-hidden shadow-xs hover:shadow-md hover:border-emerald-250 transition-all flex flex-col h-full group cursor-pointer"
                         >
                           {/* Image box */}
                           <div className="relative aspect-square w-full overflow-hidden bg-stone-100 flex items-center justify-center">
                             <img 
-                              src={imagePath} 
+                              src={encodedPath} 
                               alt={filename} 
                               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 select-none"
                               referrerPolicy="no-referrer"
