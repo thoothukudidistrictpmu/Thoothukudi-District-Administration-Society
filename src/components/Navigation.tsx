@@ -27,7 +27,25 @@ export default function Navigation({ onNavClick, activeTab }: NavigationProps) {
   return (
     <nav id="navbar" className="sticky top-0 z-50 bg-slate-950/95 backdrop-blur-md text-white shadow-lg border-b border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-end md:justify-center h-14 sm:h-16 w-full">
+        <div className="flex items-center justify-between md:justify-center h-14 sm:h-16 w-full">
+          {/* Mobile Brand and Menu Button (replaces empty left-side) */}
+          <div className="flex md:hidden items-center justify-between w-full">
+            <div className="flex items-center gap-2">
+              <span className="font-display font-black text-sm tracking-tight text-white">TDAS Welfare Portal</span>
+              <span className="text-[9px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-1.5 py-0.5 rounded font-sans font-bold tracking-widest uppercase">CSR</span>
+            </div>
+            
+            <button
+              id="mobile-menu-toggle"
+              onClick={() => setIsOpen(!isOpen)}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-900 border border-slate-800/80 bg-slate-900/40 select-none cursor-pointer transition-all duration-200"
+              aria-expanded={isOpen}
+            >
+              <span className="text-xs font-semibold tracking-wider font-sans uppercase">Menu</span>
+              {isOpen ? <X className="block h-5 w-5 text-amber-400" /> : <Menu className="block h-5 w-5 text-emerald-400" />}
+            </button>
+          </div>
+
           {/* Desktop Navigation Links */}
           <div className="hidden md:flex items-center space-x-1">
             {links.map((link) => (
@@ -49,35 +67,22 @@ export default function Navigation({ onNavClick, activeTab }: NavigationProps) {
               </button>
             ))}
           </div>
-
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
-            <button
-              id="mobile-menu-toggle"
-              onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-slate-800 focus:outline-none"
-              aria-expanded="false"
-            >
-              <span className="sr-only">Open main menu</span>
-              {isOpen ? <X className="block h-6 w-6" /> : <Menu className="block h-6 w-6" />}
-            </button>
-          </div>
         </div>
       </div>
 
       {/* Mobile Menu, show/hide based on menu state */}
       {isOpen && (
-        <div className="md:hidden bg-slate-900 border-t border-slate-800" id="mobile-menu">
-          <div className="px-2 pt-2 pb-3 space-y-1">
+        <div className="md:hidden bg-slate-950 border-t border-white/5 shadow-2xl animate-fade-in" id="mobile-menu">
+          <div className="px-3 pt-2 pb-4 space-y-1">
             {links.map((link) => (
               <button
                 key={link.id}
                 id={`mobile-nav-link-${link.id}`}
                 onClick={() => handleItemClick(link.id)}
-                className={`block w-full text-left px-4 py-3 rounded-md font-sans text-sm font-medium tracking-wide transition-all duration-150 ${
+                className={`block w-full text-left px-4 py-3 rounded-lg font-sans text-sm font-semibold tracking-wide transition-all duration-150 ${
                   activeTab === link.id
-                    ? 'bg-emerald-700 text-white'
-                    : 'text-gray-300 hover:bg-slate-800 hover:text-white'
+                    ? 'bg-gradient-to-r from-emerald-600 to-teal-650 text-white shadow-md border border-white/10'
+                    : 'text-slate-300 hover:bg-white/5 hover:text-white'
                 }`}
               >
                 {link.name}
