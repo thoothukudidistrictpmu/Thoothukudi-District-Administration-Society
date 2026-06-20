@@ -172,7 +172,7 @@ const RESOURCE_Sectors: ResourceCategory[] = [
     statLabel: "National Standing",
     statValue: "2nd in India",
     description: "Thoothukudi is the unchallenged salt capital of South India. Armed with dry, sunny weather conditions, minimal rain cycles, and a highly saline ocean coastline, over 25,000 acres are dedicated to crystal salt panning.",
-    image: "https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&q=80&w=800",
+    image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=800",
     keyDrivers: ["Tuticorin Salt Pans", "Industrial Salt Refineries", "Marine Chemical Processing", "Iodized Food Salt Export"],
     icon: Sun,
     color: "amber"
@@ -205,7 +205,7 @@ const RESOURCE_Sectors: ResourceCategory[] = [
     statLabel: "Agri Yield",
     statValue: "Top Banana Exporter",
     description: "In contrast to the dry plains, the historic Thamirabarani River winds through Srivaikuntam and Eral, leaving a lush ribbon of soil that nourishes premium sweet bananas, export-quality betel leaves, and robust wetland paddy.",
-    image: "https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&q=80&w=800",
+    image: "https://images.unsplash.com/photo-1566393028639-d108a42c46a7?auto=format&fit=crop&q=80&w=800",
     keyDrivers: ["Srivaikuntam Banana Canals", "Organic Rice Cultivation", "Tamil Nadu Agriculture Research", "Drip-irrigation Crop Networks"],
     icon: Sprout,
     color: "emerald"
@@ -292,21 +292,37 @@ export default function AboutPage({ onExploreClick }: AboutPageProps) {
 
           {/* Quick Stats Grid */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto mt-12 pt-8 border-t border-white/10">
-            <div className="bg-white/5 backdrop-blur-xs rounded-xl p-4 border border-white/5 hover:border-emerald-500/20 transition-all">
-              <span className="text-2xl sm:text-3xl font-black text-amber-400 block font-sans">10</span>
-              <span className="text-slate-400 text-[10px] uppercase font-bold tracking-wider block mt-1">Administrative Taluks</span>
+            <div className="bg-amber-500/[0.08] backdrop-blur-md rounded-xl p-4 sm:p-5 border border-amber-500/30 hover:bg-amber-500/[0.14] hover:border-amber-400 transition-all duration-300 text-left relative overflow-hidden group shadow-lg shadow-amber-500/5">
+              <Map className="h-10 w-10 text-amber-300 absolute -top-1 -right-1 opacity-20 sm:opacity-30 group-hover:scale-110 transition-transform duration-300 pointer-events-none" />
+              <div className="relative z-10">
+                <span className="text-2xl sm:text-3xl font-black text-amber-400 block font-sans tracking-tight">10</span>
+                <span className="text-white text-[11px] sm:text-xs font-black block mt-1 tracking-wide uppercase leading-tight">Administrative Taluks</span>
+                <span className="text-[10px] text-amber-300 font-mono font-medium block mt-0.5 opacity-90">Subdivisions</span>
+              </div>
             </div>
-            <div className="bg-white/5 backdrop-blur-xs rounded-xl p-4 border border-white/5 hover:border-emerald-500/20 transition-all">
-              <span className="text-2xl sm:text-3xl font-black text-emerald-400 block font-sans">163.5 KM</span>
-              <span className="text-slate-400 text-[10px] uppercase font-bold tracking-wider block mt-1">Gulf of Mannar Coast</span>
+            <div className="bg-emerald-500/[0.08] backdrop-blur-md rounded-xl p-4 sm:p-5 border border-emerald-500/30 hover:bg-emerald-500/[0.14] hover:border-emerald-400 transition-all duration-300 text-left relative overflow-hidden group shadow-lg shadow-emerald-500/5">
+              <Waves className="h-10 w-10 text-emerald-300 absolute -top-1 -right-1 opacity-20 sm:opacity-30 group-hover:scale-110 transition-transform duration-300 pointer-events-none" />
+              <div className="relative z-10">
+                <span className="text-2xl sm:text-3xl font-black text-emerald-400 block font-sans tracking-tight">163.5 KM</span>
+                <span className="text-white text-[11px] sm:text-xs font-black block mt-1 tracking-wide uppercase leading-tight">Gulf of Mannar Coast</span>
+                <span className="text-[10px] text-emerald-300 font-mono font-medium block mt-0.5 opacity-90">Maritime Line</span>
+              </div>
             </div>
-            <div className="bg-white/5 backdrop-blur-xs rounded-xl p-4 border border-white/5 hover:border-emerald-500/20 transition-all">
-              <span className="text-2xl sm:text-3xl font-black text-sky-400 block font-sans">70%</span>
-              <span className="text-slate-400 text-[10px] uppercase font-bold tracking-wider block mt-1">Tamil Nadu Salt Share</span>
+            <div className="bg-sky-500/[0.08] backdrop-blur-md rounded-xl p-4 sm:p-5 border border-sky-500/30 hover:bg-sky-500/[0.14] hover:border-sky-450 transition-all duration-300 text-left relative overflow-hidden group shadow-lg shadow-sky-500/5">
+              <Sun className="h-10 w-10 text-sky-300 absolute -top-1 -right-1 opacity-20 sm:opacity-30 group-hover:scale-110 transition-transform duration-300 pointer-events-none" />
+              <div className="relative z-10">
+                <span className="text-2xl sm:text-3xl font-black text-sky-400 block font-sans tracking-tight">70%</span>
+                <span className="text-white text-[11px] sm:text-xs font-black block mt-1 tracking-wide uppercase leading-tight">Tamil Nadu Salt Share</span>
+                <span className="text-[10px] text-sky-300 font-mono font-medium block mt-0.5 opacity-90">Salt Harvest</span>
+              </div>
             </div>
-            <div className="bg-white/5 backdrop-blur-xs rounded-xl p-4 border border-white/5 hover:border-emerald-500/20 transition-all">
-              <span className="text-2xl sm:text-3xl font-black text-teal-400 block font-sans">350+ MW</span>
-              <span className="text-slate-400 text-[10px] uppercase font-bold tracking-wider block mt-1">Wind Corridor Capacity</span>
+            <div className="bg-teal-500/[0.08] backdrop-blur-md rounded-xl p-4 sm:p-5 border border-teal-500/30 hover:bg-teal-500/[0.14] hover:border-teal-400 transition-all duration-300 text-left relative overflow-hidden group shadow-lg shadow-teal-500/5">
+              <Wind className="h-10 w-10 text-teal-300 absolute -top-1 -right-1 opacity-20 sm:opacity-30 group-hover:scale-110 transition-transform duration-300 pointer-events-none" />
+              <div className="relative z-10">
+                <span className="text-2xl sm:text-3xl font-black text-teal-400 block font-sans tracking-tight">750+ MW</span>
+                <span className="text-white text-[11px] sm:text-xs font-black block mt-1 tracking-wide uppercase leading-tight">Wind Corridor Capacity</span>
+                <span className="text-[10px] text-teal-300 font-mono font-medium block mt-0.5 opacity-90">Power Grid</span>
+              </div>
             </div>
           </div>
         </div>
@@ -327,98 +343,140 @@ export default function AboutPage({ onExploreClick }: AboutPageProps) {
         </div>
 
         {/* Search, Category Filter & Bulk actions */}
-        <div className="bg-white rounded-2xl border border-slate-150 shadow-xs p-5 mb-8 max-w-5xl mx-auto">
-          <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
-            {/* Tab buttons */}
-            <div className="flex flex-wrap gap-1.5 justify-center">
-              {['All', 'Coastal', 'Industrial', 'River Basin / Agri', 'Dryland / Wind'].map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`px-3 py-2 rounded-lg text-xs font-bold cursor-pointer transition-all duration-200 ${
-                    selectedCategory === cat
-                      ? 'bg-emerald-700 text-white shadow-xs'
-                      : 'hover:bg-slate-100 text-slate-600'
-                  }`}
-                >
-                  {cat === 'All' ? 'All Divisions' : cat}
-                </button>
-              ))}
+        <div className="bg-white rounded-2xl border border-slate-150 shadow-md p-4 sm:p-6 mb-8 max-w-5xl mx-auto">
+          <div className="flex flex-col gap-4 sm:gap-5">
+            
+            {/* Top row: Search input & Actions */}
+            <div className="flex flex-col md:flex-row gap-3.5 md:items-center md:justify-between">
+              {/* Search input with search icon */}
+              <div className="relative w-full md:max-w-md">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4.5 w-4.5 text-emerald-600/70" />
+                <input
+                  type="text"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  placeholder="Search administrative Taluk, crops, resources..."
+                  className="w-full pl-10 pr-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-sans focus:outline-hidden focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 focus:bg-white transition-all text-slate-800 placeholder-slate-400"
+                />
+              </div>
+
+              {/* Status & Quick bulk controls */}
+              <div className="flex items-center justify-between md:justify-end gap-4 bg-slate-50 px-4 py-2 rounded-xl border border-slate-150">
+                <span className="text-xs font-mono text-slate-600 font-bold flex items-center gap-1.5 whitespace-nowrap">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+                  <span>{filteredTaluks.length} of {TALUKS_DATA.length} Regions</span>
+                </span>
+                <div className="h-4 w-[1px] bg-slate-200 shrink-0"></div>
+                <div className="flex gap-3 whitespace-nowrap text-xs">
+                  <button
+                    onClick={() => expandAll(filteredTaluks)}
+                    className="font-bold text-emerald-700 hover:text-emerald-950 cursor-pointer transition-colors"
+                  >
+                    Expand All
+                  </button>
+                  <span className="text-slate-300">•</span>
+                  <button
+                    onClick={collapseAll}
+                    className="font-bold text-slate-500 hover:text-slate-800 cursor-pointer transition-colors"
+                  >
+                    Collapse All
+                  </button>
+                </div>
+              </div>
             </div>
 
-            {/* Middle: Quick Status and Controls */}
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-mono text-slate-500 font-bold">
-                Showing {filteredTaluks.length} of {TALUKS_DATA.length} Taluks
+            {/* Separator - Hidden on smallest screens to optimize vertical spaces */}
+            <div className="h-[1px] bg-slate-100 w-full hidden sm:block"></div>
+
+            {/* Bottom Row: Elegant Filter Category Carousel/Flex container */}
+            <div className="flex flex-col gap-1.5 sm:gap-2 text-left">
+              <span className="text-[10px] font-mono tracking-widest font-black text-slate-400 uppercase">
+                Filter by Administrative Classification
               </span>
-              <div className="h-4 w-[1px] bg-slate-200"></div>
-              <button
-                onClick={() => expandAll(filteredTaluks)}
-                className="text-xs font-sans text-emerald-700 hover:text-emerald-800 font-bold cursor-pointer transition-colors"
-                title="Expand all filtered Taluk details"
-              >
-                Expand All
-              </button>
-              <span className="text-slate-300 text-xs">•</span>
-              <button
-                onClick={collapseAll}
-                className="text-xs font-sans text-slate-500 hover:text-slate-700 font-bold cursor-pointer transition-colors"
-                title="Collapse all sections"
-              >
-                Collapse All
-              </button>
+              {/* Category tabs utilizing scrollable lists for spacious, elegant visual on phone */}
+              <div className="flex gap-2 overflow-x-auto pb-2 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-none flex-nowrap sm:flex-wrap">
+                {[
+                  { name: 'All', label: 'All Divisions', icon: Layers, activeClass: 'bg-slate-900 text-white border-slate-950 shadow-md shadow-slate-900/10' },
+                  { name: 'Coastal', label: 'Coastal Corridor', icon: Waves, activeClass: 'bg-sky-600 text-white border-sky-500 shadow-md shadow-sky-500/10' },
+                  { name: 'Industrial', label: 'Industrial Corridor', icon: Building2, activeClass: 'bg-amber-600 text-white border-amber-500 shadow-md shadow-amber-500/10' },
+                  { name: 'River Basin / Agri', label: 'River Basin / Agri', icon: Sprout, activeClass: 'bg-emerald-600 text-white border-emerald-500 shadow-md shadow-emerald-500/10' },
+                  { name: 'Dryland / Wind', label: 'Dryland / Windways', icon: Wind, activeClass: 'bg-purple-600 text-white border-purple-500 shadow-md shadow-purple-500/10' },
+                ].map((catItem) => {
+                  const CatIconComponent = catItem.icon;
+                  const isSelected = selectedCategory === catItem.name;
+                  return (
+                    <button
+                      key={catItem.name}
+                      onClick={() => setSelectedCategory(catItem.name)}
+                      className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold cursor-pointer transition-all duration-300 shrink-0 border ${
+                        isSelected
+                          ? catItem.activeClass
+                          : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-600'
+                      }`}
+                    >
+                      <CatIconComponent className={`h-4 w-4 shrink-0 ${isSelected ? 'text-white' : 'text-slate-400'}`} />
+                      <span>{catItem.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
-            {/* Simple live input for filtering */}
-            <div className="relative w-full lg:w-72">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
-              <input
-                type="text"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search Taluk, crops, or heritage..."
-                className="w-full pl-9 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs sm:text-sm font-sans focus:outline-hidden focus:border-emerald-600 focus:bg-white transition-all text-slate-800"
-              />
-            </div>
           </div>
         </div>
 
         {/* Real-time Expandable Cards Grid */}
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-5xl mx-auto border-t border-slate-100/50 pt-6">
           {filteredTaluks.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {filteredTaluks.map((t) => {
                 const isExpanded = !!expandedTaluks[t.id];
                 
                 // Set Up styling and icons based on Category
-                let catColorClass = "bg-sky-50 text-sky-800 border-sky-200";
+                let catColorClass = "bg-sky-50 text-sky-800 border-sky-200 animate-fade";
                 let iconBgClass = "bg-sky-100 text-sky-700";
-                let cardAccentBorder = "border-slate-200 hover:border-sky-350";
-                let cardAccentHeader = "from-sky-50/40 via-white to-white";
+                let cardAccentBorder = "border-slate-200 hover:border-sky-350 hover:shadow-md hover:shadow-sky-500/5";
+                let cardAccentHeader = "from-sky-50/45 via-white to-white";
                 let CatIcon = Anchor;
                 let categoryLabel = "Coastal";
+                let cardBorderLeft = "border-l-4 border-l-sky-500";
+                let resourceBadgeClass = "bg-sky-50/70 hover:bg-sky-100/90 text-sky-800 border-sky-100/80 shadow-2xs";
+                let expandedBg = "bg-gradient-to-br from-white to-sky-50/15";
+                let themeText = "text-sky-850";
 
                 if (t.category === 'Industrial') {
                   catColorClass = "bg-amber-50 text-amber-800 border-amber-200";
                   iconBgClass = "bg-amber-100 text-amber-700";
-                  cardAccentBorder = "border-slate-200 hover:border-amber-350";
-                  cardAccentHeader = "from-amber-50/40 via-white to-white";
+                  cardAccentBorder = "border-slate-200 hover:border-amber-350 hover:shadow-md hover:shadow-amber-500/5";
+                  cardAccentHeader = "from-amber-50/45 via-white to-white";
                   CatIcon = Building2;
                   categoryLabel = "Industrial Corridor";
+                  cardBorderLeft = "border-l-4 border-l-amber-500";
+                  resourceBadgeClass = "bg-amber-50/70 hover:bg-amber-100/90 text-amber-900 border-amber-100/80 shadow-2xs";
+                  expandedBg = "bg-gradient-to-br from-white to-amber-50/15";
+                  themeText = "text-amber-900";
                 } else if (t.category === 'River Basin / Agri') {
                   catColorClass = "bg-emerald-50 text-emerald-800 border-emerald-200";
                   iconBgClass = "bg-emerald-100 text-emerald-700";
-                  cardAccentBorder = "border-slate-200 hover:border-emerald-350";
-                  cardAccentHeader = "from-emerald-50/40 via-white to-white";
+                  cardAccentBorder = "border-slate-200 hover:border-emerald-350 hover:shadow-md hover:shadow-emerald-500/5";
+                  cardAccentHeader = "from-emerald-50/45 via-white to-white";
                   CatIcon = Sprout;
                   categoryLabel = "River Basin Irrigation";
+                  cardBorderLeft = "border-l-4 border-l-emerald-500";
+                  resourceBadgeClass = "bg-emerald-50/70 hover:bg-emerald-100/90 text-emerald-950 border-emerald-100/80 shadow-2xs";
+                  expandedBg = "bg-gradient-to-br from-white to-emerald-50/15";
+                  themeText = "text-emerald-850";
                 } else if (t.category === 'Dryland / Wind') {
-                  catColorClass = "bg-indigo-50 text-indigo-800 border-indigo-200";
-                  iconBgClass = "bg-indigo-100 text-indigo-700";
-                  cardAccentBorder = "border-slate-200 hover:border-indigo-350";
-                  cardAccentHeader = "from-indigo-50/40 via-white to-white";
+                  catColorClass = "bg-purple-50 text-purple-800 border-purple-200";
+                  iconBgClass = "bg-purple-100 text-purple-700";
+                  cardAccentBorder = "border-slate-200 hover:border-purple-350 hover:shadow-md hover:shadow-purple-500/5";
+                  cardAccentHeader = "from-purple-50/45 via-white to-white";
                   CatIcon = Wind;
                   categoryLabel = "Dryland Windways";
+                  cardBorderLeft = "border-l-4 border-l-purple-500";
+                  resourceBadgeClass = "bg-purple-50/70 hover:bg-purple-100/90 text-purple-900 border-purple-100/80 shadow-2xs";
+                  expandedBg = "bg-gradient-to-br from-white to-purple-50/15";
+                  themeText = "text-purple-850";
                 }
 
                 return (
@@ -426,16 +484,16 @@ export default function AboutPage({ onExploreClick }: AboutPageProps) {
                     key={t.id}
                     layout="position"
                     transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                    className={`bg-white rounded-2xl border transition-all duration-300 overflow-hidden shadow-xs flex flex-col ${
+                    className={`bg-white rounded-2xl border ${cardBorderLeft} transition-all duration-300 overflow-hidden shadow-xs flex flex-col ${
                       isExpanded 
-                        ? 'border-emerald-600 ring-2 ring-emerald-500/10 shadow-md md:col-span-2' 
+                        ? 'border-slate-350 ring-2 ring-slate-500/10 shadow-lg md:col-span-2 shadow-slate-500/5' 
                         : cardAccentBorder
                     }`}
                   >
                     {/* Header trigger block */}
                     <div 
                       onClick={() => toggleTaluk(t.id)}
-                      className={`p-5 flex items-start justify-between gap-4 cursor-pointer select-none bg-gradient-to-b ${cardAccentHeader} hover:bg-slate-50/55 transition-colors`}
+                      className={`p-5 flex items-start justify-between gap-4 cursor-pointer select-none bg-gradient-to-b ${cardAccentHeader} hover:bg-slate-50/50 transition-colors`}
                     >
                       <div className="flex gap-3 items-center">
                         <div className={`h-11 w-11 rounded-xl flex items-center justify-center shrink-0 shadow-2xs ${iconBgClass}`}>
@@ -446,17 +504,17 @@ export default function AboutPage({ onExploreClick }: AboutPageProps) {
                             <h3 className="text-base sm:text-lg font-display font-black text-slate-900 tracking-tight flex items-center gap-1.5">
                               {t.name}
                             </h3>
-                            <span className="text-xs font-semibold text-emerald-800 bg-emerald-50 border border-emerald-100 px-1.5 py-0.5 rounded-md font-sans">
+                            <span className="text-xs font-semibold text-slate-700 bg-slate-100 border border-slate-200 px-1.5 py-0.5 rounded-md font-sans">
                               {t.tamilName}
                             </span>
                           </div>
                           
                           {/* Brief Category Badge under it */}
-                          <div className="flex items-center gap-2 mt-1">
-                            <span className={`text-[10px] font-mono tracking-wider font-extrabold px-2 py-0.5 rounded-full border ${catColorClass}`}>
+                          <div className="flex items-center gap-2 mt-1 flex-wrap">
+                            <span className={`text-[10px] sm:text-[11px] font-mono tracking-wider font-extrabold px-2.5 py-0.5 rounded-full border ${catColorClass}`}>
                               {categoryLabel}
                             </span>
-                            <span className="text-[10px] text-slate-400 font-mono font-bold">• {t.gps.split(',')[0]}</span>
+                            <span className="text-[10px] text-slate-400 font-mono font-bold whitespace-nowrap">• {t.gps.split(',')[0]}</span>
                           </div>
                         </div>
                       </div>
@@ -475,12 +533,12 @@ export default function AboutPage({ onExploreClick }: AboutPageProps) {
                     </div>
 
                     {/* ALWAYS VISIBLE DETAILED RESOURCE CLUSTER: Resources list (no truncation!) */}
-                    <div className="px-5 pb-4 border-b border-slate-100 bg-linear-to-b from-white to-slate-50/30">
-                      <div className="flex flex-wrap gap-1 mt-1">
+                    <div className="px-5 pb-4 border-b border-slate-105 bg-linear-to-b from-white to-slate-50/20">
+                      <div className="flex flex-wrap gap-1.5 mt-1">
                         {t.primaryResources.map((res, i) => (
                           <span 
                             key={i} 
-                            className="text-[11px] font-sans font-medium bg-white/95 border border-slate-200 shadow-2xs text-slate-600 px-2.5 py-0.5 rounded-md"
+                            className={`text-[11px] font-sans font-semibold border px-2.5 py-1 rounded-lg transition-colors cursor-default ${resourceBadgeClass}`}
                           >
                             ✦ {res}
                           </span>
@@ -496,7 +554,7 @@ export default function AboutPage({ onExploreClick }: AboutPageProps) {
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                          className="overflow-hidden bg-slate-50/30"
+                          className={`overflow-hidden ${expandedBg}`}
                         >
                           <div className="p-5 sm:p-6 border-t border-slate-100 text-left space-y-5">
                             
@@ -513,12 +571,12 @@ export default function AboutPage({ onExploreClick }: AboutPageProps) {
                                   </p>
                                 </div>
                                 
-                                <div className="flex items-center justify-between p-3.5 bg-emerald-950 text-white rounded-xl shadow-xs border border-white/5">
-                                  <div className="flex items-center gap-2.5 bg-emerald-950">
+                                <div className="flex items-center justify-between p-3.5 bg-slate-900 border border-slate-800 text-white rounded-xl shadow-sm">
+                                  <div className="flex items-center gap-2.5 bg-transparent">
                                     <Award className="h-5.5 w-5.5 text-amber-400 shrink-0" />
                                     <div>
-                                      <span className="text-[9px] uppercase font-mono tracking-widest font-bold text-slate-300 block">Regional Stat Baseline</span>
-                                      <span className="text-xs font-sans font-extrabold text-white">{t.stats}</span>
+                                      <span className="text-[9px] uppercase font-mono tracking-widest font-bold text-slate-400 block">Regional Stat Baseline</span>
+                                      <span className="text-xs sm:text-sm font-sans font-black text-white">{t.stats}</span>
                                     </div>
                                   </div>
                                 </div>
@@ -527,8 +585,8 @@ export default function AboutPage({ onExploreClick }: AboutPageProps) {
                               {/* Right Column: Heritage & GPS info */}
                               <div className="space-y-4">
                                 <div className="bg-white rounded-xl p-4 border border-slate-200/90 shadow-2xs">
-                                  <h4 className="text-[10px] font-mono uppercase tracking-widest font-black text-emerald-800 flex items-center gap-1">
-                                    <BookOpen className="h-3.5 w-3.5 text-emerald-700" />
+                                  <h4 className={`text-[10px] font-mono uppercase tracking-widest font-black ${themeText} flex items-center gap-1`}>
+                                    <BookOpen className="h-3.5 w-3.5 animate-pulse" />
                                     <span>Heritage &amp; Culture</span>
                                   </h4>
                                   <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans mt-1.5 font-medium">
@@ -538,7 +596,7 @@ export default function AboutPage({ onExploreClick }: AboutPageProps) {
 
                                 <div className="flex flex-wrap items-center justify-between gap-3 bg-white rounded-xl p-3 border border-slate-200/90 shadow-2xs">
                                   <div className="flex items-center gap-2">
-                                    <Compass className="h-4.5 w-4.5 text-indigo-500 shrink-0" />
+                                    <Compass className="h-4.5 w-4.5 text-indigo-500 shrink-0 animate-spin" style={{ animationDuration: '8s' }} />
                                     <div>
                                       <span className="text-[9px] font-mono text-slate-400 block uppercase font-bold">Localization GPS</span>
                                       <span className="text-xs font-mono font-bold text-slate-700">{t.gps}</span>
@@ -560,7 +618,6 @@ export default function AboutPage({ onExploreClick }: AboutPageProps) {
                         </motion.div>
                       )}
                     </AnimatePresence>
-
                   </motion.div>
                 );
               })}
@@ -606,10 +663,59 @@ export default function AboutPage({ onExploreClick }: AboutPageProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {RESOURCE_Sectors.map((sector, index) => {
               const IconComp = sector.icon;
+
+              // Define dynamic color tokens based on sector.color
+              let badgeColor = "text-amber-400";
+              let metricBg = "bg-amber-800/95 border-amber-600/30";
+              let checkIconColor = "text-amber-200";
+              let titleHoverColor = "group-hover:text-amber-800";
+              let borderHoverColor = "hover:border-amber-500/35 hover:shadow-lg hover:shadow-amber-500/5";
+              let keyDriverBg = "bg-amber-50/70 text-amber-900 border-amber-100/80";
+              let indicatorDotColor = "bg-amber-500";
+              let textHighlightColor = "text-amber-800 font-bold";
+
+              if (sector.color === 'sky') {
+                badgeColor = "text-sky-400";
+                metricBg = "bg-sky-800/95 border-sky-600/30";
+                checkIconColor = "text-sky-200";
+                titleHoverColor = "group-hover:text-sky-800";
+                borderHoverColor = "hover:border-sky-500/35 hover:shadow-lg hover:shadow-sky-500/5";
+                keyDriverBg = "bg-sky-50/70 text-sky-900 border-sky-100/80";
+                indicatorDotColor = "bg-sky-500";
+                textHighlightColor = "text-sky-850 font-bold";
+              } else if (sector.color === 'teal') {
+                badgeColor = "text-teal-400";
+                metricBg = "bg-teal-800/95 border-teal-600/30";
+                checkIconColor = "text-teal-200";
+                titleHoverColor = "group-hover:text-teal-800";
+                borderHoverColor = "hover:border-teal-500/35 hover:shadow-lg hover:shadow-teal-500/5";
+                keyDriverBg = "bg-teal-50/70 text-teal-900 border-teal-100/80";
+                indicatorDotColor = "bg-teal-500";
+                textHighlightColor = "text-teal-850 font-bold";
+              } else if (sector.color === 'emerald') {
+                badgeColor = "text-emerald-400";
+                metricBg = "bg-emerald-800/95 border-emerald-600/30";
+                checkIconColor = "text-emerald-200";
+                titleHoverColor = "group-hover:text-emerald-800";
+                borderHoverColor = "hover:border-emerald-500/35 hover:shadow-lg hover:shadow-emerald-500/5";
+                keyDriverBg = "bg-emerald-50/70 text-emerald-900 border-emerald-100/80";
+                indicatorDotColor = "bg-emerald-500";
+                textHighlightColor = "text-emerald-850 font-bold";
+              } else if (sector.color === 'purple') {
+                badgeColor = "text-purple-400";
+                metricBg = "bg-purple-800/95 border-purple-600/30";
+                checkIconColor = "text-purple-200";
+                titleHoverColor = "group-hover:text-purple-800";
+                borderHoverColor = "hover:border-purple-500/35 hover:shadow-lg hover:shadow-purple-500/5";
+                keyDriverBg = "bg-purple-50/70 text-purple-950 border-purple-100/85";
+                indicatorDotColor = "bg-purple-500";
+                textHighlightColor = "text-purple-850 font-bold";
+              }
+
               return (
                 <div 
                   key={index}
-                  className="bg-white rounded-2xl overflow-hidden border border-slate-200/80 shadow-xs hover:shadow-xl hover:border-emerald-500/20 transition-all duration-300 flex flex-col group"
+                  className={`bg-white rounded-2xl overflow-hidden border border-slate-200/90 shadow-xs transition-all duration-300 flex flex-col group ${borderHoverColor}`}
                 >
                   <div className="aspect-16/10 relative overflow-hidden bg-slate-100">
                     <img 
@@ -619,16 +725,16 @@ export default function AboutPage({ onExploreClick }: AboutPageProps) {
                       referrerPolicy="no-referrer"
                     />
                     {/* Floating Color Badge */}
-                    <div className="absolute top-3 left-3 bg-slate-950/85 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-white flex items-center gap-2">
-                      <IconComp className="h-4 w-4 text-emerald-400" />
-                      <span className="text-[10px] font-mono tracking-wider font-extrabold uppercase">
+                    <div className="absolute top-2.5 left-2.5 max-w-[calc(100%-20px)] bg-slate-950/90 backdrop-blur-md px-2.5 py-1 rounded-lg border border-white/10 text-white flex items-center gap-1.5 shadow-md">
+                      <IconComp className={`h-3.5 w-3.5 ${badgeColor} shrink-0`} />
+                      <span className="text-[9px] sm:text-[10px] font-mono tracking-wider font-extrabold uppercase truncate">
                         {sector.category}
                       </span>
                     </div>
 
                     {/* Quick Metric overlay */}
-                    <div className="absolute bottom-3 right-3 bg-emerald-700/95 backdrop-blur-xs text-white px-2.5 py-1 rounded text-xs font-mono font-extrabold flex items-center gap-1 shadow-md">
-                      <CheckCircle2 className="h-3 w-3 text-emerald-200 shrink-0" />
+                    <div className={`absolute bottom-3 right-3 ${metricBg} border backdrop-blur-xs text-white px-2.5 py-1 rounded text-xs font-mono font-extrabold flex items-center gap-1 shadow-md`}>
+                      <CheckCircle2 className={`h-3 w-3 ${checkIconColor} shrink-0`} />
                       <span>{sector.statValue}</span>
                     </div>
                   </div>
@@ -638,13 +744,13 @@ export default function AboutPage({ onExploreClick }: AboutPageProps) {
                       <span className="text-[10px] font-sans font-bold text-slate-400 tracking-widest uppercase">
                         {sector.statLabel}
                       </span>
-                      <span className="h-1 w-1 bg-slate-300 rounded-full"></span>
-                      <span className="text-xs font-mono font-bold text-emerald-800">
+                      <span className={`h-1.5 w-1.5 rounded-full ${indicatorDotColor}`}></span>
+                      <span className={`text-xs font-mono ${textHighlightColor}`}>
                         {sector.statValue}
                       </span>
                     </div>
 
-                    <h3 className="text-lg font-display font-extrabold text-slate-900 leading-snug group-hover:text-emerald-800 transition-colors">
+                    <h3 className={`text-lg font-display font-extrabold text-slate-900 leading-snug transition-colors ${titleHoverColor}`}>
                       {sector.title}
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-500 leading-relaxed font-sans mt-2 flex-grow">
@@ -657,7 +763,7 @@ export default function AboutPage({ onExploreClick }: AboutPageProps) {
                         {sector.keyDrivers.map((driver, idx) => (
                           <span 
                             key={idx} 
-                            className="bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-600 text-[10px] px-2 py-0.5 rounded-md font-sans transition-colors cursor-default"
+                            className={`${keyDriverBg} border text-[10px] font-medium px-2.5 py-1 rounded-md font-sans transition-colors cursor-default`}
                           >
                             {driver}
                           </span>
