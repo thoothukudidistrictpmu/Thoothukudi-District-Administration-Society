@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import saltIndustryImage from '../assets/images/pearl_coast_salt_industry_1781983273200.jpg';
 import { 
   Building2, 
   MapPin, 
@@ -172,7 +173,7 @@ const RESOURCE_Sectors: ResourceCategory[] = [
     statLabel: "National Standing",
     statValue: "2nd in India",
     description: "Thoothukudi is the unchallenged salt capital of South India. Armed with dry, sunny weather conditions, minimal rain cycles, and a highly saline ocean coastline, over 25,000 acres are dedicated to crystal salt panning.",
-    image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=800",
+    image: saltIndustryImage,
     keyDrivers: ["Tuticorin Salt Pans", "Industrial Salt Refineries", "Marine Chemical Processing", "Iodized Food Salt Export"],
     icon: Sun,
     color: "amber"
