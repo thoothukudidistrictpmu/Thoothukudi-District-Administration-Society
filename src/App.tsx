@@ -14,6 +14,7 @@ import ProjectsPage from './components/ProjectsPage';
 import SponsorshipPage from './components/SponsorshipPage';
 import Chatbot from './components/Chatbot';
 import Gallery from './components/Gallery';
+import AboutPage from './components/AboutPage';
 import { Project } from './types';
 import { Info, X, ShieldAlert, Sparkles } from 'lucide-react';
 
@@ -79,6 +80,12 @@ export default function App() {
       return;
     }
 
+    if (id === 'about-us') {
+      setActiveTab('about-us');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
     if (id === 'gallery') {
       setActiveTab('gallery');
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -93,9 +100,7 @@ export default function App() {
 
     // Modal placeholders for under construction tabs
     const names: Record<string, string> = {
-      'about-us': 'About Us',
       'join-us': 'Join Us Memberships',
-      'gallery': 'District Welfare Gallery',
       'contact-us': 'Contact Desk'
     };
     setNotifyModal({
@@ -169,6 +174,16 @@ export default function App() {
               transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             >
               <Contributors initialSearchQuery={contributorSearchQuery} />
+            </motion.div>
+          ) : activeTab === 'about-us' ? (
+            <motion.div
+              key="about-us"
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <AboutPage onExploreClick={() => handleNavClick('projects')} />
             </motion.div>
           ) : activeTab === 'gallery' ? (
             <motion.div
