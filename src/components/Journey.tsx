@@ -3,6 +3,68 @@ import { motion } from 'motion/react';
 import { PROJECTS_STATIC } from '../data';
 import { Project } from '../types';
 import { FolderHeart, TrendingUp, CheckCircle2, Coins } from 'lucide-react';
+import { DETAILED_CONTRIBUTORS } from '../data/contributors_data';
+
+function getDepartmentForWork(heading: string, workName: string): string {
+  const h = (heading || '').toLowerCase();
+  const w = (workName || '').toLowerCase();
+
+  if (
+    h.includes('school') || h.includes('stem') || h.includes('science') || h.includes('education') || h.includes('learning') || h.includes('classroom') || h.includes('anganwadi') || h.includes('kindergarten') ||
+    w.includes('school') || w.includes('stem') || w.includes('science') || w.includes('education') || w.includes('learning') || w.includes('classroom') || w.includes('anganwadi') || w.includes('kindergarten')
+  ) {
+    return 'Education';
+  }
+  if (
+    h.includes('health') || h.includes('hearing') || h.includes('medical') || h.includes('hospital') || h.includes('addiction') || h.includes('newborn') || h.includes('phc') || h.includes('doctor') || h.includes('patient') ||
+    w.includes('health') || w.includes('hearing') || w.includes('medical') || w.includes('hospital') || w.includes('addiction') || w.includes('newborn') || w.includes('phc') || w.includes('doctor') || w.includes('patient')
+  ) {
+    return 'Health and Family Welfare';
+  }
+  if (
+    h.includes('disabled') || h.includes('differently abled') || h.includes('scooter') || h.includes('wheelchair') || h.includes('pwd') ||
+    w.includes('disabled') || w.includes('differently abled') || w.includes('scooter') || w.includes('wheelchair') || w.includes('pwd')
+  ) {
+    return 'Welfare of differently abled Person';
+  }
+  if (
+    h.includes('farm') || h.includes('pond') || h.includes('agriculture') || h.includes('irrigation') || h.includes('borewell') || h.includes('water harvesting') ||
+    w.includes('farm') || w.includes('pond') || w.includes('agriculture') || w.includes('irrigation') || w.includes('borewell') || w.includes('water harvesting')
+  ) {
+    return 'Agriculture and Family Welfare';
+  }
+  if (
+    h.includes('veterinary') || h.includes('livestock') || h.includes('animal') || h.includes('cow') || h.includes('cattle') ||
+    w.includes('veterinary') || w.includes('livestock') || w.includes('animal') || w.includes('cow') || w.includes('cattle')
+  ) {
+    return 'Animal Husbandry';
+  }
+  return 'Municipal Administration and water Supply';
+}
+
+function getStaticMergedProjects(): Project[] {
+  const list = [...PROJECTS_STATIC];
+  DETAILED_CONTRIBUTORS.forEach(c => {
+    c.works.forEach(w => {
+      const alreadyExists = list.some(p => 
+        p.title.toLowerCase().trim() === w.heading.toLowerCase().trim() ||
+        p.description.toLowerCase().trim() === w.workName.toLowerCase().trim()
+      );
+      if (!alreadyExists) {
+        list.push({
+          department: getDepartmentForWork(w.heading, w.workName),
+          title: w.heading || 'CSR Welfare Work',
+          description: w.workName || 'Detailed corporate social responsibility initiative.',
+          financialOutlay: w.sanctionedAmountStr || 'N/A',
+          status: 'Completed',
+          contributor: c.companyName || 'General Administration',
+          imageUrl: ''
+        });
+      }
+    });
+  });
+  return list;
+}
 
 // Standalone CSV parser matching ProjectsPage structure
 function parseCSV(text: string): string[][] {
@@ -78,7 +140,7 @@ interface JourneyProps {
 }
 
 export default function Journey({ onProjectsClick }: JourneyProps) {
-  const [projects, setProjects] = useState<Project[]>(PROJECTS_STATIC);
+  const [projects, setProjects] = useState<Project[]>(getStaticMergedProjects());
 
   useEffect(() => {
     const loadLiveDataSilently = async () => {
@@ -116,12 +178,10 @@ export default function Journey({ onProjectsClick }: JourneyProps) {
           }
 
           let normalizedStatus = status;
-          if (status.toLowerCase().includes('partial')) {
-            normalizedStatus = 'Partially taken up';
-          } else if (status.toLowerCase().includes('not')) {
-            normalizedStatus = 'Not taken up';
-          } else if (status.toLowerCase().includes('complete')) {
+          if (status.toLowerCase().includes('complete')) {
             normalizedStatus = 'Completed';
+          } else {
+            normalizedStatus = 'Not taken up';
           }
 
           parsedProjects.push({
@@ -133,6 +193,56 @@ export default function Journey({ onProjectsClick }: JourneyProps) {
             contributor: contributor || 'General Administration',
             imageUrl: ''
           });
+        }
+
+        // Fetch Contributors sheet to gather dynamic completed works from sheet
+        try {
+          const CONTRIBUTORS_CSV_URL = `https://docs.google.com/spreadsheets/d/1itNBrzhwMNoBA_54VfAwk4kfZF6uxmRKzeYY48T_sow/gviz/tq?tqx=out:csv&sheet=CSR%20Contributors`;
+          const contribResponse = await fetch(CONTRIBUTORS_CSV_URL);
+          if (contribResponse.ok) {
+            const contribCsvText = await contribResponse.text();
+            const contribRows = parseCSV(contribCsvText);
+            let currentCompany = '';
+            
+            for (let j = 1; j < contribRows.length; j++) {
+              const row = contribRows[j];
+              if (row.length < 4) continue;
+              let company = row[1] ? row[1].trim() : '';
+              const workName = row[2] ? row[2].trim() : '';
+              const amountStr = row[3] ? row[3].trim() : '';
+              const heading = row[4] ? row[4].trim() : '';
+
+              if (!company && currentCompany) {
+                company = currentCompany;
+              } else if (company) {
+                currentCompany = company;
+              }
+              if (!company) continue;
+              if (!workName && !amountStr && !heading) continue;
+
+              const finalHeading = heading || 'CSR Welfare Initiative';
+              const finalWorkName = workName || 'CSR welfare development work';
+
+              const alreadyExists = parsedProjects.some(p => 
+                p.title.toLowerCase().trim() === finalHeading.toLowerCase().trim() ||
+                p.description.toLowerCase().trim() === finalWorkName.toLowerCase().trim()
+              );
+
+              if (!alreadyExists) {
+                parsedProjects.push({
+                  department: getDepartmentForWork(finalHeading, finalWorkName),
+                  title: finalHeading,
+                  description: finalWorkName,
+                  financialOutlay: amountStr || 'Rs. 0',
+                  status: 'Completed',
+                  contributor: company,
+                  imageUrl: ''
+                });
+              }
+            }
+          }
+        } catch (errContrib) {
+          console.warn('Silent live contributors load failed for Journey page: ', errContrib);
         }
 
         if (parsedProjects.length > 0) {
@@ -148,7 +258,7 @@ export default function Journey({ onProjectsClick }: JourneyProps) {
 
   // Compute stats on the current parsed set
   const totalProjectsCount = projects.length;
-  const ongoingCount = projects.filter(p => p.status.toLowerCase().includes('partial')).length;
+  const pendingCount = projects.filter(p => !p.status.toLowerCase().includes('complete')).length;
   const completedCount = projects.filter(p => p.status.toLowerCase().includes('complete')).length;
   
   // Outlays sum
@@ -162,8 +272,8 @@ export default function Journey({ onProjectsClick }: JourneyProps) {
       iconName: "FolderHeart"
     },
     {
-      label: "Ongoing Projects",
-      value: ongoingCount > 0 ? `${ongoingCount}+` : '0',
+      label: "Pending Adoption",
+      value: pendingCount > 0 ? `${pendingCount}+` : '0',
       iconName: "TrendingUp"
     },
     {
@@ -194,7 +304,7 @@ export default function Journey({ onProjectsClick }: JourneyProps) {
   const getCardColor = (label: string) => {
     if (label.toLowerCase().includes('total projects')) {
       return 'from-emerald-700 to-emerald-800 ring-emerald-600/30';
-    } else if (label.toLowerCase().includes('ongoing')) {
+    } else if (label.toLowerCase().includes('ongoing') || label.toLowerCase().includes('pending')) {
       return 'from-indigo-700 to-indigo-800 ring-indigo-600/30';
     } else if (label.toLowerCase().includes('completed')) {
       return 'from-teal-700 to-teal-800 ring-teal-600/30';

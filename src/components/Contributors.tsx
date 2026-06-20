@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { DETAILED_CONTRIBUTORS, DetailedContributor, ContributorWork } from '../data/contributors_data';
+import { PROJECTS_STATIC } from '../data';
 import { 
   Trophy, 
   Search, 
@@ -14,8 +15,47 @@ import {
   FileText, 
   ArrowRight,
   Sparkles,
-  ExternalLink
+  ExternalLink,
+  CheckCircle2
 } from 'lucide-react';
+
+function matchesCompany(contributorName: string, companyName: string): boolean {
+  if (!contributorName || !companyName) return false;
+  const c = contributorName.toLowerCase().trim();
+  const comp = companyName.toLowerCase().trim();
+  
+  if (c === 'none' || c === 'general administration' || c === '') return false;
+  
+  // Direct matches
+  if (c.includes(comp) || comp.includes(c)) return true;
+  
+  // Specific aliases
+  if (comp.includes('nlc') || comp.includes('ntpl') || comp.includes('power')) {
+    if (c.includes('nlc') || c.includes('ntpl')) return true;
+  }
+  if (comp.includes('state bank') || comp.includes('sbi')) {
+    if (c.includes('sbi') || c.includes('state bank')) return true;
+  }
+  if (comp.includes('tmb') || comp.includes('mercantile')) {
+    if (c.includes('tmb') || c.includes('merc')) return true;
+  }
+  if (comp.includes('voc') || comp.includes('chidambaranar')) {
+    if (c.includes('voc') || c.includes('port')) return true;
+  }
+  if (comp.includes('ntpc')) {
+    if (c.includes('ntpc')) return true;
+  }
+  if (comp.includes('sanitation')) {
+    if (c.includes('sanit')) return true;
+  }
+  if (comp.includes('jsw')) {
+    if (c.includes('jsw')) return true;
+  }
+  if (comp.includes('spic')) {
+    if (c.includes('spic')) return true;
+  }
+  return false;
+}
 
 // Live CSV URL for the spreadsheet
 const SPREADSHEET_ID = '1itNBrzhwMNoBA_54VfAwk4kfZF6uxmRKzeYY48T_sow';
@@ -107,11 +147,67 @@ export default function Contributors({ initialSearchQuery = '' }: ContributorsPr
     setSearchQuery(initialSearchQuery);
   }, [initialSearchQuery]);
 
+  const hydrateStaticContributors = () => {
+    // Clone DETAILED_CONTRIBUTORS to avoid mutating source
+    const fallbackContributors = JSON.parse(JSON.stringify(DETAILED_CONTRIBUTORS)) as DetailedContributor[];
+    
+    // Check PROJECTS_STATIC completed projects
+    PROJECTS_STATIC.forEach(proj => {
+      const isCompleted = proj.status.toLowerCase().includes('complete');
+      if (isCompleted && proj.contributor && proj.contributor.toLowerCase() !== 'none' && proj.contributor.toLowerCase() !== 'general administration') {
+        const matchedContrib = fallbackContributors.find(c => matchesCompany(proj.contributor, c.companyName));
+        if (matchedContrib) {
+          const alreadyExists = matchedContrib.works.some(w => 
+            w.workName.toLowerCase().includes(proj.title.toLowerCase()) || 
+            proj.title.toLowerCase().includes(w.workName.toLowerCase())
+          );
+          if (!alreadyExists) {
+            const rupees = parseAmountToRupees(proj.financialOutlay);
+            matchedContrib.works.push({
+              workName: proj.title + (proj.description ? ` - ${proj.description}` : ''),
+              sanctionedAmountStr: proj.financialOutlay || 'Rs. 0',
+              sanctionedAmountRupees: rupees,
+              heading: `Completed Project (${proj.department})`
+            });
+            matchedContrib.projectCount = matchedContrib.works.length;
+            matchedContrib.totalRupees += rupees;
+          }
+        }
+      }
+    });
+
+    // Re-rank static list too
+    fallbackContributors.sort((a, b) => b.totalRupees - a.totalRupees);
+    const remapped = fallbackContributors.map((c, index) => {
+      const rank = index + 1;
+      let badge = 'CSR Partner';
+      let badgeColor = 'stone';
+      if (rank === 1) {
+        badge = 'Lead Diamond Partner';
+        badgeColor = 'emerald';
+      } else if (rank === 2) {
+        badge = 'Platinum Partner';
+        badgeColor = 'sky';
+      } else if (rank === 3) {
+        badge = 'Gold Partner';
+        badgeColor = 'amber';
+      }
+      return {
+        ...c,
+        rank,
+        badge,
+        badgeColor
+      };
+    });
+    setContributors(remapped);
+  };
+
   // Fetch live Google Sheet data at runtime
   const fetchLiveContributors = async () => {
     setIsLoadingLive(true);
     setLoadError(false);
     try {
+      // 1. Fetch contributors sheet
       const response = await fetch(CSV_URL);
       if (!response.ok) throw new Error('Network error pulling spreadsheet CSV');
       const csvText = await response.text();
@@ -154,7 +250,89 @@ export default function Contributors({ initialSearchQuery = '' }: ContributorsPr
           heading
         });
       }
-      
+
+      // 2. Fetch Projects sheet to read completed projects dynamically
+      try {
+        const projResponse = await fetch('https://docs.google.com/spreadsheets/d/1itNBrzhwMNoBA_54VfAwk4kfZF6uxmRKzeYY48T_sow/export?format=csv');
+        if (projResponse.ok) {
+          const projCsvText = await projResponse.text();
+          const projRows = parseCSV(projCsvText);
+          let currentDept = '';
+          
+          for (let k = 1; k < projRows.length; k++) {
+            const pRow = projRows[k];
+            if (pRow.length < 5) continue;
+            
+            let dept = pRow[0]?.trim() || '';
+            const title = pRow[1]?.trim() || '';
+            const description = pRow[2]?.trim() || '';
+            const outlay = pRow[3]?.trim() || '';
+            const status = pRow[4]?.trim() || '';
+            const contributor = pRow[5]?.trim() || '';
+
+            if (!title && !description) continue;
+            if (dept.toLowerCase().includes('name of the department')) continue;
+
+            if (dept !== '') {
+              currentDept = dept;
+            } else {
+              dept = currentDept;
+            }
+
+            // Normalizing status
+            const isCompleted = status.toLowerCase().includes('complete');
+            if (isCompleted && contributor && contributor.toLowerCase() !== 'none' && contributor.toLowerCase() !== 'general administration') {
+              // Find matching company in existing groups or DETAILED_CONTRIBUTORS
+              let targetCompany = '';
+              const groupNames = Object.keys(companyGroups);
+              
+              for (const name of groupNames) {
+                if (matchesCompany(contributor, name)) {
+                  targetCompany = name;
+                  break;
+                }
+              }
+              
+              if (!targetCompany) {
+                for (const staticC of DETAILED_CONTRIBUTORS) {
+                  if (matchesCompany(contributor, staticC.companyName)) {
+                    targetCompany = staticC.companyName;
+                    break;
+                  }
+                }
+              }
+
+              // Fallback to the parsed contributor string
+              if (!targetCompany) {
+                targetCompany = contributor;
+              }
+
+              if (!companyGroups[targetCompany]) {
+                companyGroups[targetCompany] = [];
+              }
+
+              // De-duplicate works to avoid repeating already loaded items
+              const alreadyExists = companyGroups[targetCompany].some(w => 
+                w.workName.toLowerCase().includes(title.toLowerCase()) || 
+                title.toLowerCase().includes(w.workName.toLowerCase())
+              );
+
+              if (!alreadyExists) {
+                const rupees = parseAmountToRupees(outlay);
+                companyGroups[targetCompany].push({
+                  workName: title + (description ? ` - ${description}` : ''),
+                  sanctionedAmountStr: outlay || 'Rs. 0',
+                  sanctionedAmountRupees: rupees,
+                  heading: `Completed Project (${dept})`
+                });
+              }
+            }
+          }
+        }
+      } catch (errProjects) {
+        console.warn('Silent live projects fetch for contributors mapping failed: ', errProjects);
+      }
+
       const aggregated = Object.keys(companyGroups).map((companyName) => {
         const works = companyGroups[companyName];
         const totalRupees = works.reduce((sum, item) => sum + item.sanctionedAmountRupees, 0);
@@ -171,8 +349,19 @@ export default function Contributors({ initialSearchQuery = '' }: ContributorsPr
       
       const mapped = aggregated.map((c, index) => {
         const rank = index + 1;
-        const badge = 'CSR Partner';
-        const badgeColor = 'stone';
+        let badge = 'CSR Partner';
+        let badgeColor = 'stone';
+        if (rank === 1) {
+          badge = 'Lead Diamond Partner';
+          badgeColor = 'emerald';
+        } else if (rank === 2) {
+          badge = 'Platinum Partner';
+          badgeColor = 'sky';
+        } else if (rank === 3) {
+          badge = 'Gold Partner';
+          badgeColor = 'amber';
+        }
+        
         const themeBg = 'bg-linear-to-br from-stone-50/70 via-stone-25/50 to-white';
         const borderGlow = 'hover:border-stone-400/40 hover:shadow-[0_8px_30px_rgba(40,40,40,0.04)]';
         
@@ -193,6 +382,7 @@ export default function Contributors({ initialSearchQuery = '' }: ContributorsPr
       setLastUpdated(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
     } catch (err) {
       console.warn('Live spreadsheet sync failed. Using precompiled dataset instead.', err);
+      hydrateStaticContributors();
       setLoadError(true);
     } finally {
       setIsLoadingLive(false);
@@ -664,25 +854,44 @@ export default function Contributors({ initialSearchQuery = '' }: ContributorsPr
                             </div>
 
                             <div className="space-y-3.5 max-h-[20rem] overflow-y-auto pr-1">
-                              {item.works.map((work, idx) => (
-                                <div 
-                                  key={idx}
-                                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4.5 rounded-2xl border border-stone-200/60 shadow-xs hover:border-stone-250 transition-colors"
-                                >
-                                  <div className="space-y-1 sm:max-w-[75%]">
-                                    <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg bg-stone-100 text-[10px] font-mono font-bold text-stone-500 tracking-wide uppercase leading-none">
-                                      <FileText className="h-2.5 w-2.5" />
-                                      {work.heading || 'CSR Welfare Work'}
+                              {item.works.map((work, idx) => {
+                                const isCompletedProject = work.heading?.toLowerCase().includes('completed');
+                                return (
+                                  <div 
+                                    key={idx}
+                                    className={`flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4.5 rounded-2xl border shadow-xs transition-colors ${
+                                      isCompletedProject 
+                                        ? 'bg-emerald-50/20 border-emerald-150 hover:border-emerald-250 hover:bg-emerald-50/40' 
+                                        : 'bg-white border-stone-200/60 hover:border-stone-250'
+                                    }`}
+                                  >
+                                    <div className="space-y-1 sm:max-w-[75%]">
+                                      <div className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg text-[10px] font-mono font-bold tracking-wide uppercase leading-none ${
+                                        isCompletedProject 
+                                          ? 'bg-emerald-100 text-emerald-850 border border-emerald-200' 
+                                          : 'bg-stone-100 text-stone-500'
+                                      }`}>
+                                        {isCompletedProject ? (
+                                          <CheckCircle2 className="h-2.5 w-2.5 text-emerald-600 shrink-0" />
+                                        ) : (
+                                          <FileText className="h-2.5 w-2.5 shrink-0" />
+                                        )}
+                                        {work.heading || 'CSR Welfare Work'}
+                                      </div>
+                                      <p className="text-xs sm:text-sm text-stone-700 font-sans font-medium leading-relaxed">
+                                        {work.workName}
+                                      </p>
                                     </div>
-                                    <p className="text-xs sm:text-sm text-stone-700 font-sans font-medium leading-relaxed">
-                                      {work.workName}
-                                    </p>
+                                    <div className={`sm:text-right font-mono font-black text-xs sm:text-sm shrink-0 px-3 py-1.5 border rounded-xl leading-none flex items-center justify-center self-start sm:self-center ${
+                                      isCompletedProject 
+                                        ? 'bg-emerald-50 text-emerald-900 border-emerald-200/60' 
+                                        : 'bg-stone-50 text-stone-900 border-stone-100'
+                                    }`}>
+                                      {work.sanctionedAmountStr}
+                                    </div>
                                   </div>
-                                  <div className="sm:text-right font-mono font-black text-stone-900 text-xs sm:text-sm shrink-0 bg-stone-50 px-3 py-1.5 border border-stone-100 rounded-xl leading-none flex items-center justify-center self-start sm:self-center">
-                                    {work.sanctionedAmountStr}
-                                  </div>
-                                </div>
-                              ))}
+                                );
+                              })}
                             </div>
 
                             {/* Standard Administrative Stamp */}

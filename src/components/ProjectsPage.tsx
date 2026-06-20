@@ -2,6 +2,68 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { PROJECTS_STATIC } from '../data';
 import { Project } from '../types';
+import { DETAILED_CONTRIBUTORS } from '../data/contributors_data';
+
+function getDepartmentForWork(heading: string, workName: string): string {
+  const h = (heading || '').toLowerCase();
+  const w = (workName || '').toLowerCase();
+
+  if (
+    h.includes('school') || h.includes('stem') || h.includes('science') || h.includes('education') || h.includes('learning') || h.includes('classroom') || h.includes('anganwadi') || h.includes('kindergarten') ||
+    w.includes('school') || w.includes('stem') || w.includes('science') || w.includes('education') || w.includes('learning') || w.includes('classroom') || w.includes('anganwadi') || w.includes('kindergarten')
+  ) {
+    return 'Education';
+  }
+  if (
+    h.includes('health') || h.includes('hearing') || h.includes('medical') || h.includes('hospital') || h.includes('addiction') || h.includes('newborn') || h.includes('phc') || h.includes('doctor') || h.includes('patient') ||
+    w.includes('health') || w.includes('hearing') || w.includes('medical') || w.includes('hospital') || w.includes('addiction') || w.includes('newborn') || w.includes('phc') || w.includes('doctor') || w.includes('patient')
+  ) {
+    return 'Health and Family Welfare';
+  }
+  if (
+    h.includes('disabled') || h.includes('differently abled') || h.includes('scooter') || h.includes('wheelchair') || h.includes('pwd') ||
+    w.includes('disabled') || w.includes('differently abled') || w.includes('scooter') || w.includes('wheelchair') || w.includes('pwd')
+  ) {
+    return 'Welfare of differently abled Person';
+  }
+  if (
+    h.includes('farm') || h.includes('pond') || h.includes('agriculture') || h.includes('irrigation') || h.includes('borewell') || h.includes('water harvesting') ||
+    w.includes('farm') || w.includes('pond') || w.includes('agriculture') || w.includes('irrigation') || w.includes('borewell') || w.includes('water harvesting')
+  ) {
+    return 'Agriculture and Family Welfare';
+  }
+  if (
+    h.includes('veterinary') || h.includes('livestock') || h.includes('animal') || h.includes('cow') || h.includes('cattle') ||
+    w.includes('veterinary') || w.includes('livestock') || w.includes('animal') || w.includes('cow') || w.includes('cattle')
+  ) {
+    return 'Animal Husbandry';
+  }
+  return 'Municipal Administration and water Supply';
+}
+
+function getStaticMergedProjects(): Project[] {
+  const list = [...PROJECTS_STATIC];
+  DETAILED_CONTRIBUTORS.forEach(c => {
+    c.works.forEach(w => {
+      const alreadyExists = list.some(p => 
+        p.title.toLowerCase().trim() === w.heading.toLowerCase().trim() ||
+        p.description.toLowerCase().trim() === w.workName.toLowerCase().trim()
+      );
+      if (!alreadyExists) {
+        list.push({
+          department: getDepartmentForWork(w.heading, w.workName),
+          title: w.heading || 'CSR Welfare Work',
+          description: w.workName || 'Detailed corporate social responsibility initiative.',
+          financialOutlay: w.sanctionedAmountStr || 'N/A',
+          status: 'Completed',
+          contributor: c.companyName || 'General Administration',
+          imageUrl: ''
+        });
+      }
+    });
+  });
+  return list;
+}
 import { 
   GraduationCap, 
   HeartPulse, 
@@ -221,7 +283,7 @@ export default function ProjectsPage({
   onCartChange = () => {},
   onNavClick = () => {}
 }: ProjectsPageProps) {
-  const [projects, setProjects] = useState<Project[]>(PROJECTS_STATIC);
+  const [projects, setProjects] = useState<Project[]>(getStaticMergedProjects());
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All Categories');
   const [activeProject, setActiveProject] = useState<Project | null>(null);
@@ -264,12 +326,10 @@ export default function ProjectsPage({
         }
 
         let normalizedStatus = status;
-        if (status.toLowerCase().includes('partial')) {
-          normalizedStatus = 'Partially taken up';
-        } else if (status.toLowerCase().includes('not')) {
-          normalizedStatus = 'Not taken up';
-        } else if (status.toLowerCase().includes('complete')) {
+        if (status.toLowerCase().includes('complete')) {
           normalizedStatus = 'Completed';
+        } else {
+          normalizedStatus = 'Not taken up';
         }
 
         parsedProjects.push({
@@ -281,6 +341,56 @@ export default function ProjectsPage({
           contributor: contributor || 'General Administration',
           imageUrl: getProjectFallbackImage(title)
         });
+      }
+
+      // Fetch dynamic completed partner works from CSR Contributors sheet
+      try {
+        const CONTRIBUTORS_CSV_URL = `https://docs.google.com/spreadsheets/d/1itNBrzhwMNoBA_54VfAwk4kfZF6uxmRKzeYY48T_sow/gviz/tq?tqx=out:csv&sheet=CSR%20Contributors`;
+        const contribResponse = await fetch(CONTRIBUTORS_CSV_URL);
+        if (contribResponse.ok) {
+          const contribCsvText = await contribResponse.text();
+          const contribRows = parseCSV(contribCsvText);
+          let currentCompany = '';
+          
+          for (let j = 1; j < contribRows.length; j++) {
+            const row = contribRows[j];
+            if (row.length < 4) continue;
+            let company = row[1] ? row[1].trim() : '';
+            const workName = row[2] ? row[2].trim() : '';
+            const amountStr = row[3] ? row[3].trim() : '';
+            const heading = row[4] ? row[4].trim() : '';
+
+            if (!company && currentCompany) {
+              company = currentCompany;
+            } else if (company) {
+              currentCompany = company;
+            }
+            if (!company) continue;
+            if (!workName && !amountStr && !heading) continue;
+
+            const finalHeading = heading || 'CSR Welfare Initiative';
+            const finalWorkName = workName || 'CSR welfare development work';
+
+            const alreadyExists = parsedProjects.some(p => 
+              p.title.toLowerCase().trim() === finalHeading.toLowerCase().trim() ||
+              p.description.toLowerCase().trim() === finalWorkName.toLowerCase().trim()
+            );
+
+            if (!alreadyExists) {
+              parsedProjects.push({
+                department: getDepartmentForWork(finalHeading, finalWorkName),
+                title: finalHeading,
+                description: finalWorkName,
+                financialOutlay: amountStr || 'Rs. 0',
+                status: 'Completed',
+                contributor: company,
+                imageUrl: getProjectFallbackImage(finalHeading)
+              });
+            }
+          }
+        }
+      } catch (errContrib) {
+        console.warn('Silent live contributors load failed for Projects page: ', errContrib);
       }
 
       if (parsedProjects.length > 0) {
@@ -295,20 +405,22 @@ export default function ProjectsPage({
     loadLiveDataSilently();
   }, []);
 
+  // Filter out completed projects for display purposes
+  const activeNotTakenUpProjects = projects.filter(p => !p.status.toLowerCase().includes('complete'));
+
   // Compute stats on the current parsed set for the creative summary block
-  const totalProjectsCount = projects.length;
+  const totalProjectsCount = activeNotTakenUpProjects.length;
   const completedProjectsCount = projects.filter(p => p.status.toLowerCase().includes('complete')).length;
-  const partialProjectsCount = projects.filter(p => p.status.toLowerCase().includes('partial')).length;
-  const notStartedCount = projects.filter(p => p.status.toLowerCase().includes('not')).length;
+  const notStartedCount = activeNotTakenUpProjects.length;
 
   // Unique categories helper
-  const departments: string[] = Array.from(new Set(projects.map(p => p.department)));
+  const departments: string[] = Array.from(new Set(activeNotTakenUpProjects.map(p => p.department)));
   const categories: string[] = ['All Categories', ...departments];
 
   // Helper helper to count total items in a department
   const getCategoryCount = (catName: string) => {
-    if (catName === 'All Categories') return projects.length;
-    return projects.filter(p => p.department === catName).length;
+    if (catName === 'All Categories') return activeNotTakenUpProjects.length;
+    return activeNotTakenUpProjects.filter(p => p.department === catName).length;
   };
 
   const isAllDepartmentSelected = (deptName: string, deptProjects: Project[]) => {
@@ -328,7 +440,7 @@ export default function ProjectsPage({
   };
 
   // Grouped search and filter mapping helper
-  const filteredProjects = projects.filter(p => {
+  const filteredProjects = activeNotTakenUpProjects.filter(p => {
     const matchesSearch = 
       p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       p.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -361,20 +473,7 @@ export default function ProjectsPage({
         </span>
       );
     }
-    if (s.includes('partial')) {
-      return (
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-100/70 border border-amber-300 text-amber-900 text-xs font-bold rounded-lg backdrop-blur-3xs">
-          <Clock className="h-3.5 w-3.5 text-amber-700 shrink-0" />
-          Partially taken up
-        </span>
-      );
-    }
-    return (
-      <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-stone-100 border border-stone-250 text-stone-700 text-xs font-bold rounded-lg">
-        <AlertCircle className="h-3.5 w-3.5 text-stone-500 shrink-0" />
-        Not taken up
-      </span>
-    );
+    return null;
   };
 
   return (
@@ -422,7 +521,7 @@ export default function ProjectsPage({
           </div>
 
           {/* Quick Creative Mini Dashboard Indicators Row */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-6 border-t border-dashed border-stone-200 text-stone-650">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8 pt-6 border-t border-dashed border-stone-200 text-stone-650">
             <div className="bg-slate-50/50 px-4 py-3 rounded-xl border border-stone-150">
               <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest block">Departments</span>
               <span className="text-lg font-extrabold text-slate-800 block mt-0.5">{departments.length} Sectors</span>
@@ -430,10 +529,6 @@ export default function ProjectsPage({
             <div className="bg-emerald-50/40 px-4 py-3 rounded-xl border border-emerald-150/40">
               <span className="text-[11px] font-bold text-emerald-700/60 uppercase tracking-widest block">Completed</span>
               <span className="text-lg font-extrabold text-emerald-800 block mt-0.5">{completedProjectsCount} Projects</span>
-            </div>
-            <div className="bg-amber-50/40 px-4 py-3 rounded-xl border border-amber-150/40">
-              <span className="text-[11px] font-[700] text-amber-700/60 uppercase tracking-widest block">Partially Commenced</span>
-              <span className="text-lg font-extrabold text-amber-800 block mt-0.5">{partialProjectsCount} Ongoing</span>
             </div>
             <div className="bg-stone-100/50 px-4 py-3 rounded-xl border border-stone-200">
               <span className="text-[11px] font-bold text-stone-450 uppercase tracking-widest block">In Queue</span>
@@ -508,9 +603,13 @@ export default function ProjectsPage({
                   </>
                 )}
               </button>
-              {selectionMode && (
+              {selectionMode ? (
                 <span className="text-xs font-sans text-stone-500 animate-pulse bg-amber-50 border border-amber-200 text-amber-900 px-3 py-1.5 rounded-lg font-bold">
                   ✓ Selection Mode Active: Click checkboxes to add/remove, or check category headings to select all.
+                </span>
+              ) : (
+                <span className="text-xs font-sans text-stone-550 bg-stone-50 border border-stone-200/60 px-3 py-1.5 rounded-lg font-medium">
+                  💡 <strong>Information Note</strong>: Click on the <strong>"Submit Interest"</strong> button to toggle selection mode and choose the welfare projects you wish to sponsor.
                 </span>
               )}
             </div>
@@ -659,14 +758,7 @@ export default function ProjectsPage({
                               {project.title}
                             </h3>
 
-                            {/* Contributor Details block */}
-                            <div className="mt-3 flex items-center gap-2 text-xs text-stone-500 font-sans border-t border-stone-50 pt-3">
-                              <User className="h-3.5 w-3.5 text-stone-400 shrink-0" />
-                              <span className="font-semibold text-stone-600">Lead Contributor:</span>
-                              <span className="text-stone-800 bg-stone-100/70 px-2 py-0.5 rounded font-bold">
-                                {(!project.contributor || project.contributor.toLowerCase() === 'none') ? '' : project.contributor}
-                              </span>
-                            </div>
+                            {/* Contributor details removed per user requirements */}
 
                             {/* Interactive Description Snippet */}
                             <p className="mt-3.5 text-xs leading-relaxed text-stone-500 line-clamp-3 font-sans">
@@ -864,9 +956,7 @@ export default function ProjectsPage({
 
               {/* Profile specifications */}
               <div className="p-6 sm:p-8 space-y-6">
-                
-                {/* Financial block */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                           {/* Financial block */}
                 <div className="bg-stone-50 border border-stone-200 p-4 rounded-xl flex items-center gap-3">
                   <div className="p-2 bg-emerald-50 rounded-lg text-emerald-800">
                     <Coins className="h-5 w-5" />
@@ -880,21 +970,6 @@ export default function ProjectsPage({
                     </span>
                   </div>
                 </div>
-
-                <div className="bg-stone-50 border border-stone-200 p-4 rounded-xl flex items-center gap-3">
-                  <div className="p-2 bg-indigo-50 rounded-lg text-indigo-805">
-                    <User className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-sans">
-                      Allocated Lead Donor
-                    </span>
-                    <span className="text-base font-extrabold text-stone-900 font-sans block mt-0.5">
-                      {(!activeProject.contributor || activeProject.contributor.toLowerCase() === 'none') ? '' : activeProject.contributor}
-                    </span>
-                  </div>
-                </div>
-              </div>
 
               {/* Description body */}
               <div className="space-y-2">
@@ -919,16 +994,12 @@ export default function ProjectsPage({
                     className={`h-full rounded-full transition-all duration-500 ${
                       activeProject.status.toLowerCase().includes('complete') 
                         ? 'bg-emerald-500' 
-                        : activeProject.status.toLowerCase().includes('partial') 
-                          ? 'bg-amber-400 animate-pulse' 
-                          : 'bg-stone-300'
+                        : 'bg-stone-300'
                     }`}
                     style={{ 
                       width: activeProject.status.toLowerCase().includes('complete') 
                         ? '100%' 
-                        : activeProject.status.toLowerCase().includes('partial') 
-                          ? '50%' 
-                          : '15%' 
+                        : '15%' 
                     }}
                   ></div>
                 </div>

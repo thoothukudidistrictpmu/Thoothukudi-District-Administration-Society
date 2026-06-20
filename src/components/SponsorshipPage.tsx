@@ -176,14 +176,6 @@ const getStatusBadge = (status: string) => {
       </span>
     );
   }
-  if (s.includes('partial')) {
-    return (
-      <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-100/70 border border-amber-300 text-amber-900 text-xs font-bold rounded-lg backdrop-blur-3xs">
-        <Clock className="h-3.5 w-3.5 text-amber-700 shrink-0" />
-        Partially taken up
-      </span>
-    );
-  }
   return (
     <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-violet-100/70 border border-violet-350 text-violet-900 text-xs font-bold rounded-lg backdrop-blur-3xs">
       <FolderDot className="h-3.5 w-3.5 text-violet-700 shrink-0" />
@@ -688,33 +680,17 @@ export default function SponsorshipPage({ cart, onToggleCart, onCartChange, onNa
               <div className="p-6 sm:p-8 space-y-6">
                 
                 {/* Financial block */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="bg-stone-50 border border-stone-200 p-4 rounded-xl flex items-center gap-3">
-                    <div className="p-2 bg-emerald-50 rounded-lg text-emerald-800">
-                      <Coins className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-sans">
-                        Financial Budget allocation
-                      </span>
-                      <span className="text-base font-extrabold text-emerald-900 font-sans block mt-0.5">
-                        {activeProject.financialOutlay}
-                      </span>
-                    </div>
+                <div className="bg-stone-50 border border-stone-200 p-4 rounded-xl flex items-center gap-3">
+                  <div className="p-2 bg-emerald-50 rounded-lg text-emerald-800">
+                    <Coins className="h-5 w-5" />
                   </div>
-
-                  <div className="bg-stone-50 border border-stone-200 p-4 rounded-xl flex items-center gap-3">
-                    <div className="p-2 bg-indigo-50 rounded-lg text-indigo-850">
-                      <User className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-sans">
-                        Allocated Lead Donor
-                      </span>
-                      <span className="text-base font-extrabold text-stone-900 font-sans block mt-0.5">
-                        {(!activeProject.contributor || activeProject.contributor.toLowerCase() === 'none') ? '' : activeProject.contributor}
-                      </span>
-                    </div>
+                  <div>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block font-sans">
+                      Financial Budget allocation
+                    </span>
+                    <span className="text-base font-extrabold text-emerald-900 font-sans block mt-0.5">
+                      {activeProject.financialOutlay}
+                    </span>
                   </div>
                 </div>
 

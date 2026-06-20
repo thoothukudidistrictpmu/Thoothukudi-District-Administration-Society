@@ -168,8 +168,8 @@ export const PROJECTS_STATIC: Project[] = [
     title: "Additional Classrooms (12 Government Schools)",
     description: "Construction of 34 additional classrooms in 12 Government schools to address overcrowding and improve classroom infrastructure.",
     financialOutlay: "Rs. 6.12 Crore",
-    status: "Partially taken up",
-    contributor: "NTPL",
+    status: "Not taken up",
+    contributor: "none",
     imageUrl: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80"
   },
   {
@@ -204,8 +204,8 @@ export const PROJECTS_STATIC: Project[] = [
     title: "New OP Blocks in PHCs (11 Centres)",
     description: "Construction of new Outpatient blocks in 11 Primary Health Centres to strengthen outpatient healthcare infrastructure and service delivery.",
     financialOutlay: "Rs. 7.7 Crores",
-    status: "Partially taken up",
-    contributor: "NTPL",
+    status: "Not taken up",
+    contributor: "none",
     imageUrl: "https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1200&q=80"
   },
   {
@@ -222,8 +222,8 @@ export const PROJECTS_STATIC: Project[] = [
     title: "Assistive Devices for PwDs",
     description: "Procurement and distribution of wheelchairs and assistive devices, including battery-operated wheelchairs, foldable walkers, and plastic calipers, for persons with disabilities.",
     financialOutlay: "Rs. 31.3 Lakhs",
-    status: "Partially taken up",
-    contributor: "NTPL",
+    status: "Not taken up",
+    contributor: "none",
     imageUrl: "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=1200&q=80"
   },
   {
@@ -231,8 +231,8 @@ export const PROJECTS_STATIC: Project[] = [
     title: "Retrofitted Mobility Scooters for PwDs",
     description: "Provision of retrofitted petrol scooters for persons with lower-limb disabilities to support independent mobility and accessibility.",
     financialOutlay: "Rs. 4.07 Crores",
-    status: "Partially taken up",
-    contributor: "NTPL",
+    status: "Not taken up",
+    contributor: "none",
     imageUrl: "https://images.unsplash.com/photo-1595079676339-1534801ad6cf?auto=format&fit=crop&w=1200&q=80"
   },
   {
@@ -249,8 +249,8 @@ export const PROJECTS_STATIC: Project[] = [
     title: "Farm Pond Development",
     description: "Construction and strengthening of farm ponds to enhance water storage capacity and support sustainable irrigation for agricultural activities.",
     financialOutlay: "Rs. 6 Crores",
-    status: "Partially taken up",
-    contributor: "NTPL",
+    status: "Not taken up",
+    contributor: "none",
     imageUrl: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80"
   },
   {
@@ -285,8 +285,8 @@ export const PROJECTS_STATIC: Project[] = [
     title: "Traffic Island Beautification (10 Locations)",
     description: "Beautification of traffic islands at 10 locations in Thoothukudi through landscaping, decorative elements, and thematic sculptures.",
     financialOutlay: "Rs. 1 Crore",
-    status: "Partially taken up",
-    contributor: "NTPL",
+    status: "Not taken up",
+    contributor: "none",
     imageUrl: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80"
   },
   {
@@ -303,8 +303,8 @@ export const PROJECTS_STATIC: Project[] = [
     title: "Smart Waste Collection Vehicles (3 Municipalities)",
     description: "Deployment of battery-operated waste collection vehicles to strengthen door-to-door solid waste management while reducing fuel costs and carbon emissions in 3 Municipalities",
     financialOutlay: "Rs. 84 Lakhs",
-    status: "Partially taken up",
-    contributor: "NTPL",
+    status: "Not taken up",
+    contributor: "none",
     imageUrl: "https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?auto=format&fit=crop&w=1200&q=80"
   }
 ];

@@ -38,7 +38,7 @@ export interface Project {
   title: string;
   description: string;
   financialOutlay: string;
-  status: 'Completed' | 'Partially taken up' | 'Not taken up' | string;
+  status: 'Completed' | 'Not taken up' | string;
   contributor: string;
   imageUrl?: string;
 }

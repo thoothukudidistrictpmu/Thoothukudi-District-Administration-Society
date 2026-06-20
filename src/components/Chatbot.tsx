@@ -179,7 +179,7 @@ export default function Chatbot() {
              "• **Key Features**:\n" +
              "  1. **Topic Filters**: Seamlessly filter blueprints across Education (school upgrades, classrooms), Health (clinical gear, newborn screeners), and Infrastructure (water tanks, community systems).\n" +
              "  2. **Detailed Blueprint Cards**: Each card details target beneficiary counts, absolute estimated budget configurations, and geographical execution blocks.\n" +
-             "  3. **Interest Cart Selection**: Click 'Submit Interest' on various items to save blueprints directly to your localized proposal cart for configuration.";
+             "  3. **Interest Cart Selection**: Click 'Submit Interest' to activate selection mode, then check individual checkboxes to save blueprints directly to your localized proposal cart.";
     } 
     
     // 3. Sponsorship Page info
