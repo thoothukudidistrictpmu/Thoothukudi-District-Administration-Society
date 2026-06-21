@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import saltIndustryImage from '../assets/images/pearl_coast_salt_industry_1781983273200.jpg';
+import giCraftsImage from '../assets/images/traditional_gi_crafts_1782023184184.jpg';
 import { 
   Building2, 
   MapPin, 
@@ -217,7 +218,7 @@ const RESOURCE_Sectors: ResourceCategory[] = [
     statLabel: "Sweet GI Certification",
     statValue: "Kovilpatti Kadalai Mittai",
     description: "Thoothukudi protects centuries of heritage, from the special groundnut brittle candy glazed with natural jaggery (Kovilpatti Kadalai Mittai) to Ettayapuram handlooms, and Sathankulam boiled palm sugar (Karupatti).",
-    image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&q=80&w=800",
+    image: giCraftsImage,
     keyDrivers: ["Kovilpatti Kadalai Mittai GI", "Ettayapuram Handloom Cluster", "Sathankulam Palm sugar", "Vilathikulam Gundu Chilli"],
     icon: Award,
     color: "purple"
