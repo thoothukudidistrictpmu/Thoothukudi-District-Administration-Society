@@ -407,12 +407,12 @@ export default function Journey({ onProjectsClick }: JourneyProps) {
                     title={stat.value}
                     className={`font-display font-extrabold text-white tracking-tight break-words select-all ${
                       stat.value.length > 14
-                        ? 'text-xl sm:text-2xl md:text-2.5xl lg:text-xl xl:text-2.5xl'
+                        ? 'text-lg sm:text-xl md:text-2xl lg:text-lg xl:text-2xl'
                         : stat.value.length > 8
-                        ? 'text-2xl sm:text-3.5xl md:text-4xl lg:text-2xl xl:text-3.5xl'
+                        ? 'text-xl sm:text-3xl md:text-4xl lg:text-xl xl:text-3xl'
                         : stat.value.length > 5
-                        ? 'text-3xl sm:text-4xl lg:text-4xl xl:text-5xl'
-                        : 'text-4xl sm:text-5xl lg:text-5.5xl xl:text-6xl'
+                        ? 'text-2xl sm:text-3xl lg:text-3xl xl:text-4xl'
+                        : 'text-3xl sm:text-4xl lg:text-5xl xl:text-5xl'
                     }`}
                   >
                     {stat.value}

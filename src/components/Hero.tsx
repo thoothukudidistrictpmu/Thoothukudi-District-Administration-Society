@@ -23,7 +23,7 @@ export default function Hero({ onExploreClick }: HeroProps) {
         />
         {/* High visual quality dark gradients for text eligibility */}
         <div className="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-900/40 to-slate-950/85"></div>
-        <div className="absolute inset-0 bg-radial-gradient(circle at center, transparent 30%, rgba(2, 6, 23, 0.95))"></div>
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_30%,_rgba(2,6,23,0.95))]"></div>
       </div>
 
       {/* Centered Typography layout */}

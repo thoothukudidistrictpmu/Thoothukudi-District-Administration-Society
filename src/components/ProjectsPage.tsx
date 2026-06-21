@@ -500,7 +500,7 @@ export default function ProjectsPage({
                 <Briefcase className="h-3.5 w-3.5" />
                 <span>Development Blueprints</span>
               </div>
-              <h1 className="text-3xl sm:text-4.5xl font-display font-black text-slate-900 tracking-tight leading-none mt-1">
+              <h1 className="text-3xl sm:text-4xl font-display font-black text-slate-900 tracking-tight leading-none mt-1">
                 District Administrative Projects
               </h1>
               <p className="text-slate-550 text-sm sm:text-base leading-relaxed">

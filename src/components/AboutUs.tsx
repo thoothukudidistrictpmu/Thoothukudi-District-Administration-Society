@@ -65,7 +65,7 @@ export default function AboutUs() {
               variants={itemVariants}
               className="relative bg-white/80 backdrop-blur-md rounded-2xl p-6 sm:p-8 border border-slate-150/80 shadow-xs hover:shadow-lg hover:border-emerald-500/10 transition-all duration-350 before:absolute before:left-0 before:top-6 before:bottom-6 before:w-1.5 before:bg-gradient-to-b before:from-emerald-600 before:to-amber-500 before:rounded-r-md group"
             >
-              <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-sans first-letter:text-3.5xl first-letter:font-extrabold first-letter:text-emerald-800 first-letter:mr-2 select-text">
+              <p className="text-slate-700 text-sm sm:text-base leading-relaxed font-sans first-letter:text-3xl first-letter:font-extrabold first-letter:text-emerald-800 first-letter:mr-2 select-text">
                 {paragraph}
               </p>
             </motion.div>

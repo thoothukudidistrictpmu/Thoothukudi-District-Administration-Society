@@ -35,7 +35,7 @@ export default function Header() {
         </div>
 
         {/* Bilingual Title Block */}
-        <h1 className="text-3.5xl sm:text-4.5xl md:text-5.5xl font-display font-extrabold tracking-tight text-slate-900 leading-tight">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold tracking-tight text-slate-900 leading-tight">
           Thoothukudi District Administration Society
         </h1>
         <h2 className="mt-3 text-lg sm:text-xl md:text-2xl font-sans font-semibold text-emerald-800 tracking-wide bg-emerald-50/50 px-4 py-1.5 rounded-full border border-emerald-100/50 inline-block">

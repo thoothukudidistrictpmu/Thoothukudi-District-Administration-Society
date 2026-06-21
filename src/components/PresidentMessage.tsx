@@ -53,7 +53,7 @@ export default function PresidentMessage() {
               President Message
             </div>
             
-            <h2 className="text-3.5xl font-display font-extrabold text-slate-900 tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-4xl font-display font-extrabold text-slate-900 tracking-tight leading-tight">
               A Message from our President
             </h2>
             

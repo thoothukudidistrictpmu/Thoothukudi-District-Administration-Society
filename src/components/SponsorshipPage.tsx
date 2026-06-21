@@ -329,7 +329,7 @@ export default function SponsorshipPage({ cart, onToggleCart, onCartChange, onNa
                     <HeartHandshake className="h-7 w-7" />
                   </div>
                   <div>
-                    <h1 className="text-2.5xl sm:text-3xl font-display font-black text-slate-900 tracking-tight leading-none">
+                    <h1 className="text-2xl sm:text-3xl font-display font-black text-slate-900 tracking-tight leading-none">
                       Administrative Desk
                     </h1>
                     <p className="text-slate-550 text-xs sm:text-sm leading-relaxed mt-1.5">
@@ -547,7 +547,7 @@ export default function SponsorshipPage({ cart, onToggleCart, onCartChange, onNa
                             </span>
                           </div>
                           <div className="text-right">
-                            <span className="text-xl sm:text-2.5xl font-mono font-black text-emerald-800 tracking-tight">
+                            <span className="text-xl sm:text-2xl font-mono font-black text-emerald-800 tracking-tight">
                               {formatCostNumeric(totalCostValue)}
                             </span>
                           </div>
