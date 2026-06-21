@@ -363,13 +363,13 @@ export default function AboutPage({ onExploreClick }: AboutPageProps) {
               </div>
 
               {/* Status & Quick bulk controls */}
-              <div className="flex items-center justify-between md:justify-end gap-4 bg-slate-50 px-4 py-2 rounded-xl border border-slate-150">
-                <span className="text-xs font-mono text-slate-600 font-bold flex items-center gap-1.5 whitespace-nowrap">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between sm:justify-end gap-3 bg-slate-50 p-3 sm:px-4 sm:py-2 rounded-xl border border-slate-150 w-full md:w-auto">
+                <span className="text-xs font-mono text-slate-600 font-bold flex items-center justify-center sm:justify-start gap-1.5 whitespace-nowrap">
                   <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
                   <span>{filteredTaluks.length} of {TALUKS_DATA.length} Regions</span>
                 </span>
-                <div className="h-4 w-[1px] bg-slate-200 shrink-0"></div>
-                <div className="flex gap-3 whitespace-nowrap text-xs">
+                <div className="hidden sm:block h-4 w-[1px] bg-slate-200 shrink-0"></div>
+                <div className="flex justify-center gap-3 whitespace-nowrap text-xs">
                   <button
                     onClick={() => expandAll(filteredTaluks)}
                     className="font-bold text-emerald-700 hover:text-emerald-950 cursor-pointer transition-colors"
@@ -395,8 +395,8 @@ export default function AboutPage({ onExploreClick }: AboutPageProps) {
               <span className="text-[10px] font-mono tracking-widest font-black text-slate-400 uppercase">
                 Filter by Administrative Classification
               </span>
-              {/* Category tabs utilizing scrollable lists for spacious, elegant visual on phone */}
-              <div className="flex gap-2 overflow-x-auto pb-2 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 scrollbar-none flex-nowrap sm:flex-wrap">
+              {/* Category tabs: wrapped cleanly on all screens (phone, tablet, laptop) inside the container */}
+              <div id="division-filter-buttons-wrapper" className="flex flex-wrap gap-2 pt-1 w-full">
                 {[
                   { name: 'All', label: 'All Divisions', icon: Layers, activeClass: 'bg-slate-900 text-white border-slate-950 shadow-md shadow-slate-900/10' },
                   { name: 'Coastal', label: 'Coastal Corridor', icon: Waves, activeClass: 'bg-sky-600 text-white border-sky-500 shadow-md shadow-sky-500/10' },
@@ -410,10 +410,10 @@ export default function AboutPage({ onExploreClick }: AboutPageProps) {
                     <button
                       key={catItem.name}
                       onClick={() => setSelectedCategory(catItem.name)}
-                      className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold cursor-pointer transition-all duration-300 shrink-0 border ${
+                      className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold cursor-pointer transition-all duration-300 border ${
                         isSelected
-                          ? catItem.activeClass
-                          : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-600'
+                           ? catItem.activeClass
+                           : 'bg-white border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-600'
                       }`}
                     >
                       <CatIconComponent className={`h-4 w-4 shrink-0 ${isSelected ? 'text-white' : 'text-slate-400'}`} />

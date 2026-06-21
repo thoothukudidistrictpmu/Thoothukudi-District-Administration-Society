@@ -551,7 +551,7 @@ export default function ProjectsPage({
             </span>
           </div>
 
-          <div className="flex flex-wrap gap-2.5">
+          <div className="flex gap-2.5 overflow-x-auto pb-3 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:overflow-x-visible no-scrollbar flex-nowrap sm:flex-wrap w-full">
             {categories.map((cat) => {
               const isActive = selectedCategory === cat;
               const count = getCategoryCount(cat);
@@ -561,7 +561,7 @@ export default function ProjectsPage({
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all duration-300 transform active:scale-95 cursor-pointer flex items-center gap-2 border shadow-3xs ${
+                  className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all duration-300 transform active:scale-95 cursor-pointer flex items-center gap-2 border shadow-3xs shrink-0 ${
                     isActive
                       ? 'bg-gradient-to-r from-emerald-800 to-teal-900 border-emerald-950 text-white shadow-md'
                       : 'bg-stone-50 hover:bg-stone-100 border-stone-200 hover:border-stone-300 text-slate-650 hover:text-slate-900'
