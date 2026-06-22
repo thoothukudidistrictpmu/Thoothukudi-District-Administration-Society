@@ -67,22 +67,22 @@ export const COL_PRESIDENT_MESSAGE = [
 export const BOARD_MEMBERS: BoardMember[] = [
   {
     role: "President",
-    name: "Vishu Mahajan IAS",
+    name: "Mr.Vishu Mahajan IAS",
     title: "District Collector, Thoothukudi"
   },
   {
     role: "Vice President",
-    name: "Thiru. M.Guruchandran",
+    name: "Mr.M.Guruchandran",
     title: "District Revenue Officer, Thoothukudi"
   },
   {
     role: "Secretary",
-    name: "Ishwarya Ramanathan IAS",
+    name: "Mrs.Ishwarya Ramanathan IAS",
     title: "Project Director DRDA, Thoothukudi"
   },
   {
     role: "Treasurer",
-    name: "S.Uma Maheswari",
+    name: "Mrs.S.Uma Maheswari",
     title: "Personal Assistant, Thoothukudi"
   }
 ];
