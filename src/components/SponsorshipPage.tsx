@@ -574,43 +574,126 @@ export default function SponsorshipPage({ cart, onToggleCart, onCartChange, onNa
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0 }}
               transition={{ type: "spring", damping: 20 }}
-              className="bg-white border border-stone-200 rounded-3xl p-6 sm:p-10 shadow-xl max-w-lg mx-auto text-center animate-fade-in"
+              className="bg-white border border-stone-200 rounded-3xl p-6 sm:p-10 shadow-xl max-w-2xl mx-auto text-left animate-fade-in"
             >
-              {/* Green Visual Check Ring */}
-              <div className="h-16 w-16 bg-emerald-50 rounded-full flex items-center justify-center text-emerald-700 mx-auto mb-5 border-4 border-emerald-100 relative shadow-sm">
-                <Check className="h-8 w-8" />
+              {/* Top celebration illustration / heading */}
+              <div className="text-center mb-8">
+                {/* Green Visual Check Ring */}
+                <div className="h-16 w-16 bg-emerald-50 rounded-full flex items-center justify-center text-emerald-700 mx-auto mb-4 border-4 border-emerald-100 relative shadow-sm">
+                  <Check className="h-8 w-8" />
+                </div>
+
+                <h2 className="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 tracking-tight leading-none mb-3">
+                  Submitted Successfully!
+                </h2>
+
+                <p className="text-stone-600 text-sm max-w-md mx-auto leading-relaxed font-sans">
+                  Thank you, <strong className="text-slate-800">{formData.name}</strong>. Your interest details have been securely uploaded to the District administrative Database.
+                </p>
               </div>
 
-              <h2 className="text-xl sm:text-2xl font-sans font-black text-slate-900 tracking-tight leading-none mb-3">
-                Submitted Successfully!
-              </h2>
+              {/* Live Info Notice regarding Email and Spam folder */}
+              <div className="mb-6 bg-amber-50/70 border border-amber-200/80 rounded-2xl p-4 flex gap-3 text-amber-900 leading-relaxed text-xs">
+                <AlertCircle className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
+                <div className="space-y-1">
+                  <p className="font-extrabold uppercase tracking-wider text-[10px] text-amber-800">Email Confirmation Notice</p>
+                  <p className="text-amber-900 font-medium font-sans">
+                    A copy of your selected welfare blueprints and receipt details has been shared to your email address (<strong>{formData.email}</strong>). If you do not see it in your Inbox, <span className="font-bold underline">kindly check your Spam or Junk email folder.</span>
+                  </p>
+                </div>
+              </div>
 
-              <p className="text-stone-600 text-sm leading-relaxed mx-auto mb-6 font-sans">
-                Thank you, <strong className="text-slate-800">{formData.name}</strong>. Your interest details have been securely uploaded to the District administrative Database.
-              </p>
+              {/* Sponsor & Contact Details section */}
+              <div className="mb-6">
+                <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 font-sans mb-3">
+                  Sponsor & Contact Profile
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-stone-50 border border-stone-200 rounded-2xl p-4">
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-bold text-stone-405 uppercase tracking-widest font-sans">Contact Name</span>
+                    <p className="text-xs font-bold text-slate-800 font-sans flex items-center gap-1.5">
+                      <User className="h-3.5 w-3.5 text-slate-400" />
+                      {formData.name}
+                    </p>
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-[10px] font-bold text-stone-405 uppercase tracking-widest font-sans">Email Address</span>
+                    <p className="text-xs font-semibold text-slate-850 font-sans flex items-center gap-1.5 select-all">
+                      <Mail className="h-3.5 w-3.5 text-slate-400" />
+                      {formData.email}
+                    </p>
+                  </div>
+                  {formData.organization && (
+                    <div className="space-y-1">
+                      <span className="text-[10px] font-bold text-stone-405 uppercase tracking-widest font-sans">Organization</span>
+                      <p className="text-xs font-semibold text-slate-855 font-sans flex items-center gap-1.5">
+                        <Building2 className="h-3.5 w-3.5 text-slate-400" />
+                        {formData.organization}
+                      </p>
+                    </div>
+                  )}
+                  {formData.phone && (
+                    <div className="space-y-1">
+                      <span className="text-[10px] font-bold text-stone-405 uppercase tracking-widest font-sans">Phone Number</span>
+                      <p className="text-xs font-mono font-bold text-slate-855 flex items-center gap-1.5">
+                        <Phone className="h-3.5 w-3.5 text-slate-400" />
+                        {formData.phone}
+                      </p>
+                    </div>
+                  )}
+                  {formData.notes && (
+                    <div className="sm:col-span-2 border-t border-stone-200/60 pt-2.5 mt-1 space-y-1">
+                      <span className="text-[10px] font-bold text-stone-405 uppercase tracking-widest font-sans">Additional Notes</span>
+                      <p className="text-xs text-stone-600 bg-white border border-stone-200/50 rounded-lg p-2.5 leading-relaxed font-sans italic">
+                        "{formData.notes}"
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
 
-              {/* Minimal Sync & Contact Status */}
-              <div className="bg-stone-50 border border-stone-200 rounded-2xl p-4 text-left space-y-2 mb-6">
-                <div className="flex justify-between items-center text-xs">
-                  <span className="text-stone-500">Database Upload</span>
-                  <span className="font-bold text-emerald-700 flex items-center gap-1">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                    Synced Live
+              {/* Project Blueprints listing section */}
+              <div className="mb-8">
+                <div className="flex justify-between items-center mb-3">
+                  <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 font-sans">
+                    Submitted Interest Blueprints
+                  </h3>
+                  <span className="text-[10px] uppercase tracking-wider font-extrabold font-mono px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded-md">
+                    {cart.length} {cart.length === 1 ? 'Project' : 'Blueprints'}
                   </span>
                 </div>
-                <div className="flex justify-between items-center text-xs border-t border-stone-150 pt-2">
-                  <span className="text-stone-500">Contact Person</span>
-                  <span className="font-semibold text-slate-800">{formData.name}</span>
-                </div>
-                {formData.organization && (
-                  <div className="flex justify-between items-center text-xs border-t border-stone-150 pt-2">
-                    <span className="text-stone-500">Organization</span>
-                    <span className="font-semibold text-slate-800">{formData.organization}</span>
+
+                <div className="border border-stone-200 rounded-2xl overflow-hidden divide-y divide-stone-150">
+                  <div className="max-h-56 overflow-y-auto no-scrollbar bg-white divide-y divide-stone-150">
+                    {cart.map((project, idx) => (
+                      <div key={project.title + idx} className="p-3.5 hover:bg-stone-50 transition-colors flex justify-between items-start gap-3">
+                        <div className="space-y-0.5">
+                          <p className="text-xs font-extrabold text-slate-950 font-sans leading-snug">
+                            {project.title}
+                          </p>
+                          <p className="text-[10px] font-bold text-slate-450 uppercase tracking-wider font-sans">
+                            {project.department}
+                          </p>
+                        </div>
+                        <div className="text-right shrink-0">
+                          <span className="text-xs font-mono font-black text-slate-800">
+                            {project.financialOutlay}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                )}
-                <div className="flex justify-between items-center text-xs border-t border-stone-150 pt-2">
-                  <span className="text-stone-500">Total Value</span>
-                  <span className="font-mono font-bold text-emerald-750">{formatCostNumeric(totalCostValue)}</span>
+
+                  {/* Total Value Overlay */}
+                  <div className="bg-stone-50 px-4 py-3.5 flex justify-between items-center text-xs">
+                    <div className="flex items-center gap-1.5 text-stone-500 font-sans">
+                      <Coins className="h-4 w-4 text-emerald-600" />
+                      <span className="font-bold">Total Sponsorship Evaluation:</span>
+                    </div>
+                    <span className="text-sm font-mono font-black text-emerald-850 leading-none">
+                      {formatCostNumeric(totalCostValue)}
+                    </span>
+                  </div>
                 </div>
               </div>
 
