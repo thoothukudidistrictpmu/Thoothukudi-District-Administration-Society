@@ -892,7 +892,7 @@ export default function ProjectsPage({
             {/* Bottom Actions footer inside the box */}
             <div className="bg-stone-50 px-6 sm:px-8 py-4 border-t border-stone-150 flex flex-col sm:flex-row justify-between items-center gap-3">
               <span className="text-xs text-stone-500 font-sans italic">
-                * Commitments will be routed as official CSR / NGO fund allocations to TDAS Foundation under Collector audit.
+                * Commitments will be routed as official CSR / NGO fund allocations to Thoothukudi District Administration Society under Collector audit.
               </span>
               <button
                 onClick={() => onCartChange([])}

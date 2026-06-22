@@ -41,7 +41,7 @@ export default function AboutUs() {
         >
           <div className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-50 text-emerald-800 rounded-full text-xs font-bold tracking-widest uppercase font-sans mb-3 border border-emerald-100/50">
             <Sparkles className="h-3 w-3 text-emerald-600 animate-pulse" />
-            <span>TDAS Foundation</span>
+            <span>Thoothukudi District Administration Society</span>
           </div>
           <h2 className="mt-1 text-3xl sm:text-4xl md:text-5xl font-display font-extrabold text-slate-900 tracking-tight text-balance">
             About Our Society
