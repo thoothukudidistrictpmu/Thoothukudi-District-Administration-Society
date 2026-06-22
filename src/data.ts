@@ -72,17 +72,17 @@ export const BOARD_MEMBERS: BoardMember[] = [
   },
   {
     role: "Vice President",
-    name: "K. Karthikeyan",
+    name: "Thiru. M.Guruchandran",
     title: "District Revenue Officer, Thoothukudi"
   },
   {
     role: "Secretary",
-    name: "K. Sangamithra",
-    title: "Project Director DRDA, Tiruppur"
+    name: "Ishwarya Ramanathan IAS",
+    title: "Project Director DRDA, Thoothukudi"
   },
   {
     role: "Treasurer",
-    name: "D.S. Duraimurugan",
+    name: "S.Uma Maheswari",
     title: "Personal Assistant, Thoothukudi"
   }
 ];
