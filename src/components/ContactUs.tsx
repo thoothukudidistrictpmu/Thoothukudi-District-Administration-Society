@@ -310,10 +310,10 @@ export default function ContactUs() {
               transition={{ duration: 0.2 }}
               className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm"
             >
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="bg-slate-900 text-white text-xs font-mono uppercase tracking-widest border-b border-slate-800 font-bold">
+              <div className="overflow-x-auto sm:overflow-visible">
+                <table className="w-full text-left border-collapse block sm:table">
+                  <thead className="bg-slate-900 text-white text-xs font-mono uppercase tracking-widest border-b border-slate-800 font-bold hidden sm:table-header-group">
+                    <tr>
                       <th className="py-4.5 px-6 font-semibold">Name</th>
                       <th className="py-4.5 px-6 font-semibold">Designation</th>
                       <th className="py-4.5 px-6 font-semibold">Phone Number</th>
@@ -321,90 +321,103 @@ export default function ContactUs() {
                       <th className="py-4.5 px-6 text-center font-semibold">Quick Link</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
+                  <tbody className="divide-y divide-slate-100 block sm:table-row-group">
                     {OFFICIALS_DATA.map((off, idx) => (
                       <tr 
                         key={idx}
                         id={`table-row-${idx}`}
-                        className="hover:bg-slate-50/70 transition-colors text-xs sm:text-sm font-sans"
+                        className="hover:bg-slate-50/70 transition-all text-xs sm:text-sm font-sans block sm:table-row p-4 sm:p-0 border-b border-slate-100 last:border-b-0 sm:border-b-0"
                       >
-                        <td className="py-4 px-6">
+                        <td className="py-2 sm:py-4 px-0 sm:px-6 block sm:table-cell">
                           <div className="flex items-center gap-3">
                             <span className={`h-8 w-8 rounded-lg flex items-center justify-center font-display font-black text-xs shrink-0 ${off.iconBg}`}>
                               {off.avatarLetter}
                             </span>
-                            <span className="font-extrabold text-slate-900 tracking-tight">{off.name}</span>
+                            <span className="font-extrabold text-slate-900 tracking-tight text-sm sm:text-base">{off.name}</span>
                           </div>
                         </td>
-                        <td className="py-4 px-6 text-slate-500 font-medium">
-                          <span className={`inline-block text-[11px] font-mono tracking-wide font-black px-2 py-0.5 rounded-md border ${off.badgeColor}`}>
-                            {off.designation}
-                          </span>
+                        <td className="py-1 sm:py-4 px-0 sm:px-6 text-slate-500 font-medium block sm:table-cell">
+                          <div className="flex items-center sm:block">
+                            <span className="inline-block sm:hidden text-[10px] font-mono text-slate-400 font-bold uppercase w-28 shrink-0">Designation:</span>
+                            <span className={`inline-block text-[11px] font-mono tracking-wide font-black px-2 py-0.5 rounded-md border ${off.badgeColor}`}>
+                              {off.designation}
+                            </span>
+                          </div>
                         </td>
-                        <td className="py-4 px-6">
-                          {off.phone ? (
-                            <div className="flex items-center gap-2">
+                        <td className="py-1 sm:py-4 px-0 sm:px-6 block sm:table-cell">
+                          <div className="flex items-center sm:block">
+                            <span className="inline-block sm:hidden text-[10px] font-mono text-slate-400 font-bold uppercase w-28 shrink-0">Phone:</span>
+                            {off.phone ? (
+                              <div className="flex items-center gap-2">
+                                <a 
+                                  href={`tel:+91${off.phone}`}
+                                  className="font-mono font-bold text-slate-700 hover:text-emerald-700 hover:underline text-xs sm:text-sm"
+                                >
+                                  +91 {off.phone}
+                                </a>
+                                <button
+                                  onClick={() => handleCopy(off.phone, `tbl-ph-${idx}`)}
+                                  className="p-1 rounded hover:bg-slate-100 text-slate-400 hover:text-emerald-600 transition-colors cursor-pointer"
+                                >
+                                  {copiedText === `tbl-ph-${idx}` ? (
+                                    <Check className="h-3 w-3 text-emerald-600" />
+                                  ) : (
+                                    <Copy className="h-3 w-3" />
+                                  )}
+                                </button>
+                              </div>
+                            ) : (
+                              <span className="text-[10px] font-mono font-bold text-slate-400 uppercase bg-slate-50 border border-slate-150 px-2 py-0.5 rounded-md">
+                                Email Only
+                              </span>
+                            )}
+                          </div>
+                        </td>
+                        <td className="py-1 sm:py-4 px-0 sm:px-6 block sm:table-cell">
+                          <div className="flex items-center sm:block">
+                            <span className="inline-block sm:hidden text-[10px] font-mono text-slate-400 font-bold uppercase w-28 shrink-0">Email ID:</span>
+                            <div className="flex items-center gap-2 max-w-full overflow-hidden">
                               <a 
-                                href={`tel:+91${off.phone}`}
-                                className="font-mono font-bold text-slate-700 hover:text-emerald-700 hover:underline"
+                                href={`mailto:${off.email}`} 
+                                className="font-mono text-slate-700 hover:text-emerald-700 hover:underline break-all text-xs sm:text-sm truncate sm:overflow-visible"
+                                title={off.email}
                               >
-                                +91 {off.phone}
+                                {off.email}
                               </a>
                               <button
-                                onClick={() => handleCopy(off.phone, `tbl-ph-${idx}`)}
-                                className="p-1 rounded hover:bg-slate-100 text-slate-400 hover:text-emerald-600 transition-colors"
+                                onClick={() => handleCopy(off.email, `tbl-mail-${idx}`)}
+                                className="p-1 rounded hover:bg-slate-100 text-slate-400 hover:text-emerald-600 transition-colors cursor-pointer shrink-0"
                               >
-                                {copiedText === `tbl-ph-${idx}` ? (
+                                {copiedText === `tbl-mail-${idx}` ? (
                                   <Check className="h-3 w-3 text-emerald-600" />
                                 ) : (
                                   <Copy className="h-3 w-3" />
                                 )}
                               </button>
                             </div>
-                          ) : (
-                            <span className="text-[10px] font-mono font-bold text-slate-400 uppercase bg-slate-50 border border-slate-150 px-2 py-0.5 rounded-md">
-                              Email Only
-                            </span>
-                          )}
-                        </td>
-                        <td className="py-4 px-6">
-                          <div className="flex items-center gap-2">
-                            <a 
-                              href={`mailto:${off.email}`} 
-                              className="font-mono text-slate-700 hover:text-emerald-700 hover:underline break-all"
-                            >
-                              {off.email}
-                            </a>
-                            <button
-                              onClick={() => handleCopy(off.email, `tbl-mail-${idx}`)}
-                              className="p-1 rounded hover:bg-slate-100 text-slate-400 hover:text-emerald-600 transition-colors"
-                            >
-                              {copiedText === `tbl-mail-${idx}` ? (
-                                <Check className="h-3 w-3 text-emerald-600" />
-                              ) : (
-                                <Copy className="h-3 w-3" />
-                              )}
-                            </button>
                           </div>
                         </td>
-                        <td className="py-4 px-6 text-center">
-                          <div className="inline-flex items-center gap-1.5">
-                            {off.phone && (
+                        <td className="py-2.5 sm:py-4 px-0 sm:px-6 text-left sm:text-center block sm:table-cell border-t sm:border-t-0 border-slate-100 mt-2 sm:mt-0">
+                          <div className="flex items-center sm:justify-center gap-2">
+                            <span className="inline-block sm:hidden text-[10px] font-mono text-slate-400 font-bold uppercase w-28 shrink-0 flex-shrink-0">Quick Connections:</span>
+                            <div className="inline-flex items-center gap-1.5">
+                              {off.phone && (
+                                <a
+                                  href={`tel:+91${off.phone}`}
+                                  className="p-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-100 text-emerald-700 transition-colors cursor-pointer"
+                                  title="Voice Call Office"
+                                >
+                                  <Phone className="h-3.5 w-3.5" />
+                                </a>
+                              )}
                               <a
-                                href={`tel:+91${off.phone}`}
-                                className="p-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-100 text-emerald-700 transition-colors"
-                                title="Voice Call Office"
+                                href={`mailto:${off.email}`}
+                                className="p-1.5 rounded-lg bg-slate-50 hover:bg-slate-150 border border-slate-200 text-slate-700 transition-colors cursor-pointer"
+                                title="Compose Email"
                               >
-                                <Phone className="h-3.5 w-3.5" />
+                                <Mail className="h-3.5 w-3.5" />
                               </a>
-                            )}
-                            <a
-                              href={`mailto:${off.email}`}
-                              className="p-1.5 rounded-lg bg-slate-50 hover:bg-slate-150 border border-slate-200 text-slate-700 transition-colors"
-                              title="Compose Email"
-                            >
-                              <Mail className="h-3.5 w-3.5" />
-                            </a>
+                            </div>
                           </div>
                         </td>
                       </tr>
