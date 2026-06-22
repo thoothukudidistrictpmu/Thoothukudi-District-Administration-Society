@@ -286,7 +286,7 @@ export default function AboutPage({ onExploreClick }: AboutPageProps) {
             Exploring Thoothukudi
           </h1>
           <p className="mt-4 text-xs sm:text-sm font-semibold tracking-[0.25em] text-emerald-400 uppercase font-mono">
-            "The Pearl City of India" — தூத்துக்குடி மாண்பு
+            "The Pearl City" — தூத்துக்குடி மாண்பு
           </p>
           <p className="mt-6 text-sm sm:text-base md:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
             From ancient maritime ports mentioned in early Sangam literature to today's premier hub of salt processing, heavy chemicals, and high-tech wind turbine arrays. Discover a district built on ecological pride, traditional crafts, and robust industrial potential.

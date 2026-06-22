@@ -26,7 +26,7 @@ export default function DistrictProfile() {
             District Profile
           </h2>
           <div className="text-sm font-semibold tracking-widest text-emerald-850 font-sans uppercase mt-2">
-            Thoothukudi — "The Pearl City of India"
+            Thoothukudi — "The Pearl City"
           </div>
         </motion.div>
 
@@ -108,8 +108,8 @@ export default function DistrictProfile() {
                   <Map className="h-5 w-5" />
                 </div>
                 <div>
-                  <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest font-sans">Sub-divisions</h4>
-                  <p className="text-xs sm:text-sm font-extrabold text-slate-800 font-sans">10 Talluks &amp; 12 Blocks</p>
+                  <h4 className="text-[10px] font-bold text-slate-400 uppercase tracking-widest font-sans">Taluks &amp; Blocks</h4>
+                  <p className="text-xs sm:text-sm font-extrabold text-slate-800 font-sans">10 Taluks &amp; 12 Blocks</p>
                 </div>
               </div>
               <div className="group bg-white p-4 rounded-xl border border-slate-150/80 flex gap-3 items-center hover:border-amber-550/20 hover:shadow-xs transition-all duration-305">
