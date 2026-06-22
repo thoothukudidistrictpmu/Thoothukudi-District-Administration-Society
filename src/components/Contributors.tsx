@@ -181,17 +181,7 @@ export default function Contributors({ initialSearchQuery = '' }: ContributorsPr
     const remapped = fallbackContributors.map((c, index) => {
       const rank = index + 1;
       let badge = 'CSR Partner';
-      let badgeColor = 'stone';
-      if (rank === 1) {
-        badge = 'Lead Diamond Partner';
-        badgeColor = 'emerald';
-      } else if (rank === 2) {
-        badge = 'Platinum Partner';
-        badgeColor = 'sky';
-      } else if (rank === 3) {
-        badge = 'Gold Partner';
-        badgeColor = 'amber';
-      }
+      let badgeColor = 'emerald';
       return {
         ...c,
         rank,
@@ -350,17 +340,7 @@ export default function Contributors({ initialSearchQuery = '' }: ContributorsPr
       const mapped = aggregated.map((c, index) => {
         const rank = index + 1;
         let badge = 'CSR Partner';
-        let badgeColor = 'stone';
-        if (rank === 1) {
-          badge = 'Lead Diamond Partner';
-          badgeColor = 'emerald';
-        } else if (rank === 2) {
-          badge = 'Platinum Partner';
-          badgeColor = 'sky';
-        } else if (rank === 3) {
-          badge = 'Gold Partner';
-          badgeColor = 'amber';
-        }
+        let badgeColor = 'emerald';
         
         const themeBg = 'bg-linear-to-br from-stone-50/70 via-stone-25/50 to-white';
         const borderGlow = 'hover:border-stone-400/40 hover:shadow-[0_8px_30px_rgba(40,40,40,0.04)]';
