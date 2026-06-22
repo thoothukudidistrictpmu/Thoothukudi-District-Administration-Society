@@ -13,6 +13,7 @@ import {
   Search, 
   BookOpen, 
   Award, 
+  Palette,
   Sparkles, 
   Compass, 
   Heart, 
@@ -213,14 +214,14 @@ const RESOURCE_Sectors: ResourceCategory[] = [
     color: "emerald"
   },
   {
-    title: "Traditional Crafts & GI Tag Heritage",
+    title: "Traditional Handlooms & Palm Leaf Crafts",
     category: "Geographical Indications & Rural Arts",
-    statLabel: "Sweet GI Certification",
-    statValue: "Kovilpatti Kadalai Mittai",
-    description: "Thoothukudi protects centuries of heritage, from the special groundnut brittle candy glazed with natural jaggery (Kovilpatti Kadalai Mittai) to Ettayapuram handlooms, and Sathankulam boiled palm sugar (Karupatti).",
+    statLabel: "Traditional Crafts",
+    statValue: "Ettayapuram Handlooms & Palm Leaf Crafts",
+    description: "Thoothukudi protects centuries of heritage, from the fine cotton Ettayapuram handwoven sarees and exquisite hand-crafted palm leaf baskets and ornaments to traditional clay pottery and Sathankulam organic palm jaggery.",
     image: giCraftsImage,
-    keyDrivers: ["Kovilpatti Kadalai Mittai GI", "Ettayapuram Handloom Cluster", "Sathankulam Palm sugar", "Vilathikulam Gundu Chilli"],
-    icon: Award,
+    keyDrivers: ["Ettayapuram Handloom Cluster", "Sathankulam Palm-Leaf Crafts", "Sathankulam Palm Jaggery", "Kovilpatti Kadalai Mittai GI"],
+    icon: Palette,
     color: "purple"
   }
 ];
@@ -736,7 +737,9 @@ export default function AboutPage({ onExploreClick }: AboutPageProps) {
 
                     {/* Quick Metric overlay */}
                     <div className={`absolute bottom-3 right-3 ${metricBg} border backdrop-blur-xs text-white px-2.5 py-1 rounded text-xs font-mono font-extrabold flex items-center gap-1 shadow-md`}>
-                      <CheckCircle2 className={`h-3 w-3 ${checkIconColor} shrink-0`} />
+                      {sector.category !== "Geographical Indications & Rural Arts" && (
+                        <CheckCircle2 className={`h-3 w-3 ${checkIconColor} shrink-0`} />
+                      )}
                       <span>{sector.statValue}</span>
                     </div>
                   </div>
