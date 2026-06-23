@@ -123,11 +123,15 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2.5 font-sans">
                 <Phone className="h-4 w-4 text-emerald-500 shrink-0" />
-                <span>+91 461 234 0600 (Collectorate Desk)</span>
+                <a href="tel:04612340600" className="hover:text-emerald-400 hover:underline transition-colors">
+                  0461-2340600 (Collectorate Landline)
+                </a>
               </li>
               <li className="flex items-center gap-2.5 font-sans">
                 <Mail className="h-4 w-4 text-emerald-500 shrink-0" />
-                <span>collrtut@nic.in</span>
+                <a href="mailto:collrtut@nic.in" className="hover:text-emerald-400 hover:underline transition-colors">
+                  collrtut@nic.in
+                </a>
               </li>
             </ul>
           </div>

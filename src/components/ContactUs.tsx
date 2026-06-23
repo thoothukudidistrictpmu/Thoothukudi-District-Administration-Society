@@ -473,8 +473,13 @@ export default function ContactUs() {
               <div className="flex items-start gap-2 pt-1 font-sans">
                 <Phone className="h-4.5 w-4.5 text-emerald-600 shrink-0 mt-0.5" />
                 <div>
-                  <span className="text-xs sm:text-sm font-extrabold text-slate-800 block">+91 461 234 0600</span>
-                  <span className="text-[11px] text-slate-500 block font-medium font-sans">Collectorate Receptionist</span>
+                  <a 
+                    href="tel:04612340600"
+                    className="text-xs sm:text-sm font-extrabold text-slate-800 block hover:text-emerald-700 hover:underline"
+                  >
+                    0461-2340600
+                  </a>
+                  <span className="text-[11px] text-slate-500 block font-medium font-sans">Collectorate Reception (Landline)</span>
                   <a 
                     href="https://thoothukudi.nic.in" 
                     target="_blank" 
