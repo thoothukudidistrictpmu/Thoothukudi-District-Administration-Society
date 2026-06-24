@@ -296,7 +296,7 @@ export default function SponsorshipPage({ cart, onToggleCart, onCartChange, onNa
   };
 
   return (
-    <section className="py-14 bg-mesh-gradient animate-in fade-in duration-500 relative min-h-screen">
+    <section className="py-14 bg-mesh-gradient animate-in fade-in duration-500 relative min-h-screen overflow-hidden">
       {/* Decorative ambient graphic backdrop */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-3xl pointer-events-none -mr-96 -mt-40"></div>
       <div className="absolute bottom-20 left-0 w-[600px] h-[600px] bg-indigo-500/5 rounded-full blur-3xl pointer-events-none -ml-96"></div>

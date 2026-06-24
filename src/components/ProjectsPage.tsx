@@ -477,7 +477,7 @@ export default function ProjectsPage({
   };
 
   return (
-    <section className="py-14 bg-mesh-gradient animate-in fade-in duration-500 relative min-h-screen">
+    <section className="py-14 bg-mesh-gradient animate-in fade-in duration-500 relative min-h-screen overflow-hidden">
       
       {/* Dynamic ambient graphic backdrop */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-3xl pointer-events-none -mr-96 -mt-40"></div>
