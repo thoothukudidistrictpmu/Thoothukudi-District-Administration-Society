@@ -20,18 +20,26 @@ import { Project } from './types';
 import { Info, X, ShieldAlert, Sparkles } from 'lucide-react';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<string>(() => {
-    const hash = window.location.hash.replace('#', '');
+  const getInitialTab = (): string => {
+    // 1. Check pathname first
+    const path = window.location.pathname.replace(/^\/|\/$/g, '');
     const validTabs = ['home', 'projects', 'sponsorship', 'contributors', 'about-us', 'gallery', 'contact-us'];
-    return validTabs.includes(hash) ? hash : 'home';
-  });
+    if (validTabs.includes(path)) {
+      return path;
+    }
+    // 2. Fallback to hash
+    const hash = window.location.hash.replace('#', '');
+    if (validTabs.includes(hash)) {
+      return hash;
+    }
+    return 'home';
+  };
+
+  const [activeTab, setActiveTab] = useState<string>(getInitialTab);
 
   React.useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace('#', '');
-      const validTabs = ['home', 'projects', 'sponsorship', 'contributors', 'about-us', 'gallery', 'contact-us'];
-      const targetTab = validTabs.includes(hash) ? hash : 'home';
-      
+    const handleLocationChange = () => {
+      const targetTab = getInitialTab();
       setActiveTab(prev => {
         if (prev !== targetTab) {
           window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -41,17 +49,18 @@ export default function App() {
       });
     };
 
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener('hashchange', handleLocationChange);
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener('hashchange', handleLocationChange);
+    };
   }, []);
 
   React.useEffect(() => {
-    const currentHash = window.location.hash.replace('#', '');
-    if (activeTab === 'home' && !currentHash) {
-      return;
-    }
-    if (currentHash !== activeTab) {
-      window.location.hash = activeTab;
+    const path = activeTab === 'home' ? '/' : `/${activeTab}`;
+    if (window.location.pathname !== path) {
+      window.history.pushState({ tab: activeTab }, '', path);
     }
   }, [activeTab]);
 
