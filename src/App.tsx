@@ -20,7 +20,41 @@ import { Project } from './types';
 import { Info, X, ShieldAlert, Sparkles } from 'lucide-react';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<string>('home');
+  const [activeTab, setActiveTab] = useState<string>(() => {
+    const hash = window.location.hash.replace('#', '');
+    const validTabs = ['home', 'projects', 'sponsorship', 'contributors', 'about-us', 'gallery', 'contact-us'];
+    return validTabs.includes(hash) ? hash : 'home';
+  });
+
+  React.useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '');
+      const validTabs = ['home', 'projects', 'sponsorship', 'contributors', 'about-us', 'gallery', 'contact-us'];
+      const targetTab = validTabs.includes(hash) ? hash : 'home';
+      
+      setActiveTab(prev => {
+        if (prev !== targetTab) {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          return targetTab;
+        }
+        return prev;
+      });
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  React.useEffect(() => {
+    const currentHash = window.location.hash.replace('#', '');
+    if (activeTab === 'home' && !currentHash) {
+      return;
+    }
+    if (currentHash !== activeTab) {
+      window.location.hash = activeTab;
+    }
+  }, [activeTab]);
+
   const [contributorSearchQuery, setContributorSearchQuery] = useState<string>('');
   const [cart, setCart] = useState<Project[]>(() => {
     try {
