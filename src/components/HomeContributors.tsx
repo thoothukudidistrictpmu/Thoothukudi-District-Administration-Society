@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { DETAILED_CONTRIBUTORS } from '../data/contributors_data';
 import { Building2, ArrowRight } from 'lucide-react';
+import { IMAGES } from '../images';
 
 const SPREADSHEET_ID = '1itNBrzhwMNoBA_54VfAwk4kfZF6uxmRKzeYY48T_sow';
 const CSV_URL = `https://docs.google.com/spreadsheets/d/${SPREADSHEET_ID}/gviz/tq?tqx=out:csv&sheet=CSR%20Contributors`;
@@ -48,81 +49,93 @@ const getCompanyLogo = (name: string) => {
   const clean = name.toLowerCase().trim();
   if (clean.includes('voc port') || clean.includes('chidambaranar')) {
     return (
-      <svg viewBox="0 0 100 100" className="w-full h-full" aria-label="VOC Port Trust Logo">
-        <rect width="100" height="100" rx="20" fill="#f0f9ff" className="fill-sky-50" />
-        <circle cx="50" cy="45" r="22" fill="none" stroke="#0369a1" strokeWidth="3" />
-        <path d="M50 18 L50 72 M30 50 L70 50 M35 35 L65 65 M35 65 L65 35" stroke="#0369a1" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M50 56 M44 58 L56 58 L50 70 Z" className="fill-sky-700" />
-        <circle cx="50" cy="45" r="10" fill="#f0f9ff" stroke="#0369a1" strokeWidth="2" />
-        <text x="50" y="86" fill="#0369a1" fontSize="9" fontWeight="800" textAnchor="middle" letterSpacing="0.4" fontFamily="system-ui, sans-serif">VOC PORT</text>
-      </svg>
+      <div className="w-full h-full flex items-center justify-center bg-white rounded-2xl overflow-hidden p-0.5">
+        <img 
+          src={IMAGES.vocPortLogo} 
+          alt="VOC Port Trust Logo" 
+          className="w-full h-full object-contain"
+          referrerPolicy="no-referrer"
+          id="voc-port-logo-img"
+        />
+      </div>
     );
   }
   if (clean.includes('nlc') || clean.includes('ntpl') || clean.includes('power')) {
     return (
-      <svg viewBox="0 0 100 100" className="w-full h-full" aria-label="NTPL Logo">
-        <rect width="100" height="100" rx="20" fill="#f0fdf4" className="fill-teal-50" />
-        <circle cx="50" cy="42" r="23" fill="none" stroke="#2dd4bf" strokeWidth="3" />
-        <path d="M50 17 L50 67 M30 42 L70 42" stroke="#0f766e" strokeWidth="2.5" strokeLinecap="round" opacity="0.8" />
-        <path d="M43 32 L57 32 L50 54 Z" className="fill-amber-500" />
-        <text x="50" y="85" fill="#0f766e" fontSize="13" fontWeight="950" textAnchor="middle" letterSpacing="0.8" fontFamily="system-ui, sans-serif">NTPL</text>
-      </svg>
+      <div className="w-full h-full flex items-center justify-center bg-white rounded-2xl overflow-hidden p-0.5">
+        <img 
+          src={IMAGES.ntplLogo} 
+          alt="NLC Tamilnadu Power Limited Logo" 
+          className="w-full h-full object-contain"
+          referrerPolicy="no-referrer"
+          id="ntpl-logo-img"
+        />
+      </div>
     );
   }
   if (clean.includes('state bank') || clean.includes('sbi')) {
     return (
-      <svg viewBox="0 0 100 100" className="w-full h-full" aria-label="SBI Logo">
-        <rect width="100" height="100" rx="20" fill="#f0fdfa" className="fill-blue-50" />
-        <circle cx="50" cy="45" r="22" fill="#0284c7" />
-        <rect x="46" y="45" width="8" height="24" fill="#0284c7" />
-        <circle cx="50" cy="45" r="8" fill="#f0fdfa" />
-        <rect x="47" y="43" width="6" height="26" fill="#f0fdfa" />
-        <text x="50" y="86" fill="#0284c7" fontSize="11" fontWeight="950" textAnchor="middle" letterSpacing="1" fontFamily="system-ui, sans-serif">SBI</text>
-      </svg>
+      <div className="w-full h-full flex items-center justify-center bg-white rounded-2xl overflow-hidden p-0.5">
+        <img 
+          src={IMAGES.sbiLogo} 
+          alt="State Bank of India Logo" 
+          className="w-full h-full object-contain"
+          referrerPolicy="no-referrer"
+          id="sbi-logo-img"
+        />
+      </div>
     );
   }
   if (clean.includes('tmb') || clean.includes('mercantile')) {
     return (
-      <svg viewBox="0 0 100 100" className="w-full h-full" aria-label="TMB Bank Logo">
-        <rect width="100" height="100" rx="20" fill="#fafaf9" className="fill-stone-50" />
-        <path d="M25 35 L40 22 L75 22 L75 35 M25 78 L75 78 L75 65 L25 65 L25 78 Z M25 40 L35 40 L35 60 L25 60 L25 40 Z M45 40 L55 40 L55 60 L45 60 L45 40 Z M65 40 L75 40 L75 60 L65 60 L65 40 Z" fill="#15803d" />
-        <text x="50" y="91" fill="#15803d" fontSize="9.5" fontWeight="900" textAnchor="middle" letterSpacing="0.4" fontFamily="system-ui, sans-serif">TMB BANK</text>
-      </svg>
+      <div className="w-full h-full flex items-center justify-center bg-white rounded-2xl overflow-hidden p-0.5">
+        <img 
+          src={IMAGES.tmbBankLogo} 
+          alt="Tamilnad Mercantile Bank (TMB Bank) Logo" 
+          className="w-full h-full object-contain"
+          referrerPolicy="no-referrer"
+          id="tmb-bank-logo-img"
+        />
+      </div>
     );
   }
   if (clean.includes('jsw')) {
     return (
-      <svg viewBox="0 0 100 100" className="w-full h-full" aria-label="JSW Foundation Logo">
-        <rect width="100" height="100" rx="20" fill="#eff6ff" className="fill-blue-50" />
-        <g transform="translate(10, 20)">
-          <path d="M15 5 L35 5 L28 40 L8 40 Z" fill="#1d4ed8" />
-          <path d="M40 5 L60 5 L53 40 L33 40 Z" fill="#ef4444" />
-          <path d="M65 5 L85 5 L78 40 L58 40 Z" fill="#1d4ed8" />
-        </g>
-        <text x="50" y="84" fill="#1e3a8a" fontSize="10.5" fontWeight="950" textAnchor="middle" letterSpacing="0.5" fontFamily="system-ui, sans-serif">JSW</text>
-      </svg>
+      <div className="w-full h-full flex items-center justify-center bg-white rounded-2xl overflow-hidden p-0.5">
+        <img 
+          src={IMAGES.jswFoundationLogo} 
+          alt="JSW Foundation Logo" 
+          className="w-full h-full object-contain"
+          referrerPolicy="no-referrer"
+          id="jsw-foundation-logo-img"
+        />
+      </div>
     );
   }
   if (clean.includes('ntpc')) {
     return (
-      <svg viewBox="0 0 100 100" className="w-full h-full" aria-label="NTPC Logo">
-        <rect width="100" height="100" rx="20" fill="#f0fdf4" className="fill-emerald-50" />
-        <circle cx="50" cy="40" r="20" fill="none" stroke="#059669" strokeWidth="3" />
-        <path d="M30 40 C30 20, 70 20, 70 40 C70 60, 30 60, 30 40 Z" fill="none" stroke="#10b981" strokeWidth="2.5" />
-        <path d="M50 20 L50 60" stroke="#059669" strokeWidth="2" />
-        <text x="50" y="85" fill="#047857" fontSize="8" fontWeight="950" textAnchor="middle" letterSpacing="0.5" fontFamily="system-ui, sans-serif">NTPC GREEN</text>
-      </svg>
+      <div className="w-full h-full flex items-center justify-center bg-white rounded-2xl overflow-hidden p-0.5">
+        <img 
+          src={IMAGES.ntpcGreenLogo} 
+          alt="NTPC Green Energy Logo" 
+          className="w-full h-full object-contain"
+          referrerPolicy="no-referrer"
+          id="ntpc-green-logo-img"
+        />
+      </div>
     );
   }
   if (clean.includes('sanitation')) {
     return (
-      <svg viewBox="0 0 100 100" className="w-full h-full" aria-label="Sanitation First Logo">
-        <rect width="100" height="100" rx="20" fill="#f0fafb" className="fill-sky-50" />
-        <path d="M50 15 C50 15, 75 38, 75 55 C75 68, 64 78, 50 78 C36 78, 25 68, 25 55 C25 38, 50 15, 50 15 Z" fill="#0ea5e9" opacity="0.85" />
-        <path d="M50 25 C50 25, 68 44, 68 55 C68 64, 60 72, 50 72 C40 72, 32 64, 32 55 C32 44, 50 25, 50 25 Z" fill="#e0f2fe" opacity="0.95" />
-        <path d="M44 58 C46 54 54 54 56 58 L54 66 C54 66 48 68 44 66 Z" fill="#0284c7" />
-        <text x="50" y="90" fill="#0369a1" fontSize="8" fontWeight="950" textAnchor="middle" letterSpacing="0.4" fontFamily="system-ui, sans-serif">SANITATION FIRST</text>
-      </svg>
+      <div className="w-full h-full flex items-center justify-center bg-white rounded-2xl overflow-hidden p-0.5">
+        <img 
+          src={IMAGES.sanitationFirstLogo} 
+          alt="Sanitation First Logo" 
+          className="w-full h-full object-contain"
+          referrerPolicy="no-referrer"
+          id="sanitation-first-logo-img"
+        />
+      </div>
     );
   }
   
