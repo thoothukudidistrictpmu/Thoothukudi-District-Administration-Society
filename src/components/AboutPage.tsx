@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { ThreeDBackground } from './ThreeDBackground';
 import saltIndustryImage from '../assets/images/pearl_coast_salt_industry_1781983273200.jpg';
 import giCraftsImage from '../assets/images/traditional_gi_crafts_1782023184184.jpg';
 import { 
@@ -272,59 +273,60 @@ export default function AboutPage({ onExploreClick }: AboutPageProps) {
   return (
     <div id="about-us-page-wrapper" className="min-h-screen bg-slate-50 text-slate-900 pb-20">
       {/* 1. Hero Spotlight */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-850 text-white py-24 px-4 border-b border-white/5">
+      <section className="relative overflow-hidden bg-gradient-to-b from-emerald-50/40 via-slate-50 to-slate-50/20 text-slate-800 py-20 px-4 border-b border-slate-200">
         {/* Soft geometric particles */}
-        <div className="absolute inset-0 bg-grid-white/[0.03] bg-[size:32px_32px] pointer-events-none"></div>
-        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-10 right-10 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute inset-0 bg-grid-slate-900/[0.02] bg-[size:32px_32px] pointer-events-none"></div>
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-10 right-10 w-80 h-80 bg-teal-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <ThreeDBackground />
 
         <div className="max-w-6xl mx-auto text-center relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-emerald-300 text-xs font-bold tracking-widest uppercase mb-4 shadow-sm animate-pulse">
-            <Sparkles className="h-3.5 w-3.5" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-full text-xs font-bold tracking-widest uppercase mb-5 shadow-xs">
+            <Sparkles className="h-3.5 w-3.5 text-emerald-600 animate-pulse" />
             <span>District Explorer &amp; Resource Catalog</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight text-white max-w-4xl mx-auto leading-none">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight text-slate-950 max-w-4xl mx-auto leading-none">
             Exploring Thoothukudi
           </h1>
-          <p className="mt-4 text-xs sm:text-sm font-semibold tracking-[0.25em] text-emerald-400 uppercase font-mono">
+          <p className="mt-4 text-xs sm:text-sm font-semibold tracking-[0.25em] text-emerald-800 uppercase font-mono">
             "The Pearl City" — தூத்துக்குடி மாண்பு
           </p>
-          <p className="mt-6 text-sm sm:text-base md:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="mt-6 text-sm sm:text-base md:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed">
             From ancient maritime ports mentioned in early Sangam literature to today's premier hub of salt processing, heavy chemicals, and high-tech wind turbine arrays. Discover a district built on ecological pride, traditional crafts, and robust industrial potential.
           </p>
 
           {/* Quick Stats Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto mt-12 pt-8 border-t border-white/10">
-            <div className="bg-amber-500/[0.08] backdrop-blur-md rounded-xl p-4 sm:p-5 border border-amber-500/30 hover:bg-amber-500/[0.14] hover:border-amber-400 transition-all duration-300 text-left relative overflow-hidden group shadow-lg shadow-amber-500/5">
-              <Map className="h-10 w-10 text-amber-300 absolute -top-1 -right-1 opacity-20 sm:opacity-30 group-hover:scale-110 transition-transform duration-300 pointer-events-none" />
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto mt-12 pt-8 border-t border-slate-200">
+            <div className="bg-white rounded-xl p-4 sm:p-5 border border-slate-200 hover:border-amber-300 hover:bg-amber-50/10 transition-all duration-300 text-left relative overflow-hidden group shadow-sm shadow-slate-100/50">
+              <Map className="h-10 w-10 text-amber-500 absolute -top-1 -right-1 opacity-10 group-hover:scale-110 transition-transform duration-300 pointer-events-none" />
               <div className="relative z-10">
-                <span className="text-2xl sm:text-3xl font-black text-amber-400 block font-sans tracking-tight">10</span>
-                <span className="text-white text-[11px] sm:text-xs font-black block mt-1 tracking-wide uppercase leading-tight">Administrative Taluks</span>
-                <span className="text-[10px] text-amber-300 font-mono font-medium block mt-0.5 opacity-90">Subdivisions</span>
+                <span className="text-2xl sm:text-3xl font-black text-amber-600 block font-sans tracking-tight">10</span>
+                <span className="text-slate-800 text-[11px] sm:text-xs font-black block mt-1 tracking-wide uppercase leading-tight">Administrative Taluks</span>
+                <span className="text-[10px] text-amber-600 font-mono font-medium block mt-0.5 opacity-90">Subdivisions</span>
               </div>
             </div>
-            <div className="bg-emerald-500/[0.08] backdrop-blur-md rounded-xl p-4 sm:p-5 border border-emerald-500/30 hover:bg-emerald-500/[0.14] hover:border-emerald-400 transition-all duration-300 text-left relative overflow-hidden group shadow-lg shadow-emerald-500/5">
-              <Waves className="h-10 w-10 text-emerald-300 absolute -top-1 -right-1 opacity-20 sm:opacity-30 group-hover:scale-110 transition-transform duration-300 pointer-events-none" />
+            <div className="bg-white rounded-xl p-4 sm:p-5 border border-slate-200 hover:border-emerald-300 hover:bg-emerald-50/10 transition-all duration-300 text-left relative overflow-hidden group shadow-sm shadow-slate-100/50">
+              <Waves className="h-10 w-10 text-emerald-500 absolute -top-1 -right-1 opacity-10 group-hover:scale-110 transition-transform duration-300 pointer-events-none" />
               <div className="relative z-10">
-                <span className="text-2xl sm:text-3xl font-black text-emerald-400 block font-sans tracking-tight">163.5 KM</span>
-                <span className="text-white text-[11px] sm:text-xs font-black block mt-1 tracking-wide uppercase leading-tight">Gulf of Mannar Coast</span>
-                <span className="text-[10px] text-emerald-300 font-mono font-medium block mt-0.5 opacity-90">Maritime Line</span>
+                <span className="text-2xl sm:text-3xl font-black text-emerald-600 block font-sans tracking-tight">163.5 KM</span>
+                <span className="text-slate-800 text-[11px] sm:text-xs font-black block mt-1 tracking-wide uppercase leading-tight">Gulf of Mannar Coast</span>
+                <span className="text-[10px] text-emerald-600 font-mono font-medium block mt-0.5 opacity-90">Maritime Line</span>
               </div>
             </div>
-            <div className="bg-sky-500/[0.08] backdrop-blur-md rounded-xl p-4 sm:p-5 border border-sky-500/30 hover:bg-sky-500/[0.14] hover:border-sky-450 transition-all duration-300 text-left relative overflow-hidden group shadow-lg shadow-sky-500/5">
-              <Sun className="h-10 w-10 text-sky-300 absolute -top-1 -right-1 opacity-20 sm:opacity-30 group-hover:scale-110 transition-transform duration-300 pointer-events-none" />
+            <div className="bg-white rounded-xl p-4 sm:p-5 border border-slate-200 hover:border-sky-300 hover:bg-sky-50/10 transition-all duration-300 text-left relative overflow-hidden group shadow-sm shadow-slate-100/50">
+              <Sun className="h-10 w-10 text-sky-500 absolute -top-1 -right-1 opacity-10 group-hover:scale-110 transition-transform duration-300 pointer-events-none" />
               <div className="relative z-10">
-                <span className="text-2xl sm:text-3xl font-black text-sky-400 block font-sans tracking-tight">70%</span>
-                <span className="text-white text-[11px] sm:text-xs font-black block mt-1 tracking-wide uppercase leading-tight">Tamil Nadu Salt Share</span>
-                <span className="text-[10px] text-sky-300 font-mono font-medium block mt-0.5 opacity-90">Salt Harvest</span>
+                <span className="text-2xl sm:text-3xl font-black text-sky-600 block font-sans tracking-tight">70%</span>
+                <span className="text-slate-800 text-[11px] sm:text-xs font-black block mt-1 tracking-wide uppercase leading-tight">Tamil Nadu Salt Share</span>
+                <span className="text-[10px] text-sky-600 font-mono font-medium block mt-0.5 opacity-90">Salt Harvest</span>
               </div>
             </div>
-            <div className="bg-teal-500/[0.08] backdrop-blur-md rounded-xl p-4 sm:p-5 border border-teal-500/30 hover:bg-teal-500/[0.14] hover:border-teal-400 transition-all duration-300 text-left relative overflow-hidden group shadow-lg shadow-teal-500/5">
-              <Wind className="h-10 w-10 text-teal-300 absolute -top-1 -right-1 opacity-20 sm:opacity-30 group-hover:scale-110 transition-transform duration-300 pointer-events-none" />
+            <div className="bg-white rounded-xl p-4 sm:p-5 border border-slate-200 hover:border-teal-300 hover:bg-teal-50/10 transition-all duration-300 text-left relative overflow-hidden group shadow-sm shadow-slate-100/50">
+              <Wind className="h-10 w-10 text-teal-500 absolute -top-1 -right-1 opacity-10 group-hover:scale-110 transition-transform duration-300 pointer-events-none" />
               <div className="relative z-10">
-                <span className="text-2xl sm:text-3xl font-black text-teal-400 block font-sans tracking-tight">750+ MW</span>
-                <span className="text-white text-[11px] sm:text-xs font-black block mt-1 tracking-wide uppercase leading-tight">Wind Corridor Capacity</span>
-                <span className="text-[10px] text-teal-300 font-mono font-medium block mt-0.5 opacity-90">Power Grid</span>
+                <span className="text-2xl sm:text-3xl font-black text-teal-600 block font-sans tracking-tight">750+ MW</span>
+                <span className="text-slate-800 text-[11px] sm:text-xs font-black block mt-1 tracking-wide uppercase leading-tight">Wind Corridor Capacity</span>
+                <span className="text-[10px] text-teal-600 font-mono font-medium block mt-0.5 opacity-90">Power Grid</span>
               </div>
             </div>
           </div>
