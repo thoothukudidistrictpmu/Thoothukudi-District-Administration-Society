@@ -891,7 +891,6 @@ export default function Contributors({ initialSearchQuery = '' }: ContributorsPr
                             <div className="pt-2 flex items-center justify-between text-[10px] font-mono font-bold text-stone-400">
                               <span>District Collectorate, Thoothukudi</span>
                               <span className="flex items-center gap-1">
-                                Verified via DRDA
                                 <Award className="h-3.5 w-3.5 text-emerald-600" />
                               </span>
                             </div>
