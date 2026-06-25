@@ -158,7 +158,7 @@ export const CONTRIBUTORS: Contributor[] = [
 export const SOCIAL_LINKS = [
   { name: "Facebook", url: "https://www.facebook.com/thoothukudidistrict" },
   { name: "Twitter / X", url: "https://twitter.com/collrtuticorin" },
-  { name: "Instagram", url: "https://www.instagram.com/thoothukudi.nic.in" },
+  { name: "Instagram", url: "https://www.instagram.com/pro_thoothukudi?igsh=N2pmMHlsMnptbDI=" },
   { name: "Official Website", url: "https://thoothukudi.nic.in" }
 ];
 

@@ -15,7 +15,8 @@ const DEFAULT_WORKSPACE_IMAGES = [
   "/gallery/WhatsApp Image 2026-06-25 at 11.15.25 AM.jpeg",
   "/gallery/WhatsApp Image 2026-06-25 at 11.15.26 AM (1).jpeg",
   "/gallery/WhatsApp Image 2026-06-25 at 11.15.26 AM (2).jpeg",
-  "/gallery/WhatsApp Image 2026-06-25 at 11.15.26 AM.jpeg"
+  "/gallery/WhatsApp Image 2026-06-25 at 11.15.26 AM.jpeg",
+  "/gallery/WhatsApp Image 2026-06-25 at 3.57.01 PM.jpeg"
 ];
 
 export default function Gallery() {
