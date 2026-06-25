@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { ThreeDBackground } from './ThreeDBackground';
 import { 
   Phone, 
   Mail, 
@@ -104,23 +105,24 @@ export default function ContactUs() {
     <div id="contact-us-page-wrapper" className="min-h-screen bg-slate-50 text-slate-900 pb-20">
       
       {/* 1. Header Hero Panel with rich background colors */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-850 text-white py-16 px-4 border-b border-white/5">
-        <div className="absolute inset-0 bg-grid-white/[0.03] bg-[size:32px_32px] pointer-events-none"></div>
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-5 right-5 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <section className="relative overflow-hidden bg-gradient-to-b from-emerald-50/40 via-slate-50 to-slate-50/20 text-slate-800 py-16 px-4 border-b border-slate-200">
+        <div className="absolute inset-0 bg-grid-slate-900/[0.02] bg-[size:32px_32px] pointer-events-none"></div>
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-10 right-10 w-80 h-80 bg-teal-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <ThreeDBackground />
 
         <div className="max-w-6xl mx-auto text-center relative z-10">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 rounded-full text-emerald-300 text-xs font-bold tracking-widest uppercase mb-4 shadow-sm">
-            <Building className="h-3.5 w-3.5" />
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-full text-xs font-bold tracking-widest uppercase mb-4 shadow-xs">
+            <Building className="h-3.5 w-3.5 text-emerald-600 animate-pulse" />
             <span>Thoothukudi Administration Contacts</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold tracking-tight text-white max-w-4xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-display font-extrabold tracking-tight text-slate-950 max-w-4xl mx-auto">
             Administrative Contact Directory
           </h1>
-          <p className="mt-4 text-[10px] sm:text-xs font-semibold tracking-[0.25em] text-emerald-400 uppercase font-mono">
+          <p className="mt-4 text-[10px] sm:text-xs font-semibold tracking-[0.25em] text-emerald-800 uppercase font-mono">
             Direct Public Channels — மக்கள் தொடர்பு மையம்
           </p>
-          <p className="mt-5 text-xs sm:text-sm md:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
+          <p className="mt-5 text-xs sm:text-sm md:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
             Connect directly with key administrative executives, revenue registers, rural planning officers, and the Project Management Unit coordinates. Feel free to copy phone links or initiate email queries.
           </p>
         </div>
