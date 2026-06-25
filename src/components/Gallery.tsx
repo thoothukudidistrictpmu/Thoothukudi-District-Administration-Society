@@ -10,8 +10,12 @@ import {
 const DEFAULT_WORKSPACE_IMAGES = [
   "/gallery/WhatsApp Image 2026-06-17 at 5.39.45 PM.jpeg",
   "/gallery/WhatsApp Image 2026-06-17 at 5.39.47 PM.jpeg",
-  "/gallery/WhatsApp Image 2026-06-17 at 5.39.48 PM (1).jpeg",
-  "/gallery/WhatsApp Image 2026-06-17 at 5.39.48 PM.jpeg"
+  "/gallery/WhatsApp Image 2026-06-25 at 11.15.24 AM.jpeg",
+  "/gallery/WhatsApp Image 2026-06-25 at 11.15.25 AM (1).jpeg",
+  "/gallery/WhatsApp Image 2026-06-25 at 11.15.25 AM.jpeg",
+  "/gallery/WhatsApp Image 2026-06-25 at 11.15.26 AM (1).jpeg",
+  "/gallery/WhatsApp Image 2026-06-25 at 11.15.26 AM (2).jpeg",
+  "/gallery/WhatsApp Image 2026-06-25 at 11.15.26 AM.jpeg"
 ];
 
 export default function Gallery() {
