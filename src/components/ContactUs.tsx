@@ -86,7 +86,7 @@ const OFFICIALS_DATA: ContactOfficial[] = [
     iconBg: 'bg-teal-100 text-teal-700 border-teal-200',
     cardGlow: 'from-teal-50 relative border-l-4 border-l-teal-500 hover:shadow-teal-500/10 hover:border-teal-400',
     badgeColor: 'bg-teal-50 text-teal-900 border-teal-200/60',
-    avatarLetter: 'PM',
+    avatarLetter: 'DJ',
     description: 'Liaises with corporate backers for local welfare initiatives, manages dynamic proposals, and coordinates this online support portal.'
   }
 ];
