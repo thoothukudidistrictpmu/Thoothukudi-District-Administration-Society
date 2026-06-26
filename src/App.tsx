@@ -174,7 +174,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden bg-mesh-gradient flex flex-col selection:bg-emerald-700 selection:text-white">
+    <div className="min-h-screen w-full bg-mesh-gradient flex flex-col selection:bg-emerald-700 selection:text-white">
       {/* 1. Header Emblem Banner */}
       <Header />
 

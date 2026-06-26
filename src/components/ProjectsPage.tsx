@@ -537,268 +537,289 @@ export default function ProjectsPage({
           </div>
         </motion.div>
 
-        {/* Dynamic Tactile Slicers Block */}
-        <motion.div 
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-10 bg-white border border-stone-150 rounded-2xl p-5 shadow-3xs"
-        >
-          <div className="flex items-center gap-2.5 mb-4">
-            <LayoutGrid className="h-4.5 w-4.5 text-emerald-700 shrink-0" />
-            <span className="text-xs font-black uppercase tracking-widest text-slate-500 font-sans">
-              Filter by Category
-            </span>
-          </div>
+        {/* Two column grid layout for filters (left) and search & projects (right) */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 lg:gap-8 items-start mt-8">
+          
+          {/* Left Column: Vertical Category Filter Panel with Prominent CTA */}
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="md:col-span-1 md:sticky md:top-24 flex flex-col gap-5"
+          >
+            {/* Vertical Category Filter Panel */}
+            <div className="bg-white border border-stone-150 rounded-2xl p-5 shadow-3xs order-1 md:order-2">
+              <div className="flex items-center gap-2.5 mb-4 border-b border-stone-100 pb-3">
+                <LayoutGrid className="h-4.5 w-4.5 text-emerald-700 shrink-0" />
+                <span className="text-xs font-black uppercase tracking-widest text-slate-500 font-sans">
+                  Filter by Category
+                </span>
+              </div>
 
-          <div className="flex gap-2.5 overflow-x-auto pb-3 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:overflow-x-visible no-scrollbar flex-nowrap sm:flex-wrap w-full">
-            {categories.map((cat) => {
-              const isActive = selectedCategory === cat;
-              const count = getCategoryCount(cat);
-              const isAll = cat === 'All Categories';
+              <div className="flex flex-col gap-2">
+                {categories.map((cat) => {
+                  const isActive = selectedCategory === cat;
+                  const count = getCategoryCount(cat);
+                  const isAll = cat === 'All Categories';
+                  
+                  return (
+                    <button
+                      key={cat}
+                      onClick={() => setSelectedCategory(cat)}
+                      className={`w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all duration-300 transform active:scale-95 cursor-pointer flex items-center justify-between border shadow-3xs text-left ${
+                        isActive
+                          ? 'bg-gradient-to-r from-emerald-800 to-teal-900 border-emerald-950 text-white shadow-md'
+                          : 'bg-stone-50 hover:bg-stone-100 border-stone-200 hover:border-stone-300 text-slate-650 hover:text-slate-900'
+                      }`}
+                    >
+                      <span className="pr-2 leading-snug break-words">{isAll ? '★ All Channels' : cat}</span>
+                      <span className={`px-2 py-0.5 text-[10px] font-mono font-bold rounded-md shrink-0 ${
+                        isActive
+                          ? 'bg-white/15 text-emerald-100'
+                          : 'bg-stone-200/80 text-stone-600'
+                      }`}>
+                        {count}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Primary Action: Submit Interest Activation Card (Sponsorship Portal) */}
+            <div className="bg-gradient-to-br from-emerald-900 to-teal-950 border border-emerald-950 rounded-2xl p-5 shadow-sm text-white relative overflow-hidden order-2 md:order-1">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-full blur-xl pointer-events-none -mr-8 -mt-8"></div>
               
-              return (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all duration-300 transform active:scale-95 cursor-pointer flex items-center gap-2 border shadow-3xs shrink-0 ${
-                    isActive
-                      ? 'bg-gradient-to-r from-emerald-800 to-teal-900 border-emerald-950 text-white shadow-md'
-                      : 'bg-stone-50 hover:bg-stone-100 border-stone-200 hover:border-stone-300 text-slate-650 hover:text-slate-900'
-                  }`}
-                >
-                  <span>{isAll ? '★ All Channels' : cat}</span>
-                  <span className={`px-2 py-0.5 text-[10px] font-mono font-bold rounded-md shrink-0 ${
-                    isActive
-                      ? 'bg-white/15 text-emerald-100'
-                      : 'bg-stone-200/80 text-stone-600'
-                  }`}>
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Cart Mode / Add to Cart Action Bar */}
-          <div className="mt-6 pt-5 border-t border-stone-150 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+              <div className="flex items-center gap-2 mb-2">
+                <CheckSquare className="h-4 w-4 text-emerald-300 shrink-0" />
+                <span className="text-[10px] font-black uppercase tracking-widest text-emerald-300 font-sans block">
+                  Sponsorship Portal
+                </span>
+              </div>
+              
+              <h4 className="text-xs sm:text-sm font-black tracking-tight leading-snug mb-3">
+                Want to Sponsor Projects?
+              </h4>
+              
               <button
                 onClick={() => setSelectionMode(!selectionMode)}
-                className={`px-5 py-2.5 rounded-xl text-xs sm:text-sm font-extrabold tracking-wide transition-all duration-300 transform active:scale-95 cursor-pointer flex items-center gap-2 border ${
+                className={`w-full px-4 py-2.5 rounded-xl text-xs font-black tracking-wider uppercase transition-all duration-300 transform active:scale-95 cursor-pointer flex items-center justify-center gap-2 border shadow-sm ${
                   selectionMode
-                    ? 'bg-rose-50 border-rose-250 text-rose-800 border-rose-200 shadow-inner'
-                    : 'bg-emerald-50 border-emerald-250 text-emerald-800 border-emerald-200 shadow-sm hover:bg-emerald-100 hover:shadow-md'
+                    ? 'bg-rose-600 border-rose-700 text-white hover:bg-rose-700 shadow-inner'
+                    : 'bg-white border-white text-emerald-950 hover:bg-stone-100 hover:shadow-md'
                 }`}
               >
                 {selectionMode ? (
                   <>
-                    <X className="h-4.5 w-4.5" />
-                    <span>Exit Selection Mode</span>
+                    <X className="h-3.5 w-3.5 stroke-[2.5]" />
+                    <span>Exit Selection</span>
                   </>
                 ) : (
                   <>
-                    <CheckSquare className="h-4.5 w-4.5" />
+                    <CheckSquare className="h-3.5 w-3.5 stroke-[2.5]" />
                     <span>Submit Interest</span>
                   </>
                 )}
               </button>
+
               {selectionMode ? (
-                <span className="text-xs font-sans text-stone-500 animate-pulse bg-amber-50 border border-amber-200 text-amber-900 px-3 py-1.5 rounded-lg font-bold">
-                  ✓ Selection Mode Active: Click checkboxes to add/remove, or check category headings to select all.
-                </span>
+                <p className="text-[10px] font-sans text-emerald-100 mt-3 leading-normal bg-white/10 px-2 py-1.5 rounded-lg border border-white/5 font-medium animate-pulse">
+                  ✓ Selection Mode Active: Click checkboxes on project cards below to choose items.
+                </p>
               ) : (
-                <span className="text-xs font-sans text-stone-550 bg-stone-50 border border-stone-200/60 px-3 py-1.5 rounded-lg font-medium">
-                  💡 <strong>Information Note</strong>: Click on the <strong>"Submit Interest"</strong> button to toggle selection mode and choose the welfare projects you wish to sponsor.
-                </span>
+                <p className="text-[10px] font-sans text-emerald-200 mt-3 leading-normal bg-white/5 px-2 py-1.5 rounded-lg border border-white/5">
+                  💡 Click <strong>"Submit Interest"</strong> first, then select welfare items you wish to back.
+                </p>
               )}
             </div>
+          </motion.div>
 
-            {cart.length > 0 && (
-              <button
-                onClick={() => onNavClick('sponsorship')}
-                className="px-5 py-2.5 bg-gradient-to-r from-amber-500 via-emerald-600 to-teal-700 hover:from-amber-600 hover:to-teal-800 text-white rounded-xl text-xs sm:text-sm font-extrabold tracking-wide transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center gap-2 shadow-md hover:shadow-lg"
-              >
-                <ShoppingCart className="h-4 w-4" />
-                <span>Selected Support Cart ({cart.length})</span>
-              </button>
-            )}
-          </div>
-        </motion.div>
+          {/* Right Column: Search Engine & Clustered Projects Grid System */}
+          <div className="md:col-span-3 space-y-6">
+            
+            {/* Dynamic Smart Search Engine block & Active Cart Link Row */}
+            <motion.div 
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-white border border-stone-150 rounded-2xl p-4 shadow-3xs flex flex-col sm:flex-row items-center gap-4 justify-between"
+            >
+              <div className="relative flex-1 w-full">
+                <Search className="absolute left-4 top-3.5 h-4.5 w-4.5 text-stone-400 pointer-events-none" />
+                <input
+                  type="text"
+                  placeholder="Search by keywords, contributors (NTPL etc.) or specific services..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-11 pr-4 py-3 bg-stone-50 border border-stone-250 rounded-xl text-slate-800 placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-700 transition-all font-sans"
+                />
+                {searchQuery && (
+                  <button 
+                    onClick={() => setSearchQuery('')}
+                    className="absolute right-3.5 top-3.5 p-1 rounded-full hover:bg-stone-200 text-stone-400 hover:text-stone-600 cursor-pointer transition-colors"
+                    title="Clear Search"
+                  >
+                    <X className="h-3.5 w-3.5" />
+                  </button>
+                )}
+              </div>
 
-        {/* Dynamic Smart Search Engine block */}
-        <motion.div 
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mb-10 max-w-xl"
-        >
-          <div className="relative">
-            <Search className="absolute left-4 top-3.5 h-4.5 w-4.5 text-stone-400 pointer-events-none" />
-            <input
-              type="text"
-              placeholder="Search by keywords, contributors (NTPL etc.) or specific services..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 bg-white border border-stone-250 rounded-2xl text-slate-800 placeholder-stone-400 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-700 transition-all font-sans shadow-3xs"
-            />
-            {searchQuery && (
-              <button 
-                onClick={() => setSearchQuery('')}
-                className="absolute right-3.5 top-3.5 p-1 rounded-full hover:bg-stone-100 text-stone-400 hover:text-stone-600 cursor-pointer transition-colors"
-                title="Clear Search"
-              >
-                <X className="h-3.5 w-3.5" />
-              </button>
-            )}
-          </div>
-        </motion.div>
+              {cart.length > 0 && (
+                <button
+                  onClick={() => onNavClick('sponsorship')}
+                  className="w-full sm:w-auto px-5 py-3 bg-gradient-to-r from-amber-500 via-emerald-600 to-teal-700 hover:from-amber-600 hover:to-teal-800 text-white rounded-xl text-xs font-extrabold tracking-wide transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center justify-center gap-2 shadow-md shrink-0"
+                >
+                  <ShoppingCart className="h-4 w-4" />
+                  <span>Selected Cart ({cart.length})</span>
+                </button>
+              )}
+            </motion.div>
 
-        {/* Dynamic Clustered Projects Grid System */}
-        {Object.keys(groupedProjects).length > 0 ? (
-          <div className="space-y-14">
-            {Object.keys(groupedProjects).map((departmentName) => {
-              const departmentProjects = groupedProjects[departmentName];
-              const theme = getDepartmentTheme(departmentName);
+            {/* Dynamic Clustered Projects Grid System */}
+            {Object.keys(groupedProjects).length > 0 ? (
+              <div className="space-y-12">
+                {Object.keys(groupedProjects).map((departmentName) => {
+                  const departmentProjects = groupedProjects[departmentName];
+                  const theme = getDepartmentTheme(departmentName);
 
-              return (
-                <div key={departmentName} className="space-y-6">
-                  
-                  {/* Department stylized header block */}
-                  <div className="flex items-center justify-between gap-4 border-b border-stone-200 pb-3">
-                    <div className="flex items-center gap-3">
-                      {selectionMode && (
-                        <button
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleToggleDepartmentSelect(departmentName, departmentProjects);
-                          }}
-                          className={`p-1.5 rounded-lg border transition-all shrink-0 flex items-center justify-center cursor-pointer ${
-                            isAllDepartmentSelected(departmentName, departmentProjects)
-                              ? 'bg-emerald-600 border-emerald-700 text-white shadow-sm'
-                              : 'bg-white border-stone-300 text-transparent hover:border-emerald-650'
-                          }`}
-                          title={isAllDepartmentSelected(departmentName, departmentProjects) ? "Unselect All in Sector" : "Select All in Sector"}
-                        >
-                          <Check className="h-4 w-4 stroke-[3]" />
-                        </button>
-                      )}
+                  return (
+                    <div key={departmentName} className="space-y-5 bg-white/40 border border-stone-100 p-5 rounded-2xl">
                       
-                      <div className={`p-2.5 rounded-2xl bg-gradient-to-tr ${theme.gradient} text-white shadow-sm shrink-0`}>
-                        {getDepartmentIcon(departmentName)}
-                      </div>
-                      <div>
-                        <h2 className="text-lg sm:text-xl font-display font-black text-slate-900 tracking-tight leading-none">
-                          {departmentName}
-                        </h2>
-                        <span className="text-[11px] font-bold text-slate-400 font-sans uppercase tracking-widest mt-0.5 block">
-                          Governance Sector Division
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className={`px-3 py-1 bg-white border ${theme.border} text-xs font-sans font-bold rounded-xl shadow-4xs shrink-0 text-slate-650 flex items-center gap-1.5`}>
-                      <span className={`w-2 h-2 rounded-full ${theme.indicator}`}></span>
-                      <span>{departmentProjects.length} {departmentProjects.length === 1 ? 'initiative' : 'initiatives'}</span>
-                    </div>
-                  </div>
-
-                  {/* Creative Grid Cards */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {departmentProjects.map((project, idx) => {
-                      const projTheme = getDepartmentTheme(project.department);
-
-                      return (
-                        <motion.div
-                          key={idx}
-                          layout
-                          initial={{ opacity: 0, scale: 0.94 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          viewport={{ once: true, margin: "-50px" }}
-                          transition={{ duration: 0.4 }}
-                          onClick={() => setActiveProject(project)}
-                          className="group bg-white rounded-2xl border border-stone-150 hover:border-slate-300 p-6 shadow-4xs hover:shadow-lg transition-all duration-305 relative flex flex-col justify-between cursor-pointer transform hover:-translate-y-1.5 overflow-hidden select-none"
-                        >
-                          {/* Colored offset side highlight indicator bar */}
-                          <div className={`absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b ${projTheme.gradient}`}></div>
+                      {/* Department stylized header block */}
+                      <div className="flex items-center justify-between gap-4 border-b border-stone-200 pb-3">
+                        <div className="flex items-center gap-3">
+                          {selectionMode && (
+                            <button
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleToggleDepartmentSelect(departmentName, departmentProjects);
+                              }}
+                              className={`p-1.5 rounded-lg border transition-all shrink-0 flex items-center justify-center cursor-pointer ${
+                                isAllDepartmentSelected(departmentName, departmentProjects)
+                                  ? 'bg-emerald-600 border-emerald-700 text-white shadow-sm'
+                                  : 'bg-white border-stone-300 text-transparent hover:border-emerald-650'
+                              }`}
+                              title={isAllDepartmentSelected(departmentName, departmentProjects) ? "Unselect All in Sector" : "Select All in Sector"}
+                            >
+                              <Check className="h-4 w-4 stroke-[3]" />
+                            </button>
+                          )}
                           
-                          {/* Corner ambient graphic drop glow on hover */}
-                          <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-slate-500/5 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+                          <div className={`p-2 rounded-xl bg-gradient-to-tr ${theme.gradient} text-white shadow-sm shrink-0`}>
+                            {getDepartmentIcon(departmentName)}
+                          </div>
+                          <div>
+                            <h2 className="text-base sm:text-lg font-display font-black text-slate-900 tracking-tight leading-none">
+                              {departmentName}
+                            </h2>
+                            <span className="text-[10px] font-bold text-slate-400 font-sans uppercase tracking-widest mt-0.5 block">
+                              Governance Sector Division
+                            </span>
+                          </div>
+                        </div>
 
-                          <div className="pl-2">
-                            {/* Card Badges */}
-                            <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-                              <div className="flex items-center gap-2">
-                                {selectionMode && (
-                                  <div
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      onToggleCart(project);
-                                    }}
-                                    className={`p-1.5 rounded-lg border transition-all cursor-pointer flex items-center justify-center shrink-0 ${
-                                      cart.some(c => c.title === project.title)
-                                        ? 'bg-emerald-605 bg-emerald-650 bg-emerald-600 border-emerald-700 text-white shadow-sm'
-                                        : 'bg-white border-stone-300 text-transparent hover:border-emerald-650'
-                                    }`}
-                                  >
-                                    <Check className="h-3.5 w-3.5 stroke-[3]" />
+                        <div className={`px-2.5 py-1 bg-white border ${theme.border} text-[11px] font-sans font-bold rounded-xl shadow-4xs shrink-0 text-slate-650 flex items-center gap-1.5`}>
+                          <span className={`w-1.5 h-1.5 rounded-full ${theme.indicator}`}></span>
+                          <span>{departmentProjects.length} {departmentProjects.length === 1 ? 'initiative' : 'initiatives'}</span>
+                        </div>
+                      </div>
+
+                      {/* Creative Grid Cards */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        {departmentProjects.map((project, idx) => {
+                          const projTheme = getDepartmentTheme(project.department);
+
+                          return (
+                            <motion.div
+                              key={idx}
+                              layout
+                              initial={{ opacity: 0, scale: 0.94 }}
+                              whileInView={{ opacity: 1, scale: 1 }}
+                              viewport={{ once: true, margin: "-50px" }}
+                              transition={{ duration: 0.4 }}
+                              onClick={() => setActiveProject(project)}
+                              className="group bg-white rounded-xl border border-stone-150 hover:border-slate-300 p-5 shadow-4xs hover:shadow-md transition-all duration-305 relative flex flex-col justify-between cursor-pointer transform hover:-translate-y-1 overflow-hidden select-none"
+                            >
+                              {/* Colored offset side highlight indicator bar */}
+                              <div className={`absolute top-0 left-0 w-1 h-full bg-gradient-to-b ${projTheme.gradient}`}></div>
+                              
+                              {/* Corner ambient graphic drop glow on hover */}
+                              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-slate-500/5 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+
+                              <div className="pl-1">
+                                {/* Card Badges */}
+                                <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
+                                  <div className="flex items-center gap-1.5">
+                                    {selectionMode && (
+                                      <div
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          onToggleCart(project);
+                                        }}
+                                        className={`p-1 rounded-md border transition-all cursor-pointer flex items-center justify-center shrink-0 ${
+                                          cart.some(c => c.title === project.title)
+                                            ? 'bg-emerald-600 border-emerald-700 text-white shadow-sm'
+                                            : 'bg-white border-stone-300 text-transparent hover:border-emerald-650'
+                                        }`}
+                                      >
+                                        <Check className="h-3 w-3 stroke-[3]" />
+                                      </div>
+                                    )}
+                                    {getStatusBadge(project.status)}
                                   </div>
-                                )}
-                                {getStatusBadge(project.status)}
+
+                                  <span className="inline-flex items-center gap-1 text-[11px] font-mono font-bold text-emerald-800 tracking-tight bg-slate-50/85 py-0.5 px-2 rounded-lg border border-stone-200">
+                                    <Coins className="h-2.5 w-2.5 text-emerald-750" />
+                                    {project.financialOutlay}
+                                  </span>
+                                </div>
+
+                                {/* Project Title with graceful display limits */}
+                                <h3 className="text-sm font-sans font-black text-slate-900 tracking-tight leading-snug group-hover:text-emerald-850 transition-colors line-clamp-2">
+                                  {project.title}
+                                </h3>
+
+                                {/* Interactive Description Snippet */}
+                                <p className="mt-2 text-[11px] leading-relaxed text-stone-500 line-clamp-3 font-sans">
+                                  {project.description}
+                                </p>
                               </div>
 
-                              <span className="inline-flex items-center gap-1 text-xs font-mono font-bold text-emerald-800 tracking-tight bg-slate-50/85 py-0.5 px-2 rounded-lg border border-stone-200">
-                                <Coins className="h-3 w-3 text-emerald-750" />
-                                {project.financialOutlay}
-                              </span>
-                            </div>
-
-                            {/* Project Title with graceful display limits */}
-                            <h3 className="text-base sm:text-[17px] font-sans font-black text-slate-900 tracking-tight leading-snug group-hover:text-emerald-850 transition-colors line-clamp-2">
-                              {project.title}
-                            </h3>
-
-                            {/* Contributor details removed per user requirements */}
-
-                            {/* Interactive Description Snippet */}
-                            <p className="mt-3.5 text-xs leading-relaxed text-stone-500 line-clamp-3 font-sans">
-                              {project.description}
-                            </p>
-                          </div>
-
-                          {/* Detail Activator Bar */}
-                          <div className="mt-6 pt-4 border-t border-stretch border-stone-100/80 flex items-center justify-between text-xs text-emerald-800 font-extrabold font-sans pl-2">
-                            <span className="group-hover:translate-x-1.5 transition-transform duration-200">
-                              Explore Description Profile
-                            </span>
-                            <Maximize2 className="h-4 w-4 opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all text-emerald-700" />
-                          </div>
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-                </div>
-              );
-            })}
+                              {/* Detail Activator Bar */}
+                              <div className="mt-4 pt-3 border-t border-stretch border-stone-100/80 flex items-center justify-between text-[11px] text-emerald-800 font-extrabold font-sans pl-1">
+                                <span className="group-hover:translate-x-1 transition-transform duration-200">
+                                  Explore Profile
+                                </span>
+                                <Maximize2 className="h-3.5 w-3.5 opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all text-emerald-700" />
+                              </div>
+                            </motion.div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="text-center py-16 bg-white border border-stone-200 rounded-2xl p-6 max-w-md mx-auto">
+                <ShieldAlert className="h-10 w-10 text-stone-400 mx-auto mb-3" />
+                <h3 className="text-base font-sans font-black text-slate-905">No Search Matches</h3>
+                <p className="text-xs text-stone-500 mt-1 leading-relaxed">
+                  We couldn't locate any projects matching your current query under "{selectedCategory}". Clear constraints to reload full listings.
+                </p>
+                <button
+                  onClick={() => {
+                    setSearchQuery('');
+                    setSelectedCategory('All Categories');
+                  }}
+                  className="mt-4 px-4 py-2 bg-stone-900 hover:bg-stone-800 text-white font-bold text-xs rounded-lg transition-colors cursor-pointer"
+                >
+                  Reset Search Parameters
+                </button>
+              </div>
+            )}
           </div>
-        ) : (
-          <div className="text-center py-20 bg-white border border-stone-200 rounded-2xl p-8 max-w-xl mx-auto">
-            <ShieldAlert className="h-12 w-12 text-stone-400 mx-auto mb-4" />
-            <h3 className="text-lg font-sans font-black text-slate-905">No Search Matches</h3>
-            <p className="text-sm text-stone-500 mt-2 leading-relaxed">
-              We couldn't locate any projects matching your current query under "{selectedCategory}". Clear constraints to reload full listings.
-            </p>
-            <button
-              onClick={() => {
-                setSearchQuery('');
-                setSelectedCategory('All Categories');
-              }}
-              className="mt-5 px-5 py-2.5 bg-stone-900 hover:bg-stone-800 text-white font-bold text-xs rounded-xl transition-colors cursor-pointer"
-            >
-              Reset Search Parameters
-            </button>
-          </div>
-        )}
+        </div>
 
         {/* Buy Now Basket Box */}
         {cart.length > 0 && (
