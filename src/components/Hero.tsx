@@ -42,7 +42,7 @@ export default function Hero({ onExploreClick }: HeroProps) {
 
           {/* Tamil Title Block */}
           <h3 className="text-xl sm:text-2xl md:text-3xl font-sans font-bold text-emerald-350 tracking-wide drop-shadow-md">
-            தூத்துக்குடி மாவட்ட நலச் சங்கம்
+            தூத்துக்குடி மாவட்ட நிர்வாகச் சமூகம்
           </h3>
         </motion.div>
 

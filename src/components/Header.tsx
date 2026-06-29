@@ -39,7 +39,7 @@ export default function Header() {
           Thoothukudi District Administration Society
         </h1>
         <h2 className="mt-3 text-lg sm:text-xl md:text-2xl font-sans font-semibold text-emerald-800 tracking-wide bg-emerald-50/50 px-4 py-1.5 rounded-full border border-emerald-100/50 inline-block">
-          தூத்துக்குடி மாவட்ட நலச் சங்கம்
+          தூத்துக்குடி மாவட்ட நிர்வாகச் சமூகம்
         </h2>
 
         {/* Subtle decorative innovative line */}
