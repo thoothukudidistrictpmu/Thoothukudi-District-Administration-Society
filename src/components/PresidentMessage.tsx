@@ -118,7 +118,7 @@ export default function PresidentMessage() {
 
         </div>
 
-        {/* Board Office Bearers Section (4 boxes directly requested below president message) */}
+        {/* Board Office Bearers Section (3 boxes directly requested below president message) */}
         <div id="governing-body" className="mt-16 pt-12 border-t border-gray-150">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
@@ -138,46 +138,46 @@ export default function PresidentMessage() {
             </div>
           </motion.div>
 
-          {/* List Grid of 4 Boxes */}
+          {/* List Grid of 3 Boxes */}
           <motion.div 
             variants={gridContainerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             id="board-members-grid" 
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch"
+            className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch max-w-7xl mx-auto"
           >
             {BOARD_MEMBERS.map((member, index) => (
               <motion.div
                 key={index}
                 variants={cardVariants}
                 id={`member-box-${index}`}
-                className="group bg-white rounded-2xl p-6 border border-slate-100 shadow-[0_4px_20px_rgba(0,0,0,0.015)] hover:shadow-lg hover:border-emerald-600/20 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between relative overflow-hidden"
+                className="group bg-white rounded-2xl p-8 border border-slate-100 shadow-[0_4px_25px_rgba(0,0,0,0.02)] hover:shadow-xl hover:border-emerald-600/30 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between relative overflow-hidden min-h-[220px]"
               >
                 {/* Visual side accent on card hover */}
-                <div className="absolute top-0 bottom-0 left-0 w-1.5 bg-gradient-to-b from-emerald-600 to-amber-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute top-0 bottom-0 left-0 w-2 bg-gradient-to-b from-emerald-600 to-amber-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
                 <div>
                   {/* Small clean role tag */}
-                  <span className="inline-block text-[10px] bg-emerald-50 text-emerald-805 font-extrabold uppercase tracking-widest font-sans px-2.5 py-1 rounded-md mb-4 border border-emerald-100">
+                  <span className="inline-block text-[10px] bg-emerald-50 text-emerald-850 font-extrabold uppercase tracking-widest font-sans px-3 py-1.5 rounded-md mb-5 border border-emerald-100">
                     {member.role}
                   </span>
                   
                   {/* Name */}
-                  <h4 className="text-base font-sans font-extrabold text-slate-900 tracking-tight mb-1.5 group-hover:text-emerald-850 transition-colors">
+                  <h4 className="text-lg font-sans font-extrabold text-slate-900 tracking-tight mb-2 group-hover:text-emerald-850 transition-colors">
                     {member.name}
                   </h4>
                   
                   {/* Professional title */}
-                  <p className="text-xs sm:text-sm text-slate-550 font-sans leading-relaxed">
+                  <p className="text-sm text-slate-600 font-sans leading-relaxed">
                     {member.title}
                   </p>
                 </div>
 
                 {/* Seal background logo accent */}
-                <div className="mt-5 pt-4 border-t border-slate-50 flex items-center justify-between text-[10px] text-gray-400 font-mono tracking-wider uppercase font-semibold">
+                <div className="mt-6 pt-5 border-t border-slate-50 flex items-center justify-between text-[11px] text-gray-400 font-mono tracking-wider uppercase font-semibold">
                   <span>TDAS Board</span>
-                  <HeartHandshake className="h-4 w-4 text-emerald-600/40 group-hover:text-emerald-650/85 group-hover:scale-110 transition-all duration-300" />
+                  <HeartHandshake className="h-5 w-5 text-emerald-600/40 group-hover:text-emerald-650/85 group-hover:scale-110 transition-all duration-300" />
                 </div>
               </motion.div>
             ))}
