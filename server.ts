@@ -195,9 +195,8 @@ ${projectsText}
                "• **Main Function**: To articulate our state-audited governance, operational transparency, and institutional structure.\n" +
                "• **Key Features / Our Board**:\n" +
                "  1. **President**: Shri **Vishu Mahajan IAS** (District Collector, Thoothukudi)\n" +
-               "  2. **Vice President**: Shri **K. Karthikeyan** (District Revenue Officer, Thoothukudi)\n" +
-               "  3. **Secretary**: Smt **K. Sangamithra** (Project Director DRDA, Tiruppur)\n" +
-               "  4. **Treasurer**: Shri **D.S. Duraimurugan** (Personal Assistant, Thoothukudi)\n" +
+               "  2. **Vice President**: Shri **M. Guruchandran** (District Revenue Officer, Thoothukudi)\n" +
+               "  3. **Secretary**: Shri **Saravanan** (Joint Director/Project Director (DRDA), Thoothukudi)\n" +
                "  5. **Zero-Overhead Policy**: TDAS serves as a transparent, state-audited bridge keeping funds in a single consolidated public-sector account layout, ensuring zero administrative deduction and fast-track vendor settlement.";
       }
 
@@ -300,9 +299,8 @@ ${projectsText}
                      "• **Main Function**: To articulate our state-audited governance, operational transparency, and institutional structure.\n" +
                      "• **Key Features / Our Board**:\n" +
                      "  1. **President**: Shri **Vishu Mahajan IAS** (District Collector, Thoothukudi)\n" +
-                     "  2. **Vice President**: Shri **K. Karthikeyan** (District Revenue Officer, Thoothukudi)\n" +
-                     "  3. **Secretary**: Smt **K. Sangamithra** (Project Director DRDA, Tiruppur)\n" +
-                     "  4. **Treasurer**: Shri **D.S. Duraimurugan** (Personal Assistant, Thoothukudi)\n" +
+                     "  2. **Vice President**: Shri **M. Guruchandran** (District Revenue Officer, Thoothukudi)\n" +
+                     "  3. **Secretary**: Shri **Saravanan** (Joint Director/Project Director (DRDA), Thoothukudi)\n" +
                      "  5. **Zero-Overhead Policy**: TDAS serves as a transparent, state-audited bridge keeping funds in a single consolidated public-sector account layout, ensuring zero administrative deduction and fast-track vendor settlement.";
     } else if (matchesAny(cleanQuery, ["projects", "project", "blueprint", "blueprints", "education", "health", "infrastructure", "catalog", "school", "classroom", "hospital", "clinic", "water", "toilet", "toilets", "needs", "welfare", "list", "active", "department"])) {
       matchedReply = "The **Projects** page is our portal's core state-verified catalog hub. It allows prospective sponsors to inspect developmental gaps needing corporate funding:\n\n" +
