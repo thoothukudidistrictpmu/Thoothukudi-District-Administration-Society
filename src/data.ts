@@ -77,8 +77,8 @@ export const BOARD_MEMBERS: BoardMember[] = [
   },
   {
     role: "Secretary",
-    name: "Mrs.Ishwarya Ramanathan IAS",
-    title: "Project Director DRDA, Thoothukudi"
+    name: "Mr.Saravanan",
+    title: "Joint Director/Project Director (DRDA), Thoothukudi"
   }
 ];
 
