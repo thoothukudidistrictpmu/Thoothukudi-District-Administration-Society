@@ -4,6 +4,7 @@ import { PROJECTS_STATIC } from '../data';
 import { Project, SubProject } from '../types';
 import { DETAILED_CONTRIBUTORS } from '../data/contributors_data';
 import schoolStudentsBoard from '../assets/images/school_students_board_1782901784503.jpg';
+import adiDravidarWelfareEntrance from '../assets/images/adi_dravidar_welfare_entrance_1782902929585.jpg';
 
 function getDepartmentForWork(heading: string, workName: string): string {
   const h = (heading || '').toLowerCase();
@@ -305,7 +306,7 @@ const getDepartmentTheme = (dept: string) => {
       gradient: 'from-purple-500 to-indigo-600',
       shadow: 'hover:shadow-purple-100',
       iconColor: 'text-purple-650',
-      categoryImage: 'https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=1200&q=80' // Uplifting tribal/rural community togetherness
+      categoryImage: adiDravidarWelfareEntrance
     };
   }
 
