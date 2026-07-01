@@ -54,28 +54,16 @@ const OFFICIALS_DATA: ContactOfficial[] = [
     description: 'Commanding authority over land acquisitions, stamp duties, revenue recovery, law and order, and public grievance registers.'
   },
   {
-    name: 'Mrs. Ishwarya Ramanathan, IAS',
-    designation: 'Project Director, DRDA',
+    name: 'Mr. Saravanan',
+    designation: 'Joint Director/Project Director (DRDA)',
     fullTitle: 'District Rural Development Agency',
-    phone: '7373704229',
+    phone: '',
     email: 'tutdrda@gmail.com',
     iconBg: 'bg-sky-100 text-sky-700 border-sky-200',
     cardGlow: 'from-sky-50 relative border-l-4 border-l-sky-500 hover:shadow-sky-500/10 hover:border-sky-400',
     badgeColor: 'bg-sky-50 text-sky-900 border-sky-200/60',
-    avatarLetter: 'IR',
+    avatarLetter: 'S',
     description: 'Spearheads all rural infrastructure deployments, CSR alignments, drinking water expansion schemes, and self-help group programs.'
-  },
-  {
-    name: 'S. Uma Maheswari',
-    designation: 'District Treasury Officer',
-    fullTitle: 'Treasury & Accounts Department',
-    phone: '8072818108',
-    email: 'dtotut.tndta@nic.in',
-    iconBg: 'bg-purple-100 text-purple-700 border-purple-200',
-    cardGlow: 'from-purple-50 relative border-l-4 border-l-purple-500 hover:shadow-purple-500/10 hover:border-purple-400',
-    badgeColor: 'bg-purple-50 text-purple-900 border-purple-200/60',
-    avatarLetter: 'UM',
-    description: 'Manages government disbursements, budget allocation audits, public sector payrolls, and official financial transactions validation.'
   },
   {
     name: 'Dinesh & Jeya Nandha Kala S.',
