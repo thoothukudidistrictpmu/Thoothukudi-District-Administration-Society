@@ -5,6 +5,8 @@ import { Project, SubProject } from '../types';
 import { DETAILED_CONTRIBUTORS } from '../data/contributors_data';
 import schoolStudentsBoard from '../assets/images/school_students_board_1782901784503.jpg';
 import adiDravidarWelfareEntrance from '../assets/images/adi_dravidar_welfare_entrance_1782902929585.jpg';
+import mahalirThittamSHG from '../assets/images/mahalir_thittam_shg_1782904500000_1782904030145.jpg';
+import socialWelfareGroup from '../assets/images/social_welfare_group_1782904439937.jpg';
 
 function getDepartmentForWork(heading: string, workName: string): string {
   const h = (heading || '').toLowerCase();
@@ -162,7 +164,7 @@ const getDepartmentTheme = (dept: string) => {
       gradient: 'from-fuchsia-500 to-pink-600',
       shadow: 'hover:shadow-fuchsia-100',
       iconColor: 'text-fuchsia-650',
-      categoryImage: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1200&q=80' // Women's cooperative / beautiful handcrafts enterprise
+      categoryImage: mahalirThittamSHG
     };
   }
 
@@ -294,7 +296,23 @@ const getDepartmentTheme = (dept: string) => {
     };
   }
 
-  if (d.includes('adi dravidar') || d.includes('social welfare') || d.includes('marginalized') || d.includes('welfare')) {
+  if (d.includes('social welfare')) {
+    return {
+      accent: 'purple',
+      bg: 'bg-purple-50/80',
+      border: 'border-purple-200 hover:border-purple-400',
+      borderGroup: 'border-purple-500/30 hover:border-purple-500',
+      borderColor: 'border-purple-500',
+      text: 'text-purple-800',
+      indicator: 'bg-purple-500',
+      gradient: 'from-purple-500 to-indigo-600',
+      shadow: 'hover:shadow-purple-100',
+      iconColor: 'text-purple-650',
+      categoryImage: socialWelfareGroup
+    };
+  }
+
+  if (d.includes('adi dravidar') || d.includes('marginalized') || d.includes('welfare')) {
     return {
       accent: 'purple',
       bg: 'bg-purple-50/80',
