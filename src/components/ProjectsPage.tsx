@@ -1500,30 +1500,6 @@ Together, let us build a progressive, resilient, and inclusive Thoothukudi throu
                 </div>
               )}
 
-              {/* Status indicator tracker */}
-              <div className="space-y-3 pt-3 border-t border-stone-100">
-                <div className="flex justify-between items-center text-xs">
-                  <span className="font-black uppercase tracking-widest text-slate-400 font-sans">Initiative Timeline Status</span>
-                  <div className="scale-90">{getStatusBadge(activeProject.status)}</div>
-                </div>
-
-                {/* Progress Visual Timeline line bar strictly based on status */}
-                <div className="relative w-full h-2.5 bg-stone-100 rounded-full overflow-hidden border border-stone-200/45">
-                  <div 
-                    className={`h-full rounded-full transition-all duration-500 ${
-                      activeProject.status.toLowerCase().includes('complete') 
-                        ? 'bg-emerald-500' 
-                        : 'bg-stone-300'
-                    }`}
-                    style={{ 
-                      width: activeProject.status.toLowerCase().includes('complete') 
-                        ? '100%' 
-                        : '15%' 
-                    }}
-                  ></div>
-                </div>
-              </div>
-
               {/* Bottom buttons panel */}
               <div className="flex justify-end pt-5 border-t border-stone-100">
                 <button
