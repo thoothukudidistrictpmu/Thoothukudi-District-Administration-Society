@@ -146,7 +146,7 @@ export default function Journey({ onProjectsClick }: JourneyProps) {
     const loadLiveDataSilently = async () => {
       try {
         const response = await fetch(
-          'https://docs.google.com/spreadsheets/d/1itNBrzhwMNoBA_54VfAwk4kfZF6uxmRKzeYY48T_sow/export?format=csv'
+          `https://docs.google.com/spreadsheets/d/1itNBrzhwMNoBA_54VfAwk4kfZF6uxmRKzeYY48T_sow/gviz/tq?tqx=out:csv&t=${Date.now()}`
         );
         if (!response.ok) return;
         const csvText = await response.text();
@@ -197,7 +197,7 @@ export default function Journey({ onProjectsClick }: JourneyProps) {
 
         // Fetch Contributors sheet to gather dynamic completed works from sheet
         try {
-          const CONTRIBUTORS_CSV_URL = `https://docs.google.com/spreadsheets/d/1itNBrzhwMNoBA_54VfAwk4kfZF6uxmRKzeYY48T_sow/gviz/tq?tqx=out:csv&sheet=CSR%20Contributors`;
+          const CONTRIBUTORS_CSV_URL = `https://docs.google.com/spreadsheets/d/1itNBrzhwMNoBA_54VfAwk4kfZF6uxmRKzeYY48T_sow/gviz/tq?tqx=out:csv&sheet=CSR%20Contributors&t=${Date.now()}`;
           const contribResponse = await fetch(CONTRIBUTORS_CSV_URL);
           if (contribResponse.ok) {
             const contribCsvText = await contribResponse.text();

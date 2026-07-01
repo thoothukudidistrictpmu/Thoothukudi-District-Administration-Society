@@ -33,6 +33,13 @@ export interface SocialLink {
   url: string;
 }
 
+export interface SubProject {
+  location: string;
+  financialOutlay: string;
+  description?: string;
+  status?: string;
+}
+
 export interface Project {
   department: string;
   title: string;
@@ -41,4 +48,5 @@ export interface Project {
   status: 'Completed' | 'Not taken up' | string;
   contributor: string;
   imageUrl?: string;
+  subProjects?: SubProject[];
 }

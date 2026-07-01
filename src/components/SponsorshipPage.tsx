@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Project } from '../types';
+import schoolStudentsBoard from '../assets/images/school_students_board_1782901784503.jpg';
 import { 
   ShieldCheck, 
   Trash2, 
@@ -67,103 +68,251 @@ const formatCostNumeric = (value: number): string => {
 };
 
 const getDepartmentTheme = (dept: string) => {
-  const d = dept.toLowerCase();
-  if (d.includes('education')) {
+  const d = dept.toLowerCase().trim();
+  
+  if (d.includes('education') || d.includes('school') || d.includes('learning') || d.includes('collegiate') || d.includes('literacy')) {
     return {
       accent: 'emerald',
       bg: 'bg-emerald-50/80',
-      border: 'border-emerald-200',
+      border: 'border-emerald-200 hover:border-emerald-400',
+      borderGroup: 'border-emerald-500/30 hover:border-emerald-500',
+      borderColor: 'border-emerald-500',
       text: 'text-emerald-800',
       indicator: 'bg-emerald-500',
       gradient: 'from-emerald-500 to-teal-600',
       shadow: 'hover:shadow-emerald-100',
-      iconColor: 'text-emerald-600'
+      iconColor: 'text-emerald-600',
+      categoryImage: schoolStudentsBoard // Beautiful modern school students bulletin board
     };
   }
-  if (d.includes('health')) {
+  
+  if (d.includes('health') || d.includes('medical') || d.includes('hospital') || d.includes('clinical') || d.includes('hud') || d.includes('jdhs') || (d.includes('welfare') && d.includes('family'))) {
     return {
       accent: 'rose',
       bg: 'bg-rose-50/80',
-      border: 'border-rose-200',
+      border: 'border-rose-200 hover:border-rose-400',
+      borderGroup: 'border-rose-500/30 hover:border-rose-500',
+      borderColor: 'border-rose-500',
       text: 'text-rose-800',
       indicator: 'bg-rose-500',
       gradient: 'from-rose-500 to-pink-600',
       shadow: 'hover:shadow-rose-100',
-      iconColor: 'text-rose-600'
+      iconColor: 'text-rose-600',
+      categoryImage: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80' // Clean modern clinic/medical facility
     };
   }
-  if (d.includes('abled') || d.includes('disable') || d.includes('person')) {
+  
+  if (d.includes('abled') || d.includes('disable') || d.includes('person') || d.includes('pwds')) {
     return {
       accent: 'indigo',
       bg: 'bg-indigo-50/80',
-      border: 'border-indigo-200',
+      border: 'border-indigo-200 hover:border-indigo-400',
+      borderGroup: 'border-indigo-500/30 hover:border-indigo-500',
+      borderColor: 'border-indigo-500',
       text: 'text-indigo-850',
       indicator: 'bg-indigo-500',
       gradient: 'from-indigo-500 to-purple-600',
       shadow: 'hover:shadow-indigo-100',
-      iconColor: 'text-indigo-600'
+      iconColor: 'text-indigo-600',
+      categoryImage: 'https://images.unsplash.com/photo-1531206715517-5c0ba140e2b8?auto=format&fit=crop&w=1200&q=80' // Supportive rehabilitation / therapy / community empowerment
     };
   }
-  if (d.includes('agricultur') || d.includes('farm') || d.includes('pond')) {
+
+  if (d.includes('mahalir') || d.includes('thittam') || d.includes('shg') || d.includes('women') || d.includes('livelihood')) {
+    return {
+      accent: 'fuchsia',
+      bg: 'bg-fuchsia-50/80',
+      border: 'border-fuchsia-200 hover:border-fuchsia-400',
+      borderGroup: 'border-fuchsia-500/30 hover:border-fuchsia-500',
+      borderColor: 'border-fuchsia-500',
+      text: 'text-fuchsia-800',
+      indicator: 'bg-fuchsia-500',
+      gradient: 'from-fuchsia-500 to-pink-600',
+      shadow: 'hover:shadow-fuchsia-100',
+      iconColor: 'text-fuchsia-650',
+      categoryImage: 'https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&w=1200&q=80' // Women's cooperative / beautiful handcrafts enterprise
+    };
+  }
+
+  if (d.includes('horticulture') || d.includes('garden') || d.includes('flower') || d.includes('plant')) {
+    return {
+      accent: 'lime',
+      bg: 'bg-lime-50/80',
+      border: 'border-lime-200 hover:border-lime-400',
+      borderGroup: 'border-lime-500/30 hover:border-lime-500',
+      borderColor: 'border-lime-500',
+      text: 'text-lime-800',
+      indicator: 'bg-lime-500',
+      gradient: 'from-lime-500 to-emerald-600',
+      shadow: 'hover:shadow-lime-100',
+      iconColor: 'text-lime-600',
+      categoryImage: 'https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=1200&q=80' // Beautiful modern organic greenhouse/garden
+    };
+  }
+  
+  if (d.includes('agricultur') || d.includes('farm') || d.includes('pond') || d.includes('irrigation') || d.includes('agri') || d.includes('soil')) {
     return {
       accent: 'teal',
       bg: 'bg-teal-50/80',
-      border: 'border-teal-200',
+      border: 'border-teal-200 hover:border-teal-400',
+      borderGroup: 'border-teal-500/30 hover:border-teal-500',
+      borderColor: 'border-teal-500',
       text: 'text-teal-800',
       indicator: 'bg-teal-500',
       gradient: 'from-teal-500 to-emerald-600',
       shadow: 'hover:shadow-teal-100',
-      iconColor: 'text-teal-600'
+      iconColor: 'text-teal-600',
+      categoryImage: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1200&q=80' // Lush green agri landscapes
     };
   }
-  if (d.includes('husbandry') || d.includes('veterinary') || d.includes('animal')) {
+  
+  if (d.includes('husbandry') || d.includes('veterinary') || d.includes('animal') || d.includes('livestock') || d.includes('dairy')) {
     return {
       accent: 'amber',
       bg: 'bg-amber-50/80',
-      border: 'border-amber-200',
+      border: 'border-amber-200 hover:border-amber-400',
+      borderGroup: 'border-amber-500/30 hover:border-amber-500',
+      borderColor: 'border-amber-500',
       text: 'text-amber-800',
       indicator: 'bg-amber-500',
       gradient: 'from-amber-400 to-orange-500',
       shadow: 'hover:shadow-amber-100',
-      iconColor: 'text-amber-600'
+      iconColor: 'text-amber-600',
+      categoryImage: 'https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&w=1200&q=80' // Professional veterinary farm
     };
   }
+
+  if (d.includes('forest') || d.includes('tree') || d.includes('plantation') || d.includes('nature') || d.includes('greenery')) {
+    return {
+      accent: 'green',
+      bg: 'bg-green-50/80',
+      border: 'border-green-200 hover:border-green-400',
+      borderGroup: 'border-green-500/30 hover:border-green-500',
+      borderColor: 'border-green-500',
+      text: 'text-green-800',
+      indicator: 'bg-green-500',
+      gradient: 'from-green-500 to-emerald-700',
+      shadow: 'hover:shadow-green-100',
+      iconColor: 'text-green-600',
+      categoryImage: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80' // Deep green woodland forest pathway
+    };
+  }
+
+  if (d.includes('municipal') || d.includes('water supply') || d.includes('sanitation') || d.includes('waste') || d.includes('drain') || d.includes('city') || d.includes('town') || d.includes('corporation')) {
+    return {
+      accent: 'sky',
+      bg: 'bg-sky-50/80',
+      border: 'border-sky-200 hover:border-sky-400',
+      borderGroup: 'border-sky-500/30 hover:border-sky-500',
+      borderColor: 'border-sky-500',
+      text: 'text-sky-800',
+      indicator: 'bg-sky-500',
+      gradient: 'from-sky-500 to-blue-600',
+      shadow: 'hover:shadow-sky-100',
+      iconColor: 'text-sky-650',
+      categoryImage: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1200&q=80' // Smart green modern urban cityscape/clean water
+    };
+  }
+
+  if (d.includes('police') || d.includes('cctv') || d.includes('camera') || d.includes('security') || d.includes('monitoring')) {
+    return {
+      accent: 'violet',
+      bg: 'bg-violet-50/80',
+      border: 'border-violet-200 hover:border-violet-400',
+      borderGroup: 'border-violet-500/30 hover:border-violet-500',
+      borderColor: 'border-violet-500',
+      text: 'text-violet-800',
+      indicator: 'bg-violet-500',
+      gradient: 'from-violet-500 to-fuchsia-600',
+      shadow: 'hover:shadow-violet-100',
+      iconColor: 'text-violet-650',
+      categoryImage: 'https://images.unsplash.com/photo-1557597774-9d273605dfa9?auto=format&fit=crop&w=1200&q=80' // Surveillance & public safety monitor
+    };
+  }
+
+  if (d.includes('sport') || d.includes('stadium') || d.includes('youth') || d.includes('recreation')) {
+    return {
+      accent: 'fuchsia',
+      bg: 'bg-fuchsia-50/80',
+      border: 'border-fuchsia-200 hover:border-fuchsia-400',
+      borderGroup: 'border-fuchsia-500/30 hover:border-fuchsia-500',
+      borderColor: 'border-fuchsia-500',
+      text: 'text-fuchsia-800',
+      indicator: 'bg-fuchsia-500',
+      gradient: 'from-fuchsia-500 to-pink-600',
+      shadow: 'hover:shadow-fuchsia-100',
+      iconColor: 'text-fuchsia-650',
+      categoryImage: 'https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=1200&q=80' // Sports track field
+    };
+  }
+
+  if (d.includes('fisher') || d.includes('marine') || d.includes('port') || d.includes('coastal') || d.includes('ocean')) {
+    return {
+      accent: 'cyan',
+      bg: 'bg-cyan-50/80',
+      border: 'border-cyan-200 hover:border-cyan-400',
+      borderGroup: 'border-cyan-500/30 hover:border-cyan-500',
+      borderColor: 'border-cyan-500',
+      text: 'text-cyan-800',
+      indicator: 'bg-cyan-500',
+      gradient: 'from-cyan-500 to-blue-600',
+      shadow: 'hover:shadow-cyan-100',
+      iconColor: 'text-cyan-650',
+      categoryImage: 'https://images.unsplash.com/photo-1513553404607-988bf2703777?auto=format&fit=crop&w=1200&q=80' // Beautiful coastal port/sea harbor
+    };
+  }
+
+  if (d.includes('adi dravidar') || d.includes('social welfare') || d.includes('marginalized') || d.includes('welfare')) {
+    return {
+      accent: 'purple',
+      bg: 'bg-purple-50/80',
+      border: 'border-purple-200 hover:border-purple-400',
+      borderGroup: 'border-purple-500/30 hover:border-purple-500',
+      borderColor: 'border-purple-500',
+      text: 'text-purple-800',
+      indicator: 'bg-purple-500',
+      gradient: 'from-purple-500 to-indigo-600',
+      shadow: 'hover:shadow-purple-100',
+      iconColor: 'text-purple-650',
+      categoryImage: 'https://images.unsplash.com/photo-1509099836639-18ba1795216d?auto=format&fit=crop&w=1200&q=80' // Uplifting tribal/rural community togetherness
+    };
+  }
+
+  if (d.includes('child') || d.includes('icds') || d.includes('protection officer') || d.includes('anganwadi') || d.includes('nutritional') || d.includes('nursery') || d.includes('baby')) {
+    return {
+      accent: 'blue',
+      bg: 'bg-blue-50/80',
+      border: 'border-blue-200 hover:border-blue-400',
+      borderGroup: 'border-blue-500/30 hover:border-blue-500',
+      borderColor: 'border-blue-500',
+      text: 'text-blue-800',
+      indicator: 'bg-blue-500',
+      gradient: 'from-blue-500 to-indigo-600',
+      shadow: 'hover:shadow-blue-100',
+      iconColor: 'text-blue-600',
+      categoryImage: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1200&q=80' // Happy children playing in safe supportive play spaces
+    };
+  }
+
+  // General default fallback
   return {
-    accent: 'sky',
-    bg: 'bg-sky-50/80',
-    border: 'border-sky-200',
-    text: 'text-sky-800',
-    indicator: 'bg-sky-500',
-    gradient: 'from-sky-500 to-blue-600',
-    shadow: 'hover:shadow-sky-100',
-    iconColor: 'text-sky-650'
+    accent: 'slate',
+    bg: 'bg-slate-50/80',
+    border: 'border-slate-200 hover:border-slate-400',
+    borderGroup: 'border-slate-500/30 hover:border-slate-500',
+    borderColor: 'border-slate-500',
+    text: 'text-slate-800',
+    indicator: 'bg-slate-500',
+    gradient: 'from-slate-500 to-zinc-600',
+    shadow: 'hover:shadow-slate-100',
+    iconColor: 'text-slate-650',
+    categoryImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80' // High quality executive administration
   };
 };
 
-const getProjectFallbackImage = (title: string): string => {
-  const t = title.toLowerCase();
-  if (t.includes('classroom')) {
-    return "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1200&q=80";
-  }
-  if (t.includes('lab') || t.includes('science') || t.includes('stem')) {
-    return "https://images.unsplash.com/photo-1507668077129-56e32842fceb?auto=format&fit=crop&w=1200&q=80";
-  }
-  if (t.includes('health') || t.includes('op block') || t.includes('maternity')) {
-    return "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80";
-  }
-  if (t.includes('assistive') || t.includes('scooter') || t.includes('push cart')) {
-    return "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?auto=format&fit=crop&w=1200&q=80";
-  }
-  if (t.includes('pond') || t.includes('borewell')) {
-    return "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80";
-  }
-  if (t.includes('veterinary') || t.includes('animal')) {
-    return "https://images.unsplash.com/photo-1581888227599-779811939961?auto=format&fit=crop&w=1200&q=80";
-  }
-  if (t.includes('waste') || t.includes('vehicle')) {
-    return "https://images.unsplash.com/photo-1611284446314-60a58ac0deb9?auto=format&fit=crop&w=1200&q=80";
-  }
-  return "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1200&q=80";
+const getProjectFallbackImage = (title: string, description: string = '', department: string = ''): string => {
+  const theme = getDepartmentTheme(department || title);
+  return theme.categoryImage;
 };
 
 const getStatusBadge = (status: string) => {
@@ -205,6 +354,41 @@ export default function SponsorshipPage({ cart, onToggleCart, onCartChange, onNa
   const [isLiveSynced, setIsLiveSynced] = useState<boolean>(false);
   const [errorSync, setErrorSync] = useState<string | null>(null);
 
+  const getDetailedGroupedWording = (project: Project): string => {
+    return `THOOTHUKUDI DISTRICT ADMINISTRATION CSR PROJECTS INITIATIVE
+============================================================
+
+Department Sector: ${project.department}
+Consolidated Target: ${project.title}
+Estimated Budget Allocation: ${project.financialOutlay}
+Administrative Desk: CSR Project Management Unit (PMU)
+
+OPERATIONAL CONTEXT & DEVELOPMENT JUSTIFICATION
+------------------------------------------------------------
+The District of Thoothukudi, guided by the dynamic vision of the District Collector, has launched an innovative Corporate Social Responsibility (CSR) convergence platform. The primary goal is to channel corporate philanthropy directly into underserved grassroots pockets, ensuring high impact, strict transparency, and sustainable development.
+
+This specific blueprint initiative, "${project.title}", represents a priority sector requirement compiled directly from field assessments conducted by the District's block officers and public departments. In order to streamline administrative processing and maximize procurement efficiency, several location-specific implementations have been consolidated under this unified project umbrella.
+
+GEOGRAPHICAL & SOCIO-ECONOMIC SUB-PROJECT CRITERIA
+------------------------------------------------------------
+1. TARGETED COMMUNITY DEVELOPMENT: Rather than implementing generic projects, each individual block and institution is custom-targeted based on current infrastructural deficits. This ensures that every rupee contributed directly serves localized public interest.
+2. TAILORED CORPORATE PARTICIPATION: Corporate sponsors have the unique flexibility to support specific local blocks, municipal panchayats, or educational institutions that align with their corporate mandates, rather than having to fund the entire aggregated project sum.
+3. STRICT GOVERNMENT OVERSIGHT: To maintain absolute accountability, all funded sub-projects are overseen directly by the Thoothukudi District Administration Society. Periodic third-party physical inspections, audits, and completion tracking are integrated.
+4. SUSTAINABLE REPLICABILITY MODEL: All constructed assets and modernizations are handed over directly to municipal councils, public health committees, or parent-teacher associations, securing ongoing operations and community ownership.
+
+MOU PROTOCOLS & CSR COMPLIANCE CRITERIA
+------------------------------------------------------------
+We invite companies, public-sector undertakings, and social foundations to partner with us under Section 135 of the Companies Act. Once a submission of interest is registered, our PMU desk will fast-track the project allocation.
+
+Upon receiving formal approval, sponsors will be provided with:
+- Formal tripartite Memorandum of Understanding (MOU) blueprints.
+- Prominent sponsor branding, project nameboards, and digital maps.
+- Regular progress updates with high-resolution site photographs.
+- Standard audited expenditure statements and completion certificates.
+
+Together, let us build a progressive, resilient, and inclusive Thoothukudi through transparent and strategic public-private synergy.`;
+  };
+
   // Total amount sum calculations
   const totalCostValue = cart.reduce((total, p) => total + parseCostToNumeric(p.financialOutlay), 0);
 
@@ -239,7 +423,12 @@ export default function SponsorshipPage({ cart, onToggleCart, onCartChange, onNa
         projects: cart.map(item => ({
           title: item.title,
           department: item.department,
-          financialOutlay: item.financialOutlay
+          financialOutlay: item.financialOutlay,
+          subProjects: item.subProjects ? item.subProjects.map(sub => ({
+            location: sub.location,
+            financialOutlay: sub.financialOutlay,
+            description: sub.description
+          })) : []
         }))
       };
 
@@ -521,6 +710,12 @@ export default function SponsorshipPage({ cart, onToggleCart, onCartChange, onNa
                                 <p className="text-[10px] sm:text-xs font-mono font-bold text-stone-500 block mt-1">
                                   Cost: {item.financialOutlay}
                                 </p>
+                                {item.subProjects && item.subProjects.length > 1 && (
+                                  <div className="text-[9px] font-sans font-bold text-emerald-850 mt-1 flex items-center gap-1 bg-white/70 py-0.5 px-1.5 rounded border border-emerald-100/40 w-fit">
+                                    <span className="inline-block w-1 h-1 rounded-full bg-emerald-650 shrink-0"></span>
+                                    <span>{item.subProjects.length} locations included</span>
+                                  </div>
+                                )}
                               </div>
 
                               <button
@@ -667,13 +862,23 @@ export default function SponsorshipPage({ cart, onToggleCart, onCartChange, onNa
                   <div className="max-h-56 overflow-y-auto no-scrollbar bg-white divide-y divide-stone-150">
                     {cart.map((project, idx) => (
                       <div key={project.title + idx} className="p-3.5 hover:bg-stone-50 transition-colors flex justify-between items-start gap-3">
-                        <div className="space-y-0.5">
+                        <div className="space-y-0.5 flex-1">
                           <p className="text-xs font-extrabold text-slate-950 font-sans leading-snug">
                             {project.title}
                           </p>
                           <p className="text-[10px] font-bold text-slate-450 uppercase tracking-wider font-sans">
                             {project.department}
                           </p>
+                          {project.subProjects && project.subProjects.length > 0 && (
+                            <div className="mt-2 pl-2 border-l-2 border-stone-200/80 space-y-1 max-w-md">
+                              {project.subProjects.map((sub, sidx) => (
+                                <div key={sidx} className="flex justify-between items-center text-[10px] text-stone-500 font-sans gap-2">
+                                  <span className="truncate max-w-[200px]" title={sub.location}>{sub.location}</span>
+                                  <span className="font-mono font-bold text-stone-600 shrink-0">{sub.financialOutlay}</span>
+                                </div>
+                              ))}
+                            </div>
+                          )}
                         </div>
                         <div className="text-right shrink-0">
                           <span className="text-xs font-mono font-black text-slate-800">
@@ -741,7 +946,7 @@ export default function SponsorshipPage({ cart, onToggleCart, onCartChange, onNa
               {/* Picture block */}
               <div className="relative h-44 sm:h-60 md:h-64 bg-stone-900 overflow-hidden">
                 <img
-                  src={activeProject.imageUrl || getProjectFallbackImage(activeProject.title)}
+                  src={activeProject.imageUrl || getProjectFallbackImage(activeProject.title, activeProject.description, activeProject.department)}
                   alt={activeProject.title}
                   className="w-full h-full object-cover opacity-80"
                   referrerPolicy="no-referrer"
@@ -786,6 +991,35 @@ export default function SponsorshipPage({ cart, onToggleCart, onCartChange, onNa
                     {activeProject.description}
                   </p>
                 </div>
+
+
+
+                {/* Grouped Sub-Projects / Locations list */}
+                {activeProject.subProjects && activeProject.subProjects.length > 0 && (
+                  <div className="space-y-2.5">
+                    <span className="text-xs font-black uppercase tracking-widest text-slate-400 block font-sans">
+                      Detailed Locations & Resource Outlay Allocation
+                    </span>
+                    <div className="bg-stone-50 border border-stone-200 rounded-xl overflow-hidden divide-y divide-stone-200">
+                      <div className="grid grid-cols-12 bg-stone-100 px-4 py-2 text-[10px] font-bold text-slate-550 uppercase tracking-wider font-sans">
+                        <div className="col-span-8">Geographical Location / Institution</div>
+                        <div className="col-span-4 text-right">Financial Outlay</div>
+                      </div>
+                      <div className="max-h-[180px] overflow-y-auto divide-y divide-stone-150">
+                        {activeProject.subProjects.map((sub, sidx) => (
+                          <div key={sidx} className="grid grid-cols-12 px-4 py-3 items-center text-xs hover:bg-stone-100/50 transition-colors">
+                            <div className="col-span-8 pr-3 font-sans font-medium text-slate-800">
+                              {sub.location}
+                            </div>
+                            <div className="col-span-4 text-right font-mono font-bold text-emerald-850">
+                              {sub.financialOutlay}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 {/* Status indicator tracker */}
                 <div className="space-y-3 pt-3 border-t border-stone-100">

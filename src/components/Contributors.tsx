@@ -199,7 +199,7 @@ export default function Contributors({ initialSearchQuery = '' }: ContributorsPr
     setLoadError(false);
     try {
       // 1. Fetch contributors sheet
-      const response = await fetch(CSV_URL);
+      const response = await fetch(`${CSV_URL}&t=${Date.now()}`);
       if (!response.ok) throw new Error('Network error pulling spreadsheet CSV');
       const csvText = await response.text();
       
@@ -244,7 +244,7 @@ export default function Contributors({ initialSearchQuery = '' }: ContributorsPr
 
       // 2. Fetch Projects sheet to read completed projects dynamically
       try {
-        const projResponse = await fetch('https://docs.google.com/spreadsheets/d/1itNBrzhwMNoBA_54VfAwk4kfZF6uxmRKzeYY48T_sow/export?format=csv');
+        const projResponse = await fetch(`https://docs.google.com/spreadsheets/d/1itNBrzhwMNoBA_54VfAwk4kfZF6uxmRKzeYY48T_sow/gviz/tq?tqx=out:csv&t=${Date.now()}`);
         if (projResponse.ok) {
           const projCsvText = await projResponse.text();
           const projRows = parseCSV(projCsvText);

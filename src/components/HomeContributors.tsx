@@ -185,7 +185,7 @@ export default function HomeContributors({ onCompanyClick }: HomeContributorsPro
   useEffect(() => {
     const fetchLiveCompanies = async () => {
       try {
-        const response = await fetch(CSV_URL);
+        const response = await fetch(`${CSV_URL}&t=${Date.now()}`);
         if (!response.ok) return;
         const csvText = await response.text();
         const parsedRows = parseCSV(csvText);
