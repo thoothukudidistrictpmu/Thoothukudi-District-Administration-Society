@@ -90,7 +90,7 @@ export default function Gallery() {
             <p className="text-xs text-stone-500 font-sans font-extrabold tracking-wide uppercase">Scanning workspace gallery...</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {displayImages.map((imagePath, index) => {
               const encodedPath = encodeURI(imagePath);
               return (
@@ -109,18 +109,18 @@ export default function Gallery() {
                     boxShadow: "0 12px 30px -8px rgba(4,120,87,0.14)"
                   }}
                   onClick={() => setActiveZoomImage(encodedPath)}
-                  className="bg-white rounded-2xl border border-stone-250/70 overflow-hidden shadow-xs hover:border-emerald-500 transition-all cursor-pointer group aspect-square relative"
+                  className="bg-white rounded-2xl border border-stone-250/70 overflow-hidden shadow-xs hover:border-emerald-500 transition-all cursor-pointer group aspect-[4/3] relative p-2"
                 >
-                  <div className="w-full h-full overflow-hidden bg-stone-100 flex items-center justify-center relative">
+                  <div className="w-full h-full overflow-hidden bg-stone-50 rounded-xl flex items-center justify-center relative border border-stone-100">
                     <img 
                       src={encodedPath} 
                       alt="Gallery Photograph" 
-                      className="w-full h-full object-cover transition-transform duration-550 ease-out group-hover:scale-110 select-none"
+                      className="w-full h-full object-contain transition-transform duration-550 ease-out group-hover:scale-105 select-none"
                       referrerPolicy="no-referrer"
                     />
                     
                     {/* Hover Overlay with smooth fade-in */}
-                    <div className="absolute inset-0 bg-emerald-950/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <div className="absolute inset-0 bg-emerald-950/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                       <div className="h-11 w-11 bg-white/95 text-emerald-800 rounded-full flex items-center justify-center shadow-md transform scale-90 group-hover:scale-100 transition-all duration-300">
                         <Maximize2 className="h-5 w-5" />
                       </div>
