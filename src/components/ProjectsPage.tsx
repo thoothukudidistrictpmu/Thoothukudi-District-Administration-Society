@@ -961,7 +961,15 @@ Together, let us build a progressive, resilient, and inclusive Thoothukudi throu
                   return (
                     <button
                       key={cat}
-                      onClick={() => setSelectedCategory(cat)}
+                      onClick={() => {
+                        setSelectedCategory(cat);
+                        setTimeout(() => {
+                          const element = document.getElementById('sponsorship-portal-card');
+                          if (element) {
+                            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                          }
+                        }, 80);
+                      }}
                       className={`w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold tracking-wide transition-all duration-300 transform active:scale-95 cursor-pointer flex items-center justify-between border shadow-3xs text-left ${
                         isActive
                           ? 'bg-gradient-to-r from-emerald-800 to-teal-900 border-emerald-950 text-white shadow-md'
@@ -983,7 +991,7 @@ Together, let us build a progressive, resilient, and inclusive Thoothukudi throu
             </div>
 
             {/* Primary Action: Submit Interest Activation Card (Sponsorship Portal) */}
-            <div className="bg-gradient-to-br from-emerald-900 to-teal-950 border border-emerald-950 rounded-2xl p-5 shadow-sm text-white relative overflow-hidden order-2 md:order-1">
+            <div id="sponsorship-portal-card" className="bg-gradient-to-br from-emerald-900 to-teal-950 border border-emerald-950 rounded-2xl p-5 shadow-sm text-white relative overflow-hidden order-2 md:order-1">
               <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-full blur-xl pointer-events-none -mr-8 -mt-8"></div>
               
               <div className="flex items-center gap-2 mb-2">
@@ -1031,7 +1039,7 @@ Together, let us build a progressive, resilient, and inclusive Thoothukudi throu
           </motion.div>
 
           {/* Right Column: Search Engine & Clustered Projects Grid System */}
-          <div className="md:col-span-3 space-y-6">
+          <div id="projects-list-view" className="md:col-span-3 space-y-6">
             
             {/* Dynamic Smart Search Engine block & Active Cart Link Row */}
             <motion.div 
