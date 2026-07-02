@@ -137,7 +137,20 @@ interface ContributorsProps {
 }
 
 export default function Contributors({ initialSearchQuery = '' }: ContributorsProps) {
-  const [contributors, setContributors] = useState<DetailedContributor[]>(DETAILED_CONTRIBUTORS);
+  const [contributors, setContributors] = useState<DetailedContributor[]>(() => {
+    try {
+      const cached = localStorage.getItem('thoothukudi_cached_contributors');
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to load cached contributors', e);
+    }
+    return DETAILED_CONTRIBUTORS;
+  });
   const [isLoadingLive, setIsLoadingLive] = useState(false);
   const [loadError, setLoadError] = useState(false);
   const [searchQuery, setSearchQuery] = useState(initialSearchQuery);
@@ -360,6 +373,11 @@ export default function Contributors({ initialSearchQuery = '' }: ContributorsPr
       });
       
       setContributors(mapped);
+      try {
+        localStorage.setItem('thoothukudi_cached_contributors', JSON.stringify(mapped));
+      } catch (e) {
+        console.warn('Failed to save contributors to cache', e);
+      }
       setLastUpdated(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
     } catch (err) {
       console.warn('Live spreadsheet sync failed. Using precompiled dataset instead.', err);

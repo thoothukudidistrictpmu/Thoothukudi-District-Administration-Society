@@ -482,7 +482,20 @@ export default function ProjectsPage({
   onCartChange = () => {},
   onNavClick = () => {}
 }: ProjectsPageProps) {
-  const [projects, setProjects] = useState<Project[]>(getStaticMergedProjects());
+  const [projects, setProjects] = useState<Project[]>(() => {
+    try {
+      const cached = localStorage.getItem('thoothukudi_cached_projects');
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed;
+        }
+      }
+    } catch (e) {
+      console.warn('Failed to load cached projects', e);
+    }
+    return getStaticMergedProjects();
+  });
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All Categories');
   const [activeProject, setActiveProject] = useState<Project | null>(null);
@@ -620,6 +633,11 @@ export default function ProjectsPage({
 
       if (parsedProjects.length > 0) {
         setProjects(parsedProjects);
+        try {
+          localStorage.setItem('thoothukudi_cached_projects', JSON.stringify(parsedProjects));
+        } catch (e) {
+          console.warn('Failed to save projects to cache', e);
+        }
       }
     } catch (err) {
       console.log('Background update skipped, serving secure local database: ', err);
