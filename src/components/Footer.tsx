@@ -1,14 +1,12 @@
 import React from 'react';
 import { SOCIAL_LINKS } from '../data';
-import { Facebook, Twitter, Instagram, Globe, Phone, Mail, MapPin, ExternalLink, ArrowUp } from 'lucide-react';
+import { Facebook, Instagram, Globe, Phone, Mail, MapPin, ExternalLink, ArrowUp } from 'lucide-react';
 
 export default function Footer() {
   const getSocialIcon = (name: string) => {
     switch (name.toLowerCase()) {
       case 'facebook':
         return <Facebook className="h-4.5 w-4.5" />;
-      case 'twitter / x':
-        return <Twitter className="h-4.5 w-4.5" />;
       case 'instagram':
         return <Instagram className="h-4.5 w-4.5" />;
       default:

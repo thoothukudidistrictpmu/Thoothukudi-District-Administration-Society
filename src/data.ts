@@ -55,7 +55,7 @@ export const SERVICES_BOXES: ServiceBox[] = [
 
 export const DISTRICT_NAME = "Thoothukudi";
 export const DISTRICT_PARAGRAPHS = [
-  "Thoothukudi, historically renowned as Tuticorin, is a major port city situated on the southern coast of Tamil Nadu. Widely known as the 'Pearl City' due to its illustrious pearl fishing background, it is a bustling industrial hub with a rich cultural heritage, acting as the maritime gateway of southern India.",
+  "Thoothukudi, formerly known as Tuticorin, is a major port city located on the southern coast of Tamil Nadu. Widely known as the 'Pearl City' due to its illustrious pearl fishing background, it is a bustling industrial hub with a rich cultural heritage, acting as the maritime gateway of southern India.",
   "The district comprises a vibrant economy powered by key chemical industries, thermal energy generation, salt production pans, and diverse agricultural occupations. Characterized by its welcoming coastal communities, Thoothukudi remains a prominent center of education, historic trade, and sustainable infrastructure developments under active state guidance."
 ];
 
@@ -152,7 +152,6 @@ export const CONTRIBUTORS: Contributor[] = [
 
 export const SOCIAL_LINKS = [
   { name: "Facebook", url: "https://www.facebook.com/thoothukudidistrict" },
-  { name: "Twitter / X", url: "https://twitter.com/collrtuticorin" },
   { name: "Instagram", url: "https://www.instagram.com/pro_thoothukudi?igsh=N2pmMHlsMnptbDI=" },
   { name: "Official Website", url: "https://thoothukudi.nic.in" }
 ];

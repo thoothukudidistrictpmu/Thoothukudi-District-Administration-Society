@@ -365,7 +365,6 @@ export default function SponsorshipPage({ cart, onToggleCart, onCartChange, onNa
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successPledge, setSuccessPledge] = useState<boolean>(false);
-  const [receiptCode, setReceiptCode] = useState<string>('');
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   
   // Custom states for Live Google Sheet and Email Sync Integration
@@ -426,13 +425,10 @@ Together, let us build a progressive, resilient, and inclusive Thoothukudi throu
     setIsSubmitting(true);
     setErrorSync(null);
 
-    // Generate a unique receipt reference
-    const newReceiptCode = `TDAS-CSR-${Math.floor(100000 + Math.random() * 900000)}`;
     const storedUrl = localStorage.getItem('pmu_google_script_url') || DEFAULT_SCRIPT_URL;
 
     if (storedUrl && storedUrl.trim().startsWith('http')) {
       const payload = {
-        receiptCode: newReceiptCode,
         name: formData.name,
         email: formData.email,
         organization: formData.organization || 'Individual Sponsor',
@@ -467,14 +463,12 @@ Together, let us build a progressive, resilient, and inclusive Thoothukudi throu
         // Since mode: 'no-cors' treats the submission as a successful dispatch (opaque response),
         // we successfully complete the flow and show the submit successfully state.
         setIsSubmitting(false);
-        setReceiptCode(newReceiptCode);
         setIsLiveSynced(true);
         setSuccessPledge(true);
       } catch (err: any) {
         console.warn("Dispatched request encountered an error", err);
         // Fallback fallback to ensure continuity
         setIsSubmitting(false);
-        setReceiptCode(newReceiptCode);
         setIsLiveSynced(true);
         setSuccessPledge(true);
       }
@@ -482,7 +476,6 @@ Together, let us build a progressive, resilient, and inclusive Thoothukudi throu
       // Local Simulation Mode fallback with a short natural processing timeout
       setTimeout(() => {
         setIsSubmitting(false);
-        setReceiptCode(newReceiptCode);
         setIsLiveSynced(false);
         setSuccessPledge(true);
       }, 1250);
@@ -492,7 +485,6 @@ Together, let us build a progressive, resilient, and inclusive Thoothukudi throu
   const resetFlow = () => {
     onCartChange([]);
     setSuccessPledge(false);
-    setReceiptCode('');
     setFormData({
       name: '',
       email: '',
@@ -812,7 +804,7 @@ Together, let us build a progressive, resilient, and inclusive Thoothukudi throu
                 <div className="space-y-1">
                   <p className="font-extrabold uppercase tracking-wider text-[10px] text-amber-800">Email Confirmation Notice</p>
                   <p className="text-amber-900 font-medium font-sans">
-                    A copy of your selected welfare blueprints and receipt details has been shared to your email address (<strong>{formData.email}</strong>). If you do not see it in your Inbox, <span className="font-bold underline">kindly check your Spam or Junk email folder.</span>
+                    A copy of your selected welfare blueprints and registration details has been shared to your email address (<strong>{formData.email}</strong>). If you do not see it in your Inbox, <span className="font-bold underline">kindly check your Spam or Junk email folder.</span>
                   </p>
                 </div>
               </div>
